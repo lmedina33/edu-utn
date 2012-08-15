@@ -33,12 +33,12 @@ a:hover, a:active, a:focus { /* este grupo de selectores proporcionará a un usu
 }
 /* ~~ Este contenedor de anchura fija rodea a todas las demás bloques ~~ */
 .container {
-	width: 1024px;
+	width: auto;
 	background: #FFFFFF; /* el valor automático de los lados, unido a la anchura, centra el diseño  */
 	margin-top: 50px;
-	margin-right: auto;
+	margin-right: 5%;
 	margin-bottom: 0;
-	margin-left: auto;
+	margin-left: 5%;
 }
 /* ~~ No se asigna una anchura al encabezado. Se extenderá por toda la anchura del diseño. ~~ */
 header {
@@ -47,16 +47,16 @@ header {
 
 .sidebar1 {
 	float: left;
-	width: 180px;
+	width: auto;
 	padding-bottom: 0px;
 	background-color: #A5D0F3;
 }
 .content {
 	padding: 10px 0;
-	width: 80%;
 	float: left;
         vertical-align: middle;
-        margin-left: 10px;
+        margin-left: 5%;
+        position: relative;
 }
 aside {
 	float: left;

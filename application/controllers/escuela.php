@@ -27,7 +27,7 @@ class Escuela extends CI_Controller {
         // Elegimos la tabla sobre la que vamos a trabajar
         $this->grocery_crud->set_table("escuela");
         // Nombre que se muestra como referencia a la tabla
-        $this->grocery_crud->set_subject('Escuela');
+        $this->grocery_crud->set_subject('Escuela');    
        // Agregamos la relación n a n con los materias 
      //   $this->grocery_crud->set_relation_n_n('materias','planestudio_materia','materia','planestudio','materia','nombre','');
        $this->grocery_crud->set_relation('especialidad','especialidad','nombre');

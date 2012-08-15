@@ -55,7 +55,7 @@ class Login extends CI_Controller {
 
                     $sess_array = array(
                     'id' => $row -> id, 
-                    'ussername' => $row -> username,
+                    'ussername' => $row -> ussername,
                     'persona' => $row -> persona
                     );
 

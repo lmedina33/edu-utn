@@ -3,7 +3,7 @@
 -- Server version:               5.1.47-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
 -- HeidiSQL version:             7.0.0.4151
--- Date/time:                    2012-07-19 19:05:00
+-- Date/time:                    2012-08-14 16:11:16
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -11,11 +11,12 @@
 /*!40014 SET FOREIGN_KEY_CHECKS=0 */;
 
 -- Dumping database structure for edu
-CREATE DATABASE IF NOT EXISTS `edu` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE IF NOT EXISTS `edu` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `edu`;
 
 
 -- Dumping structure for table edu.alumno
+DROP TABLE IF EXISTS `alumno`;
 CREATE TABLE IF NOT EXISTS `alumno` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `fechaIngreso` date DEFAULT NULL,
@@ -37,6 +38,7 @@ INSERT INTO `alumno` (`id`, `fechaIngreso`, `fechaEngreso`, `fechaSalida`, `pers
 
 
 -- Dumping structure for table edu.cargo
+DROP TABLE IF EXISTS `cargo`;
 CREATE TABLE IF NOT EXISTS `cargo` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -50,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `cargo` (
 
 
 -- Dumping structure for table edu.comunicaciones
+DROP TABLE IF EXISTS `comunicaciones`;
 CREATE TABLE IF NOT EXISTS `comunicaciones` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `fechaAlta` date DEFAULT NULL,
@@ -63,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `comunicaciones` (
 
 
 -- Dumping structure for table edu.contenido
+DROP TABLE IF EXISTS `contenido`;
 CREATE TABLE IF NOT EXISTS `contenido` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -70,35 +74,42 @@ CREATE TABLE IF NOT EXISTS `contenido` (
   `materia` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_contenido_materia_1` (`materia`),
-  CONSTRAINT `fk_contenido_materia_1` FOREIGN KEY (`materia`) REFERENCES `materia` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
+  CONSTRAINT `fk_contenido_materia_1` FOREIGN KEY (`materia`) REFERENCES `materia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
 
--- Dumping data for table edu.contenido: ~2 rows (approximately)
+-- Dumping data for table edu.contenido: ~1 rows (approximately)
 /*!40000 ALTER TABLE `contenido` DISABLE KEYS */;
 INSERT INTO `contenido` (`id`, `nombre`, `descripcion`, `materia`) VALUES
-	(1, 'Geometría', '<p>Geomería para Matemática</p>', 1),
-	(2, 'Sustantivos, predicados y proverbios', '<p>Contenidos de lengua</p>', 2);
+	(4, 'Sujetos, predicados, verbos', '<p>Sujetos</p>', 4);
 /*!40000 ALTER TABLE `contenido` ENABLE KEYS */;
 
 
 -- Dumping structure for table edu.cursado
+DROP TABLE IF EXISTS `cursado`;
 CREATE TABLE IF NOT EXISTS `cursado` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `fechaAlta` date DEFAULT NULL,
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaBaja` date DEFAULT NULL,
-  `descripcion` tinytext CHARACTER SET latin1,
+  `descripcion` text CHARACTER SET latin1,
   `materia` bigint(20) unsigned NOT NULL,
+  `division` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `materia` (`materia`),
+  KEY `FK_cursado_division` (`division`),
+  CONSTRAINT `FK_cursado_division` FOREIGN KEY (`division`) REFERENCES `division` (`id`),
   CONSTRAINT `materia` FOREIGN KEY (`materia`) REFERENCES `materia` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.cursado: ~0 rows (approximately)
+-- Dumping data for table edu.cursado: ~2 rows (approximately)
 /*!40000 ALTER TABLE `cursado` DISABLE KEYS */;
+INSERT INTO `cursado` (`id`, `fechaAlta`, `fechaBaja`, `descripcion`, `materia`, `division`) VALUES
+	(1, '2012-07-24 13:30:22', NULL, NULL, 3, 1),
+	(2, '2012-07-24 13:30:22', NULL, NULL, 4, 1);
 /*!40000 ALTER TABLE `cursado` ENABLE KEYS */;
 
 
 -- Dumping structure for table edu.departamento
+DROP TABLE IF EXISTS `departamento`;
 CREATE TABLE IF NOT EXISTS `departamento` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) DEFAULT NULL,
@@ -129,23 +140,8 @@ INSERT INTO `departamento` (`id`, `nombre`) VALUES
 /*!40000 ALTER TABLE `departamento` ENABLE KEYS */;
 
 
--- Dumping structure for table edu.detallecontenido
-CREATE TABLE IF NOT EXISTS `detallecontenido` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `descripcion` tinytext CHARACTER SET latin1,
-  `contenido` bigint(20) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_detallecontenido_contenido_1` (`contenido`),
-  CONSTRAINT `fk_detallecontenido_contenido_1` FOREIGN KEY (`contenido`) REFERENCES `contenido` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
--- Dumping data for table edu.detallecontenido: ~0 rows (approximately)
-/*!40000 ALTER TABLE `detallecontenido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detallecontenido` ENABLE KEYS */;
-
-
 -- Dumping structure for table edu.detallecuaderno
+DROP TABLE IF EXISTS `detallecuaderno`;
 CREATE TABLE IF NOT EXISTS `detallecuaderno` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `descripcion` tinytext CHARACTER SET latin1,
@@ -163,6 +159,7 @@ CREATE TABLE IF NOT EXISTS `detallecuaderno` (
 
 
 -- Dumping structure for table edu.dictadoprofesor
+DROP TABLE IF EXISTS `dictadoprofesor`;
 CREATE TABLE IF NOT EXISTS `dictadoprofesor` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `fechaAlta` date DEFAULT NULL,
@@ -183,6 +180,7 @@ CREATE TABLE IF NOT EXISTS `dictadoprofesor` (
 
 
 -- Dumping structure for table edu.directivo
+DROP TABLE IF EXISTS `directivo`;
 CREATE TABLE IF NOT EXISTS `directivo` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `persona` bigint(20) unsigned NOT NULL,
@@ -199,6 +197,7 @@ INSERT INTO `directivo` (`id`, `persona`) VALUES
 
 
 -- Dumping structure for table edu.division
+DROP TABLE IF EXISTS `division`;
 CREATE TABLE IF NOT EXISTS `division` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -217,14 +216,17 @@ CREATE TABLE IF NOT EXISTS `division` (
   CONSTRAINT `escuela` FOREIGN KEY (`escuela`) REFERENCES `escuela` (`id`),
   CONSTRAINT `planestudio` FOREIGN KEY (`planestudio`) REFERENCES `plandeestudio` (`id`),
   CONSTRAINT `turno` FOREIGN KEY (`turno`) REFERENCES `turno` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.division: ~0 rows (approximately)
+-- Dumping data for table edu.division: ~1 rows (approximately)
 /*!40000 ALTER TABLE `division` DISABLE KEYS */;
+INSERT INTO `division` (`id`, `nombre`, `fechaAlta`, `fechaBaja`, `descripcion`, `numero`, `año`, `escuela`, `planestudio`, `turno`) VALUES
+	(1, 'A', '2012-07-24 13:21:07', NULL, NULL, NULL, '1', 1, 1, 1);
 /*!40000 ALTER TABLE `division` ENABLE KEYS */;
 
 
 -- Dumping structure for table edu.docente
+DROP TABLE IF EXISTS `docente`;
 CREATE TABLE IF NOT EXISTS `docente` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `persona` bigint(20) unsigned NOT NULL,
@@ -241,6 +243,7 @@ INSERT INTO `docente` (`id`, `persona`) VALUES
 
 
 -- Dumping structure for table edu.escuela
+DROP TABLE IF EXISTS `escuela`;
 CREATE TABLE IF NOT EXISTS `escuela` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `cue` int(11) DEFAULT NULL,
@@ -275,6 +278,7 @@ INSERT INTO `escuela` (`id`, `cue`, `nombre`, `direccion`, `numero`, `telefono`,
 
 
 -- Dumping structure for table edu.escuelapersona
+DROP TABLE IF EXISTS `escuelapersona`;
 CREATE TABLE IF NOT EXISTS `escuelapersona` (
   `escuela` bigint(20) unsigned NOT NULL,
   `persona` bigint(20) unsigned NOT NULL,
@@ -282,8 +286,8 @@ CREATE TABLE IF NOT EXISTS `escuelapersona` (
   PRIMARY KEY (`escuela`,`persona`),
   KEY `persona_id` (`persona`),
   KEY `FK_escuelapersona_tiporelacion_esc` (`tiporelacion_esc`),
-  CONSTRAINT `FK_escuelapersona_tiporelacion_esc` FOREIGN KEY (`tiporelacion_esc`) REFERENCES `tiporelacion_esc` (`id`),
   CONSTRAINT `escuela_id` FOREIGN KEY (`escuela`) REFERENCES `escuela` (`id`),
+  CONSTRAINT `FK_escuelapersona_tiporelacion_esc` FOREIGN KEY (`tiporelacion_esc`) REFERENCES `tiporelacion_esc` (`id`),
   CONSTRAINT `persona_id` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -295,6 +299,7 @@ INSERT INTO `escuelapersona` (`escuela`, `persona`, `tiporelacion_esc`) VALUES
 
 
 -- Dumping structure for table edu.especialidad
+DROP TABLE IF EXISTS `especialidad`;
 CREATE TABLE IF NOT EXISTS `especialidad` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) CHARACTER SET latin1 DEFAULT NULL,
@@ -315,6 +320,7 @@ INSERT INTO `especialidad` (`id`, `nombre`, `descripcion`, `resolucion`, `fechaA
 
 
 -- Dumping structure for table edu.estadoexamen
+DROP TABLE IF EXISTS `estadoexamen`;
 CREATE TABLE IF NOT EXISTS `estadoexamen` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `estado` longblob,
@@ -329,6 +335,7 @@ CREATE TABLE IF NOT EXISTS `estadoexamen` (
 
 
 -- Dumping structure for table edu.estadoinscripcion
+DROP TABLE IF EXISTS `estadoinscripcion`;
 CREATE TABLE IF NOT EXISTS `estadoinscripcion` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -342,6 +349,7 @@ CREATE TABLE IF NOT EXISTS `estadoinscripcion` (
 
 
 -- Dumping structure for table edu.eventomateria
+DROP TABLE IF EXISTS `eventomateria`;
 CREATE TABLE IF NOT EXISTS `eventomateria` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -360,6 +368,7 @@ CREATE TABLE IF NOT EXISTS `eventomateria` (
 
 
 -- Dumping structure for table edu.examen
+DROP TABLE IF EXISTS `examen`;
 CREATE TABLE IF NOT EXISTS `examen` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `titulo` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -384,6 +393,7 @@ CREATE TABLE IF NOT EXISTS `examen` (
 
 
 -- Dumping structure for table edu.inscripcionalumno
+DROP TABLE IF EXISTS `inscripcionalumno`;
 CREATE TABLE IF NOT EXISTS `inscripcionalumno` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `fechaAlta` date DEFAULT NULL,
@@ -409,6 +419,7 @@ CREATE TABLE IF NOT EXISTS `inscripcionalumno` (
 
 
 -- Dumping structure for table edu.localidad
+DROP TABLE IF EXISTS `localidad`;
 CREATE TABLE IF NOT EXISTS `localidad` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) DEFAULT NULL,
@@ -618,26 +629,28 @@ INSERT INTO `localidad` (`id`, `nombre`, `departamento`) VALUES
 
 
 -- Dumping structure for table edu.materia
+DROP TABLE IF EXISTS `materia`;
 CREATE TABLE IF NOT EXISTS `materia` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `descripcion` text COLLATE utf8_spanish_ci,
   `resolucion` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `año` enum('1','2','3','4','5','6','7','8','9') COLLATE utf8_spanish_ci DEFAULT NULL,
-  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `year` enum('1','2','3','4','5','6','7','8','9') COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fechaAlta` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaBaja` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
 
 -- Dumping data for table edu.materia: ~2 rows (approximately)
 /*!40000 ALTER TABLE `materia` DISABLE KEYS */;
-INSERT INTO `materia` (`id`, `nombre`, `descripcion`, `resolucion`, `año`, `fechaAlta`, `fechaBaja`) VALUES
-	(1, 'Matemática I', '<p style="text-align: justify;"><span style="font-family: tahoma, arial, helvetica, sans-serif; font-size: large;">Matemática para de Polimodal</span></p>\n<p style="text-align: justify;"><span style="font-family: tahoma, arial, helvetica, sans-serif; font-size: large;">2012-07-15</span></p>\n<div>\n<ul>\n<li><span style="font-family: tahoma, arial, helvetica, sans-serif; font-size: large;">a</span></li>\n<li><span style="font-family: tahoma, arial, helvetica, sans-serif; font-size: large;">b</span></li>\n<li><span style="font-family: tahoma, arial, helvetica, sans-serif; font-size: large;">c</span></li>\n<li><span style="font-family: tahoma, arial, helvetica, sans-serif; font-size: large;">d</span></li>\n<li><span style="font-family: tahoma, arial, helvetica, sans-serif; font-size: large;">e</span></li>\n<li><span style="font-family: tahoma, arial, helvetica, sans-serif; font-size: large;">f</span></li>\n<li><span style="font-family: tahoma, arial, helvetica, sans-serif; font-size: large;">g</span></li>\n</ul>\n</div>', '14568', NULL, '2010-07-08 00:00:00', NULL),
-	(2, 'Lengua I', '<p>Lengua para polimodal</p>', '4568', NULL, '2009-07-09 00:00:00', NULL);
+INSERT INTO `materia` (`id`, `nombre`, `descripcion`, `resolucion`, `year`, `fechaAlta`, `fechaBaja`) VALUES
+	(3, 'Matemática', '<p>Mat</p>', '21', '1', '2012-07-20 12:21:37', NULL),
+	(4, 'Lengua', '<p>Len</p>', '12', '2', '2012-07-20 12:22:31', NULL);
 /*!40000 ALTER TABLE `materia` ENABLE KEYS */;
 
 
 -- Dumping structure for table edu.nivel
+DROP TABLE IF EXISTS `nivel`;
 CREATE TABLE IF NOT EXISTS `nivel` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(32) CHARACTER SET latin1 DEFAULT NULL,
@@ -656,6 +669,7 @@ INSERT INTO `nivel` (`id`, `nombre`, `descripcion`, `direccionLinea`) VALUES
 
 
 -- Dumping structure for table edu.nota
+DROP TABLE IF EXISTS `nota`;
 CREATE TABLE IF NOT EXISTS `nota` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `fecha` date DEFAULT NULL,
@@ -676,6 +690,7 @@ CREATE TABLE IF NOT EXISTS `nota` (
 
 
 -- Dumping structure for table edu.novedadmateria
+DROP TABLE IF EXISTS `novedadmateria`;
 CREATE TABLE IF NOT EXISTS `novedadmateria` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `descripcion` tinytext CHARACTER SET latin1,
@@ -694,6 +709,7 @@ CREATE TABLE IF NOT EXISTS `novedadmateria` (
 
 
 -- Dumping structure for table edu.opcion
+DROP TABLE IF EXISTS `opcion`;
 CREATE TABLE IF NOT EXISTS `opcion` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `numero` int(11) DEFAULT NULL,
@@ -712,6 +728,7 @@ CREATE TABLE IF NOT EXISTS `opcion` (
 
 
 -- Dumping structure for table edu.padre
+DROP TABLE IF EXISTS `padre`;
 CREATE TABLE IF NOT EXISTS `padre` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `persona` bigint(20) unsigned NOT NULL,
@@ -728,6 +745,7 @@ INSERT INTO `padre` (`id`, `persona`) VALUES
 
 
 -- Dumping structure for table edu.permisorol
+DROP TABLE IF EXISTS `permisorol`;
 CREATE TABLE IF NOT EXISTS `permisorol` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -741,6 +759,7 @@ CREATE TABLE IF NOT EXISTS `permisorol` (
 
 
 -- Dumping structure for table edu.persona
+DROP TABLE IF EXISTS `persona`;
 CREATE TABLE IF NOT EXISTS `persona` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `legajo` int(11) DEFAULT NULL,
@@ -783,6 +802,7 @@ INSERT INTO `persona` (`id`, `legajo`, `dni`, `nombre`, `apellido`, `sexo`, `ema
 
 
 -- Dumping structure for table edu.persona_dictado
+DROP TABLE IF EXISTS `persona_dictado`;
 CREATE TABLE IF NOT EXISTS `persona_dictado` (
   `persona` bigint(20) unsigned NOT NULL,
   `dictado` bigint(20) unsigned NOT NULL,
@@ -798,6 +818,7 @@ CREATE TABLE IF NOT EXISTS `persona_dictado` (
 
 
 -- Dumping structure for table edu.plandeestudio
+DROP TABLE IF EXISTS `plandeestudio`;
 CREATE TABLE IF NOT EXISTS `plandeestudio` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -806,17 +827,22 @@ CREATE TABLE IF NOT EXISTS `plandeestudio` (
   `cantAños` int(11) DEFAULT NULL,
   `fechaAlta` date DEFAULT NULL,
   `fechaBaja` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
+  `nivel` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_plandeestudio_nivel` (`nivel`),
+  CONSTRAINT `FK_plandeestudio_nivel` FOREIGN KEY (`nivel`) REFERENCES `nivel` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
 
--- Dumping data for table edu.plandeestudio: ~1 rows (approximately)
+-- Dumping data for table edu.plandeestudio: ~2 rows (approximately)
 /*!40000 ALTER TABLE `plandeestudio` DISABLE KEYS */;
-INSERT INTO `plandeestudio` (`id`, `nombre`, `descripcion`, `resolucion`, `cantAños`, `fechaAlta`, `fechaBaja`) VALUES
-	(1, 'Economía y Gestión de las Organizaciones', '<p>Plan de Estudios para polimodal.</p>', 246, NULL, '2010-07-15', NULL);
+INSERT INTO `plandeestudio` (`id`, `nombre`, `descripcion`, `resolucion`, `cantAños`, `fechaAlta`, `fechaBaja`, `nivel`) VALUES
+	(1, 'Economía y Gestión de las Organizaciones', '<p>Plan de Ejemplo</p>', 123, NULL, '2012-07-12', NULL, 3),
+	(2, 'Quimica', '<p>Quimica</p>', 123, NULL, '2012-07-18', NULL, 3);
 /*!40000 ALTER TABLE `plandeestudio` ENABLE KEYS */;
 
 
 -- Dumping structure for table edu.planestudio_materia
+DROP TABLE IF EXISTS `planestudio_materia`;
 CREATE TABLE IF NOT EXISTS `planestudio_materia` (
   `planestudio` bigint(20) unsigned NOT NULL,
   `materia` bigint(20) unsigned NOT NULL,
@@ -826,15 +852,17 @@ CREATE TABLE IF NOT EXISTS `planestudio_materia` (
   CONSTRAINT `planestudio_id` FOREIGN KEY (`planestudio`) REFERENCES `plandeestudio` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.planestudio_materia: ~2 rows (approximately)
+-- Dumping data for table edu.planestudio_materia: ~3 rows (approximately)
 /*!40000 ALTER TABLE `planestudio_materia` DISABLE KEYS */;
 INSERT INTO `planestudio_materia` (`planestudio`, `materia`) VALUES
-	(1, 1),
-	(1, 2);
+	(1, 3),
+	(1, 4),
+	(2, 4);
 /*!40000 ALTER TABLE `planestudio_materia` ENABLE KEYS */;
 
 
 -- Dumping structure for table edu.pregunta
+DROP TABLE IF EXISTS `pregunta`;
 CREATE TABLE IF NOT EXISTS `pregunta` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `titulo` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -852,6 +880,7 @@ CREATE TABLE IF NOT EXISTS `pregunta` (
 
 
 -- Dumping structure for table edu.recurso
+DROP TABLE IF EXISTS `recurso`;
 CREATE TABLE IF NOT EXISTS `recurso` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -874,6 +903,7 @@ CREATE TABLE IF NOT EXISTS `recurso` (
 
 
 -- Dumping structure for table edu.relacion
+DROP TABLE IF EXISTS `relacion`;
 CREATE TABLE IF NOT EXISTS `relacion` (
   `idprimera` bigint(20) unsigned NOT NULL,
   `idsegunda` bigint(20) unsigned NOT NULL,
@@ -890,12 +920,14 @@ CREATE TABLE IF NOT EXISTS `relacion` (
 /*!40000 ALTER TABLE `relacion` DISABLE KEYS */;
 INSERT INTO `relacion` (`idprimera`, `idsegunda`, `tipoRelacion`) VALUES
 	(5, 8, 1),
+	(6, 8, 1),
 	(5, 7, 2),
 	(4, 6, 3);
 /*!40000 ALTER TABLE `relacion` ENABLE KEYS */;
 
 
 -- Dumping structure for table edu.rol
+DROP TABLE IF EXISTS `rol`;
 CREATE TABLE IF NOT EXISTS `rol` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -911,6 +943,7 @@ CREATE TABLE IF NOT EXISTS `rol` (
 
 
 -- Dumping structure for table edu.rol_permiso
+DROP TABLE IF EXISTS `rol_permiso`;
 CREATE TABLE IF NOT EXISTS `rol_permiso` (
   `rol` bigint(20) unsigned NOT NULL,
   `permiso` bigint(20) unsigned NOT NULL,
@@ -926,6 +959,7 @@ CREATE TABLE IF NOT EXISTS `rol_permiso` (
 
 
 -- Dumping structure for table edu.tiponota
+DROP TABLE IF EXISTS `tiponota`;
 CREATE TABLE IF NOT EXISTS `tiponota` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -939,6 +973,7 @@ CREATE TABLE IF NOT EXISTS `tiponota` (
 
 
 -- Dumping structure for table edu.tiporecurso
+DROP TABLE IF EXISTS `tiporecurso`;
 CREATE TABLE IF NOT EXISTS `tiporecurso` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -952,6 +987,7 @@ CREATE TABLE IF NOT EXISTS `tiporecurso` (
 
 
 -- Dumping structure for table edu.tiporelacion
+DROP TABLE IF EXISTS `tiporelacion`;
 CREATE TABLE IF NOT EXISTS `tiporelacion` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -969,12 +1005,13 @@ INSERT INTO `tiporelacion` (`id`, `nombre`, `descripcion`) VALUES
 
 
 -- Dumping structure for table edu.tiporelacion_esc
+DROP TABLE IF EXISTS `tiporelacion_esc`;
 CREATE TABLE IF NOT EXISTS `tiporelacion_esc` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL DEFAULT '0',
   `descripcion` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table edu.tiporelacion_esc: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tiporelacion_esc` DISABLE KEYS */;
@@ -984,6 +1021,7 @@ INSERT INTO `tiporelacion_esc` (`id`, `nombre`, `descripcion`) VALUES
 
 
 -- Dumping structure for table edu.turno
+DROP TABLE IF EXISTS `turno`;
 CREATE TABLE IF NOT EXISTS `turno` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -1002,6 +1040,7 @@ INSERT INTO `turno` (`id`, `nombre`, `inicio`, `fin`) VALUES
 
 
 -- Dumping structure for table edu.usuario
+DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `persona` bigint(20) unsigned DEFAULT NULL,
@@ -1012,14 +1051,18 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   PRIMARY KEY (`id`),
   KEY `FK_usuario_persona` (`persona`),
   CONSTRAINT `FK_usuario_persona` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.usuario: ~0 rows (approximately)
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` (`id`, `persona`, `ussername`, `password`, `fechaAlta`, `fechaBaja`) VALUES
+	(1, 2, 'gonza', 'c390230d013b917281314197e363dc5c', '2012-08-14 11:46:50', NULL),
+	(2, 3, 'aesmera', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 
 -- Dumping structure for table edu.usuario_rol
+DROP TABLE IF EXISTS `usuario_rol`;
 CREATE TABLE IF NOT EXISTS `usuario_rol` (
   `usuario` bigint(20) unsigned NOT NULL,
   `rol` bigint(20) unsigned NOT NULL,
