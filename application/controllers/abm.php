@@ -31,6 +31,7 @@ class Abm extends CI_Controller {
        // Agregamos la relación n a n con los materias 
         $this->grocery_crud->set_relation_n_n('materias','planestudio_materia','materia','planestudio','materia','nombre','');
         $this->grocery_crud->set_relation('nivel','nivel','nombre');
+        //asd
         
 
         // Campos que se requieren para la inserción y modificacion
