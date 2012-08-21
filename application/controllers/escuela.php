@@ -20,16 +20,61 @@ class Escuela extends CI_Controller {
     
         
     function abm(){
+       
+        // Lo primero que hacemos es cargar la librería que hace el control de los permisos
+        $this->load->library('control_permisos');
+        // Armamos los parámetros con los datos para controlar los permisos (rol hay que sacarlo de la session)
+        $params = array('rol' => 'directivo', 'controlador' => 'escuela', 'funcion' => 'abm');
+        // Pedimos a la librería que nos traiga el permiso
+        $permiso = $this->control_permisos->get_permiso($params);
+        print_r($permiso);
+        
         $this->load->library('grocery_CRUD');
         $this->grocery_crud->set_theme('datatables');
-        
-      //$this->grocery_crud->set_model("MY_grocery_model");
-        // Elegimos la tabla sobre la que vamos a trabajar
+      
+    
+        switch ($permiso){
+            
+            case 1:
+                // En este caso sólo tiene permiso para listar
+                $this->grocery_crud->unset_add();
+                $this->grocery_crud->unset_edit();
+                $this->grocery_crud->unset_delete();
+                
+                break;
+            case 2: 
+                // Este es el caso en que puede ver pero sólo los datos de su escuela
+                $this->grocery_crud->unset_add();
+                $this->grocery_crud->unset_edit();
+                $this->grocery_crud->unset_delete();
+                
+                break;
+            case 3:
+                break;
+            case 4:
+                // Este es el caso en que puede modificar los datos de su escuela
+                // quitamos la funcion de agregar escuelas
+                $this->grocery_crud->unset_add();
+                $this->grocery_crud->unset_delete();
+                
+                break;
+            case 5:
+                break;
+            case 6:
+                $this->grocery_crud->unset_add();
+                $this->grocery_crud->unset_delete();
+                break;
+            case 7:
+                // Este es el caso en que se pueden listar todas las escuelas y modificarlas
+                break;
+            
+        }
+       // Elegimos la tabla sobre la que vamos a trabajar
         $this->grocery_crud->set_table("escuela");
-        // Nombre que se muestra como referencia a la tabla
+       // Nombre que se muestra como referencia a la tabla
         $this->grocery_crud->set_subject('Escuela');    
        // Agregamos la relación n a n con los materias 
-     //   $this->grocery_crud->set_relation_n_n('materias','planestudio_materia','materia','planestudio','materia','nombre','');
+       //   $this->grocery_crud->set_relation_n_n('materias','planestudio_materia','materia','planestudio','materia','nombre','');
        $this->grocery_crud->set_relation('especialidad','especialidad','nombre');
        $this->grocery_crud->set_relation('nivel','nivel','nombre');
        $this->grocery_crud->set_relation('departamento','departamento','nombre');
@@ -59,6 +104,9 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->add_action('Director','','escuela/add_personal','ui-icon-plus');
         
         $output = $this->grocery_crud->render();
+        
+        $output -> titulo = 'Listado de Escuelas';
+        $output -> html_inf = 'otro_algo';
         $this->load->view('v_abm.php',$output);  
     }
   

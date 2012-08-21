@@ -48,7 +48,16 @@ class Admin extends CI_Controller {
       
        
         $output = $this->grocery_crud->render();
-        $this->load->view('v_abm.php',$output);  
+        
+        // Ahora agregamos lo que queremos que muestre la vista además de la grilla de grocery_crud:
+        // en $output['html_sup'] vamos a colocar el html que queremos mostrar por encima de la grilla recibiéndola como $html_sup
+        // en $output['html_inf'] vamos a colocar el html que queremos mostrar por debajo de la grilla recibiéndola como $html_inf
+        
+        $output -> titulo = 'Administración de Usuarios';
+        $output -> html_inf = 'otro_algo';
+        
+      //  print_r($data); exit();
+        $this->load->view('v_abm',$output);  
     }
     
     function roles(){
@@ -61,7 +70,7 @@ class Admin extends CI_Controller {
         // Nombre que se muestra como referencia a la tabla
         $this->grocery_crud->set_subject('Roles');
        // Agregamos la relación n a n con los materias 
-        $this->grocery_crud->set_relation_n_n('permiso','rol_permiso','permisorol','rol','permiso','descripcion','valor');
+        $this->grocery_crud->set_relation_n_n('permiso','rol_permiso','permisorol','rol','permiso','{nombre}','');
                
 
         // Campos que se requieren para la inserción y modificacion
@@ -79,6 +88,40 @@ class Admin extends CI_Controller {
         // Reglas de validación de los campos
         $this->grocery_crud->set_rules('nombre','Nombre de Rol','required');
         $this->grocery_crud->set_rules('descripcion','Descripcion','required');
+      
+       
+        $output = $this->grocery_crud->render();
+        $this->load->view('v_abm.php',$output);  
+    }
+    
+    function permisos(){
+        
+        $this->load->library('grocery_CRUD');
+        $this->grocery_crud->set_theme('datatables');
+        
+        // Elegimos la tabla sobre la que vamos a trabajar
+        $this->grocery_crud->set_table("permisorol");
+        // Nombre que se muestra como referencia a la tabla
+        $this->grocery_crud->set_subject('Permisos');
+       // Agregamos la relación n a n con los materias 
+        //$this->grocery_crud->set_relation_n_n('permiso','rol_permiso','permisorol','rol','permiso','nombre','');
+               
+
+        // Campos que se requieren para la inserción y modificacion
+        //$this->grocery_crud->fields('nombre','descripcion','permiso');
+        // Campos que se muestran en la tabla con los registros existentes
+        //$this->grocery_crud->columns('nombre','descripcion','permiso','fechaAlta','fechaBaja');
+        
+        //Nombre a mostrar por cada campo de la tabla
+        /*$this->grocery_crud->display_as('permiso','Permiso');
+        $this->grocery_crud->display_as('nombre','Nombre de Rol');
+        $this->grocery_crud->display_as('descripcion','Descripcion');
+        $this->grocery_crud->display_as('fechaAlta','Fecha de Alta');
+        $this->grocery_crud->display_as('fechaBaja','Fecha de Baja');
+       
+        // Reglas de validación de los campos
+        $this->grocery_crud->set_rules('nombre','Nombre de Rol','required');
+        $this->grocery_crud->set_rules('descripcion','Descripcion','required');*/
       
        
         $output = $this->grocery_crud->render();

@@ -32,6 +32,21 @@ class persona_model extends CI_Model{
         return $data;
         
     }
+    function get_escuela_persona($persona="",$cargo=""){
+        
+        $this->db->select('escuela.id, escuela.numero');
+        $this->db->from('escuelapersona');
+        $this->db->join('escuela','escuelapersona.escuela = escuela.id','left outer');
+        $this->db->join('tiporelacion_esc','escuelapersona.tiporelacion_esc = tiporelacion_esc.id','left outer');
+        $this->db->where('escuelapersona.persona',$persona);
+        $this->db->where('tiporelacion_esc.nombre',$cargo);
+        
+        $query = $this->db->get();
+        $data = $query->result_array();
+        
+        return $data;
+        
+    }
 }
 
 ?>

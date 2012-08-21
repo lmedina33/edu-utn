@@ -1,19 +1,20 @@
 <?php $this->load->view('template/header');?>
+
 <?php 
-foreach($css_files as $file): ?>
+foreach($output['css_files'] as $file): ?>
     <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
  
 <?php endforeach; ?>
-<?php foreach($js_files as $file): ?>
+<?php foreach($output['js_files'] as $file): ?>
  
     <script src="<?php echo $file; ?>"></script>
 <?php endforeach; ?>
 <section>
     
     <div class="central">
-        <p><h1><?php if(isset($titulo)) echo $titulo ; ?></h1></p><br />
-        <p><?php echo $output; ?></p>
-        <p><?php if(isset($html_inf)) echo $html_inf ; ?></p>
+        <?php if($html_sup) echo $html_sup ; ?>
+        <?php echo $output['output']; ?>
+        <?php if($html_inf) echo $html_sup ; ?>
     </div>
         
 </section>

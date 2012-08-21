@@ -46,9 +46,9 @@ $(document).ready(function($){
         <ul class="accordion"  id="accordion-5">
             <li><a href="<?php echo site_url('inicio') ?>">Inicio</a></li>
             <li>
-                <a href="#">Escuelas</a>
+                <a href="#">Escuela</a>
                 <ul>
-                    <li><a href="<?php echo site_url('escuela/abm') ?>">Listado Escuelas</a></li>
+                    <li><a href="<?php echo site_url('escuela/abm') ?>">Gestión Escuela</a></li>
                 </ul>
            </li>
             <li>
