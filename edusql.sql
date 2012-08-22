@@ -1,9 +1,9 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               5.1.47-community - MySQL Community Server (GPL)
--- Server OS:                    Win32
--- HeidiSQL version:             7.0.0.4151
--- Date/time:                    2012-08-14 16:11:16
+-- Server version:               5.5.24-0ubuntu0.12.04.1 - (Ubuntu)
+-- Server OS:                    debian-linux-gnu
+-- HeidiSQL version:             7.0.0.4053
+-- Date/time:                    2012-08-21 22:19:55
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -11,7 +11,7 @@
 /*!40014 SET FOREIGN_KEY_CHECKS=0 */;
 
 -- Dumping database structure for edu
-CREATE DATABASE IF NOT EXISTS `edu` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE IF NOT EXISTS `edu` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `edu`;
 
 
@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `alumno` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.alumno: ~3 rows (approximately)
+DELETE FROM `alumno`;
 /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
 INSERT INTO `alumno` (`id`, `fechaIngreso`, `fechaEngreso`, `fechaSalida`, `persona`) VALUES
 	(1, '2012-07-17', NULL, NULL, 4),
@@ -47,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `cargo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.cargo: ~0 rows (approximately)
+DELETE FROM `cargo`;
 /*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
 
@@ -61,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `comunicaciones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.comunicaciones: ~0 rows (approximately)
+DELETE FROM `comunicaciones`;
 /*!40000 ALTER TABLE `comunicaciones` DISABLE KEYS */;
 /*!40000 ALTER TABLE `comunicaciones` ENABLE KEYS */;
 
@@ -74,13 +77,14 @@ CREATE TABLE IF NOT EXISTS `contenido` (
   `materia` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_contenido_materia_1` (`materia`),
-  CONSTRAINT `fk_contenido_materia_1` FOREIGN KEY (`materia`) REFERENCES `materia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
+  CONSTRAINT `fk_contenido_materia_1` FOREIGN KEY (`materia`) REFERENCES `materia` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
 
 -- Dumping data for table edu.contenido: ~1 rows (approximately)
+DELETE FROM `contenido`;
 /*!40000 ALTER TABLE `contenido` DISABLE KEYS */;
 INSERT INTO `contenido` (`id`, `nombre`, `descripcion`, `materia`) VALUES
-	(4, 'Sujetos, predicados, verbos', '<p>Sujetos</p>', 4);
+	(3, 'Contenido 1 Mat', '<p>Contenido de Matemática</p>', 3);
 /*!40000 ALTER TABLE `contenido` ENABLE KEYS */;
 
 
@@ -88,23 +92,18 @@ INSERT INTO `contenido` (`id`, `nombre`, `descripcion`, `materia`) VALUES
 DROP TABLE IF EXISTS `cursado`;
 CREATE TABLE IF NOT EXISTS `cursado` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaAlta` date DEFAULT NULL,
   `fechaBaja` date DEFAULT NULL,
-  `descripcion` text CHARACTER SET latin1,
+  `descripcion` tinytext CHARACTER SET latin1,
   `materia` bigint(20) unsigned NOT NULL,
-  `division` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `materia` (`materia`),
-  KEY `FK_cursado_division` (`division`),
-  CONSTRAINT `FK_cursado_division` FOREIGN KEY (`division`) REFERENCES `division` (`id`),
   CONSTRAINT `materia` FOREIGN KEY (`materia`) REFERENCES `materia` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.cursado: ~2 rows (approximately)
+-- Dumping data for table edu.cursado: ~0 rows (approximately)
+DELETE FROM `cursado`;
 /*!40000 ALTER TABLE `cursado` DISABLE KEYS */;
-INSERT INTO `cursado` (`id`, `fechaAlta`, `fechaBaja`, `descripcion`, `materia`, `division`) VALUES
-	(1, '2012-07-24 13:30:22', NULL, NULL, 3, 1),
-	(2, '2012-07-24 13:30:22', NULL, NULL, 4, 1);
 /*!40000 ALTER TABLE `cursado` ENABLE KEYS */;
 
 
@@ -117,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `departamento` (
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table edu.departamento: ~18 rows (approximately)
+DELETE FROM `departamento`;
 /*!40000 ALTER TABLE `departamento` DISABLE KEYS */;
 INSERT INTO `departamento` (`id`, `nombre`) VALUES
 	(1, 'Capital'),
@@ -140,6 +140,24 @@ INSERT INTO `departamento` (`id`, `nombre`) VALUES
 /*!40000 ALTER TABLE `departamento` ENABLE KEYS */;
 
 
+-- Dumping structure for table edu.detallecontenido
+DROP TABLE IF EXISTS `detallecontenido`;
+CREATE TABLE IF NOT EXISTS `detallecontenido` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` tinytext CHARACTER SET latin1,
+  `contenido` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_detallecontenido_contenido_1` (`contenido`),
+  CONSTRAINT `fk_detallecontenido_contenido_1` FOREIGN KEY (`contenido`) REFERENCES `contenido` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.detallecontenido: ~0 rows (approximately)
+DELETE FROM `detallecontenido`;
+/*!40000 ALTER TABLE `detallecontenido` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detallecontenido` ENABLE KEYS */;
+
+
 -- Dumping structure for table edu.detallecuaderno
 DROP TABLE IF EXISTS `detallecuaderno`;
 CREATE TABLE IF NOT EXISTS `detallecuaderno` (
@@ -154,6 +172,7 @@ CREATE TABLE IF NOT EXISTS `detallecuaderno` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.detallecuaderno: ~0 rows (approximately)
+DELETE FROM `detallecuaderno`;
 /*!40000 ALTER TABLE `detallecuaderno` DISABLE KEYS */;
 /*!40000 ALTER TABLE `detallecuaderno` ENABLE KEYS */;
 
@@ -175,6 +194,7 @@ CREATE TABLE IF NOT EXISTS `dictadoprofesor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.dictadoprofesor: ~0 rows (approximately)
+DELETE FROM `dictadoprofesor`;
 /*!40000 ALTER TABLE `dictadoprofesor` DISABLE KEYS */;
 /*!40000 ALTER TABLE `dictadoprofesor` ENABLE KEYS */;
 
@@ -190,6 +210,7 @@ CREATE TABLE IF NOT EXISTS `directivo` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.directivo: ~1 rows (approximately)
+DELETE FROM `directivo`;
 /*!40000 ALTER TABLE `directivo` DISABLE KEYS */;
 INSERT INTO `directivo` (`id`, `persona`) VALUES
 	(1, 8);
@@ -219,9 +240,10 @@ CREATE TABLE IF NOT EXISTS `division` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.division: ~1 rows (approximately)
+DELETE FROM `division`;
 /*!40000 ALTER TABLE `division` DISABLE KEYS */;
 INSERT INTO `division` (`id`, `nombre`, `fechaAlta`, `fechaBaja`, `descripcion`, `numero`, `año`, `escuela`, `planestudio`, `turno`) VALUES
-	(1, 'A', '2012-07-24 13:21:07', NULL, NULL, NULL, '1', 1, 1, 1);
+	(1, 'A', '2012-07-26 22:07:21', NULL, NULL, NULL, '1', 1, 2, 1);
 /*!40000 ALTER TABLE `division` ENABLE KEYS */;
 
 
@@ -236,6 +258,7 @@ CREATE TABLE IF NOT EXISTS `docente` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.docente: ~1 rows (approximately)
+DELETE FROM `docente`;
 /*!40000 ALTER TABLE `docente` DISABLE KEYS */;
 INSERT INTO `docente` (`id`, `persona`) VALUES
 	(1, 7);
@@ -270,6 +293,7 @@ CREATE TABLE IF NOT EXISTS `escuela` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.escuela: ~2 rows (approximately)
+DELETE FROM `escuela`;
 /*!40000 ALTER TABLE `escuela` DISABLE KEYS */;
 INSERT INTO `escuela` (`id`, `cue`, `nombre`, `direccion`, `numero`, `telefono`, `fechaResolucion`, `fechaCreacion`, `fechaCierre`, `nivel`, `especialidad`, `departamento`, `localidad`) VALUES
 	(1, 50023, 'Jorge N Lencinas', 'Algún lugar', 4125, NULL, '2007-07-05', NULL, NULL, 1, 1, 4, 41),
@@ -291,10 +315,12 @@ CREATE TABLE IF NOT EXISTS `escuelapersona` (
   CONSTRAINT `persona_id` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.escuelapersona: ~1 rows (approximately)
+-- Dumping data for table edu.escuelapersona: ~2 rows (approximately)
+DELETE FROM `escuelapersona`;
 /*!40000 ALTER TABLE `escuelapersona` DISABLE KEYS */;
 INSERT INTO `escuelapersona` (`escuela`, `persona`, `tiporelacion_esc`) VALUES
-	(1, 8, 1);
+	(1, 8, 1),
+	(2, 8, 1);
 /*!40000 ALTER TABLE `escuelapersona` ENABLE KEYS */;
 
 
@@ -311,6 +337,7 @@ CREATE TABLE IF NOT EXISTS `especialidad` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.especialidad: ~3 rows (approximately)
+DELETE FROM `especialidad`;
 /*!40000 ALTER TABLE `especialidad` DISABLE KEYS */;
 INSERT INTO `especialidad` (`id`, `nombre`, `descripcion`, `resolucion`, `fechaAlta`, `fechaBaja`) VALUES
 	(1, 'Perito Mercantil', '<p>Especialidad Perito Mercantil</p>', 1234, NULL, NULL),
@@ -330,6 +357,7 @@ CREATE TABLE IF NOT EXISTS `estadoexamen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.estadoexamen: ~0 rows (approximately)
+DELETE FROM `estadoexamen`;
 /*!40000 ALTER TABLE `estadoexamen` DISABLE KEYS */;
 /*!40000 ALTER TABLE `estadoexamen` ENABLE KEYS */;
 
@@ -344,6 +372,7 @@ CREATE TABLE IF NOT EXISTS `estadoinscripcion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.estadoinscripcion: ~0 rows (approximately)
+DELETE FROM `estadoinscripcion`;
 /*!40000 ALTER TABLE `estadoinscripcion` DISABLE KEYS */;
 /*!40000 ALTER TABLE `estadoinscripcion` ENABLE KEYS */;
 
@@ -363,6 +392,7 @@ CREATE TABLE IF NOT EXISTS `eventomateria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.eventomateria: ~0 rows (approximately)
+DELETE FROM `eventomateria`;
 /*!40000 ALTER TABLE `eventomateria` DISABLE KEYS */;
 /*!40000 ALTER TABLE `eventomateria` ENABLE KEYS */;
 
@@ -388,6 +418,7 @@ CREATE TABLE IF NOT EXISTS `examen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.examen: ~0 rows (approximately)
+DELETE FROM `examen`;
 /*!40000 ALTER TABLE `examen` DISABLE KEYS */;
 /*!40000 ALTER TABLE `examen` ENABLE KEYS */;
 
@@ -414,6 +445,7 @@ CREATE TABLE IF NOT EXISTS `inscripcionalumno` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.inscripcionalumno: ~0 rows (approximately)
+DELETE FROM `inscripcionalumno`;
 /*!40000 ALTER TABLE `inscripcionalumno` DISABLE KEYS */;
 /*!40000 ALTER TABLE `inscripcionalumno` ENABLE KEYS */;
 
@@ -428,6 +460,7 @@ CREATE TABLE IF NOT EXISTS `localidad` (
 ) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table edu.localidad: ~195 rows (approximately)
+DELETE FROM `localidad`;
 /*!40000 ALTER TABLE `localidad` DISABLE KEYS */;
 INSERT INTO `localidad` (`id`, `nombre`, `departamento`) VALUES
 	(1, '1ª Seccionl', 1),
@@ -636,16 +669,16 @@ CREATE TABLE IF NOT EXISTS `materia` (
   `descripcion` text COLLATE utf8_spanish_ci,
   `resolucion` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `year` enum('1','2','3','4','5','6','7','8','9') COLLATE utf8_spanish_ci DEFAULT NULL,
-  `fechaAlta` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaBaja` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
 
--- Dumping data for table edu.materia: ~2 rows (approximately)
+-- Dumping data for table edu.materia: ~1 rows (approximately)
+DELETE FROM `materia`;
 /*!40000 ALTER TABLE `materia` DISABLE KEYS */;
 INSERT INTO `materia` (`id`, `nombre`, `descripcion`, `resolucion`, `year`, `fechaAlta`, `fechaBaja`) VALUES
-	(3, 'Matemática', '<p>Mat</p>', '21', '1', '2012-07-20 12:21:37', NULL),
-	(4, 'Lengua', '<p>Len</p>', '12', '2', '2012-07-20 12:22:31', NULL);
+	(3, 'Matematica', '<p>1Ma</p>', '123', '1', '2012-07-26 22:04:51', NULL);
 /*!40000 ALTER TABLE `materia` ENABLE KEYS */;
 
 
@@ -660,6 +693,7 @@ CREATE TABLE IF NOT EXISTS `nivel` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.nivel: ~3 rows (approximately)
+DELETE FROM `nivel`;
 /*!40000 ALTER TABLE `nivel` DISABLE KEYS */;
 INSERT INTO `nivel` (`id`, `nombre`, `descripcion`, `direccionLinea`) VALUES
 	(1, 'Primario', '<p>Nivel Primario</p>', '<p>Sur</p>'),
@@ -685,6 +719,7 @@ CREATE TABLE IF NOT EXISTS `nota` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.nota: ~0 rows (approximately)
+DELETE FROM `nota`;
 /*!40000 ALTER TABLE `nota` DISABLE KEYS */;
 /*!40000 ALTER TABLE `nota` ENABLE KEYS */;
 
@@ -704,6 +739,7 @@ CREATE TABLE IF NOT EXISTS `novedadmateria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.novedadmateria: ~0 rows (approximately)
+DELETE FROM `novedadmateria`;
 /*!40000 ALTER TABLE `novedadmateria` DISABLE KEYS */;
 /*!40000 ALTER TABLE `novedadmateria` ENABLE KEYS */;
 
@@ -723,6 +759,7 @@ CREATE TABLE IF NOT EXISTS `opcion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.opcion: ~0 rows (approximately)
+DELETE FROM `opcion`;
 /*!40000 ALTER TABLE `opcion` DISABLE KEYS */;
 /*!40000 ALTER TABLE `opcion` ENABLE KEYS */;
 
@@ -738,6 +775,7 @@ CREATE TABLE IF NOT EXISTS `padre` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.padre: ~1 rows (approximately)
+DELETE FROM `padre`;
 /*!40000 ALTER TABLE `padre` DISABLE KEYS */;
 INSERT INTO `padre` (`id`, `persona`) VALUES
 	(1, 9);
@@ -748,13 +786,23 @@ INSERT INTO `padre` (`id`, `persona`) VALUES
 DROP TABLE IF EXISTS `permisorol`;
 CREATE TABLE IF NOT EXISTS `permisorol` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `descripcion` tinytext CHARACTER SET latin1,
+  `nombre` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
+  `funcion` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.permisorol: ~0 rows (approximately)
+-- Dumping data for table edu.permisorol: ~8 rows (approximately)
+DELETE FROM `permisorol`;
 /*!40000 ALTER TABLE `permisorol` DISABLE KEYS */;
+INSERT INTO `permisorol` (`id`, `nombre`, `funcion`) VALUES
+	(1, 'escuela', 'abm'),
+	(2, 'abm', 'plan_estudio'),
+	(3, 'abm', 'materia'),
+	(4, 'abm', 'contenido'),
+	(5, 'abm', 'especialidad'),
+	(6, 'abm', 'persona'),
+	(7, 'admin', 'usuarios'),
+	(8, 'admin', 'roles');
 /*!40000 ALTER TABLE `permisorol` ENABLE KEYS */;
 
 
@@ -788,6 +836,7 @@ CREATE TABLE IF NOT EXISTS `persona` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.persona: ~8 rows (approximately)
+DELETE FROM `persona`;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
 INSERT INTO `persona` (`id`, `legajo`, `dni`, `nombre`, `apellido`, `sexo`, `email`, `telefono`, `celular`, `direccion`, `codPostal`, `departamento`, `localidad`, `provincia`, `pais`, `nacimiento`, `fechaAlta`, `fechaBaja`, `estado`) VALUES
 	(2, NULL, '33704888', 'Gonzalo', 'Siman', 'M', 'gonzasiman@mendoza.edu.ar', NULL, NULL, 'Bº Nueva Ciudad', 5519, 4, 191, NULL, NULL, '1988-06-03', '2012-07-17 12:54:18', NULL, NULL),
@@ -813,6 +862,7 @@ CREATE TABLE IF NOT EXISTS `persona_dictado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.persona_dictado: ~0 rows (approximately)
+DELETE FROM `persona_dictado`;
 /*!40000 ALTER TABLE `persona_dictado` DISABLE KEYS */;
 /*!40000 ALTER TABLE `persona_dictado` ENABLE KEYS */;
 
@@ -833,11 +883,11 @@ CREATE TABLE IF NOT EXISTS `plandeestudio` (
   CONSTRAINT `FK_plandeestudio_nivel` FOREIGN KEY (`nivel`) REFERENCES `nivel` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
 
--- Dumping data for table edu.plandeestudio: ~2 rows (approximately)
+-- Dumping data for table edu.plandeestudio: ~1 rows (approximately)
+DELETE FROM `plandeestudio`;
 /*!40000 ALTER TABLE `plandeestudio` DISABLE KEYS */;
 INSERT INTO `plandeestudio` (`id`, `nombre`, `descripcion`, `resolucion`, `cantAños`, `fechaAlta`, `fechaBaja`, `nivel`) VALUES
-	(1, 'Economía y Gestión de las Organizaciones', '<p>Plan de Ejemplo</p>', 123, NULL, '2012-07-12', NULL, 3),
-	(2, 'Quimica', '<p>Quimica</p>', 123, NULL, '2012-07-18', NULL, 3);
+	(2, 'Economía y Gestión de las Organizaciones', '<p>Algo</p>', 123, NULL, '2012-07-03', NULL, 3);
 /*!40000 ALTER TABLE `plandeestudio` ENABLE KEYS */;
 
 
@@ -848,16 +898,15 @@ CREATE TABLE IF NOT EXISTS `planestudio_materia` (
   `materia` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`planestudio`,`materia`),
   KEY `materia_id` (`materia`),
-  CONSTRAINT `materia_id` FOREIGN KEY (`materia`) REFERENCES `materia` (`id`),
-  CONSTRAINT `planestudio_id` FOREIGN KEY (`planestudio`) REFERENCES `plandeestudio` (`id`)
+  CONSTRAINT `materia_id` FOREIGN KEY (`materia`) REFERENCES `materia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `planestudio_id` FOREIGN KEY (`planestudio`) REFERENCES `plandeestudio` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.planestudio_materia: ~3 rows (approximately)
+-- Dumping data for table edu.planestudio_materia: ~1 rows (approximately)
+DELETE FROM `planestudio_materia`;
 /*!40000 ALTER TABLE `planestudio_materia` DISABLE KEYS */;
 INSERT INTO `planestudio_materia` (`planestudio`, `materia`) VALUES
-	(1, 3),
-	(1, 4),
-	(2, 4);
+	(2, 3);
 /*!40000 ALTER TABLE `planestudio_materia` ENABLE KEYS */;
 
 
@@ -875,6 +924,7 @@ CREATE TABLE IF NOT EXISTS `pregunta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.pregunta: ~0 rows (approximately)
+DELETE FROM `pregunta`;
 /*!40000 ALTER TABLE `pregunta` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pregunta` ENABLE KEYS */;
 
@@ -898,6 +948,7 @@ CREATE TABLE IF NOT EXISTS `recurso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.recurso: ~0 rows (approximately)
+DELETE FROM `recurso`;
 /*!40000 ALTER TABLE `recurso` DISABLE KEYS */;
 /*!40000 ALTER TABLE `recurso` ENABLE KEYS */;
 
@@ -917,10 +968,10 @@ CREATE TABLE IF NOT EXISTS `relacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.relacion: ~3 rows (approximately)
+DELETE FROM `relacion`;
 /*!40000 ALTER TABLE `relacion` DISABLE KEYS */;
 INSERT INTO `relacion` (`idprimera`, `idsegunda`, `tipoRelacion`) VALUES
 	(5, 8, 1),
-	(6, 8, 1),
 	(5, 7, 2),
 	(4, 6, 3);
 /*!40000 ALTER TABLE `relacion` ENABLE KEYS */;
@@ -935,10 +986,17 @@ CREATE TABLE IF NOT EXISTS `rol` (
   `fechaAlta` date DEFAULT NULL,
   `fechaBaja` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.rol: ~0 rows (approximately)
+-- Dumping data for table edu.rol: ~5 rows (approximately)
+DELETE FROM `rol`;
 /*!40000 ALTER TABLE `rol` DISABLE KEYS */;
+INSERT INTO `rol` (`id`, `nombre`, `descripcion`, `fechaAlta`, `fechaBaja`) VALUES
+	(1, 'administrador', NULL, NULL, NULL),
+	(2, 'directivo', NULL, NULL, NULL),
+	(3, 'docente', NULL, NULL, NULL),
+	(4, 'alumno', NULL, NULL, NULL),
+	(5, 'padre', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `rol` ENABLE KEYS */;
 
 
@@ -947,14 +1005,32 @@ DROP TABLE IF EXISTS `rol_permiso`;
 CREATE TABLE IF NOT EXISTS `rol_permiso` (
   `rol` bigint(20) unsigned NOT NULL,
   `permiso` bigint(20) unsigned NOT NULL,
+  `valor` int(10) DEFAULT NULL,
   PRIMARY KEY (`rol`,`permiso`),
   KEY `fk_rol_permiso_permisorol_1` (`permiso`),
   CONSTRAINT `fk_rol_permiso_permisorol_1` FOREIGN KEY (`permiso`) REFERENCES `permisorol` (`id`),
   CONSTRAINT `fk_rol_permiso_rol_1` FOREIGN KEY (`rol`) REFERENCES `rol` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.rol_permiso: ~0 rows (approximately)
+-- Dumping data for table edu.rol_permiso: ~15 rows (approximately)
+DELETE FROM `rol_permiso`;
 /*!40000 ALTER TABLE `rol_permiso` DISABLE KEYS */;
+INSERT INTO `rol_permiso` (`rol`, `permiso`, `valor`) VALUES
+	(1, 1, 7),
+	(1, 2, 7),
+	(1, 3, 7),
+	(1, 4, 7),
+	(1, 5, 7),
+	(1, 6, 7),
+	(1, 7, 7),
+	(1, 8, 2),
+	(2, 1, 6),
+	(2, 2, 2),
+	(2, 3, 2),
+	(2, 4, 2),
+	(2, 5, 2),
+	(2, 6, 6),
+	(2, 7, 6);
 /*!40000 ALTER TABLE `rol_permiso` ENABLE KEYS */;
 
 
@@ -968,6 +1044,7 @@ CREATE TABLE IF NOT EXISTS `tiponota` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.tiponota: ~0 rows (approximately)
+DELETE FROM `tiponota`;
 /*!40000 ALTER TABLE `tiponota` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tiponota` ENABLE KEYS */;
 
@@ -982,6 +1059,7 @@ CREATE TABLE IF NOT EXISTS `tiporecurso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.tiporecurso: ~0 rows (approximately)
+DELETE FROM `tiporecurso`;
 /*!40000 ALTER TABLE `tiporecurso` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tiporecurso` ENABLE KEYS */;
 
@@ -996,6 +1074,7 @@ CREATE TABLE IF NOT EXISTS `tiporelacion` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.tiporelacion: ~3 rows (approximately)
+DELETE FROM `tiporelacion`;
 /*!40000 ALTER TABLE `tiporelacion` DISABLE KEYS */;
 INSERT INTO `tiporelacion` (`id`, `nombre`, `descripcion`) VALUES
 	(1, 'Padre', 'Padre - Hijo'),
@@ -1014,6 +1093,7 @@ CREATE TABLE IF NOT EXISTS `tiporelacion_esc` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table edu.tiporelacion_esc: ~1 rows (approximately)
+DELETE FROM `tiporelacion_esc`;
 /*!40000 ALTER TABLE `tiporelacion_esc` DISABLE KEYS */;
 INSERT INTO `tiporelacion_esc` (`id`, `nombre`, `descripcion`) VALUES
 	(1, 'Director', 'Director de la Institucion');
@@ -1031,6 +1111,7 @@ CREATE TABLE IF NOT EXISTS `turno` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- Dumping data for table edu.turno: ~3 rows (approximately)
+DELETE FROM `turno`;
 /*!40000 ALTER TABLE `turno` DISABLE KEYS */;
 INSERT INTO `turno` (`id`, `nombre`, `inicio`, `fin`) VALUES
 	(1, 'Mañana', '08:00', '13:00'),
@@ -1053,11 +1134,12 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   CONSTRAINT `FK_usuario_persona` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.usuario: ~0 rows (approximately)
+-- Dumping data for table edu.usuario: ~2 rows (approximately)
+DELETE FROM `usuario`;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` (`id`, `persona`, `ussername`, `password`, `fechaAlta`, `fechaBaja`) VALUES
-	(1, 2, 'gonza', 'c390230d013b917281314197e363dc5c', '2012-08-14 11:46:50', NULL),
-	(2, 3, 'aesmera', NULL, NULL, NULL);
+	(1, 8, 'gonza', 'c390230d013b917281314197e363dc5c', NULL, NULL),
+	(2, 3, 'mcalud', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 
@@ -1072,8 +1154,13 @@ CREATE TABLE IF NOT EXISTS `usuario_rol` (
   CONSTRAINT `fk_usario_rol_usuario_1` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.usuario_rol: ~0 rows (approximately)
+-- Dumping data for table edu.usuario_rol: ~3 rows (approximately)
+DELETE FROM `usuario_rol`;
 /*!40000 ALTER TABLE `usuario_rol` DISABLE KEYS */;
+INSERT INTO `usuario_rol` (`usuario`, `rol`) VALUES
+	(1, 1),
+	(1, 2),
+	(2, 2);
 /*!40000 ALTER TABLE `usuario_rol` ENABLE KEYS */;
 /*!40014 SET FOREIGN_KEY_CHECKS=1 */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
