@@ -12,6 +12,23 @@
  */
 class Escuela extends CI_Controller {
     //put your code here   
+    var $sesion_usuario;
+    var $sesion_permiso;
+    
+    function __construct()
+	{
+		parent::__construct();
+                 
+                 // Lo primero que hacemos es cargar la librería que hace el control de los permisos
+        	$this->load->library('control_permisos');
+                $this->load->library('grocery_CRUD');
+                $this->grocery_crud->set_theme('datatables');
+                $this->load->library('session');
+                $this->sesion_usuario = $this->session->userdata('logged_in');
+                $this->sesion_permiso = $this->session->userdata('rol');
+                
+    }
+    
     
     function index(){
         
@@ -21,35 +38,37 @@ class Escuela extends CI_Controller {
         
     function abm(){
        
-        // Lo primero que hacemos es cargar la librería que hace el control de los permisos
-        $this->load->library('control_permisos');
         // Armamos los parámetros con los datos para controlar los permisos (rol hay que sacarlo de la session)
-        $params = array('rol' => 'directivo', 'controlador' => 'escuela', 'funcion' => 'abm');
+        $params = array('rol' => $this->sesion_permiso['rol'], 'controlador' => 'escuela', 'funcion' => 'abm');
+        //  print_r($params);exit;
         // Pedimos a la librería que nos traiga el permiso
         $permiso = $this->control_permisos->get_permiso($params);
-        print_r($permiso);
         
-        $this->load->library('grocery_CRUD');
-        $this->grocery_crud->set_theme('datatables');
-      
-    
         switch ($permiso){
+            
+            // 1: ver
+            // 2: listar
+            // 4: modificar
+            
             
             case 1:
                 // En este caso sólo tiene permiso para listar
                 $this->grocery_crud->unset_add();
                 $this->grocery_crud->unset_edit();
                 $this->grocery_crud->unset_delete();
-                
+                $this->grocery_crud->where('escuela.id',  $this->sesion_permiso['escuela']);
                 break;
             case 2: 
                 // Este es el caso en que puede ver pero sólo los datos de su escuela
                 $this->grocery_crud->unset_add();
                 $this->grocery_crud->unset_edit();
                 $this->grocery_crud->unset_delete();
-                
                 break;
             case 3:
+                // Este es el caso en que se puede ver y listar
+                $this->grocery_crud->unset_add();
+                $this->grocery_crud->unset_edit();
+                $this->grocery_crud->unset_delete();
                 break;
             case 4:
                 // Este es el caso en que puede modificar los datos de su escuela
@@ -59,13 +78,16 @@ class Escuela extends CI_Controller {
                 
                 break;
             case 5:
+                $this->grocery_crud->unset_add();
+                $this->grocery_crud->unset_delete();
+                $this->grocery_crud->where('escuela.id',  $this->sesion_permiso['escuela']);
                 break;
             case 6:
-                $this->grocery_crud->unset_add();
                 $this->grocery_crud->unset_delete();
                 break;
             case 7:
                 // Este es el caso en que se pueden listar todas las escuelas y modificarlas
+                $this->grocery_crud->unset_delete();
                 break;
             
         }
@@ -105,8 +127,8 @@ class Escuela extends CI_Controller {
         
         $output = $this->grocery_crud->render();
         
-        $output -> titulo = 'Listado de Escuelas';
-        $output -> html_inf = 'otro_algo';
+        $output -> titulo = 'Gestión Escuela';
+        $output -> html_inf = '';
         $this->load->view('v_abm.php',$output);  
     }
   

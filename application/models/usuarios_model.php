@@ -66,7 +66,7 @@ class usuarios_model extends CI_Model{
        $this->db->join('permisorol','rol_permiso.permiso = permisorol.id','left outer');
        $this->db->where('permisorol.nombre',$controlador);
        $this->db->where('permisorol.funcion',$funcion);
-       $this->db->where('rol.nombre',$rol);
+       $this->db->where('rol.id',$rol);
        
        
        $query = $this->db->get();

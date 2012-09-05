@@ -3,7 +3,7 @@
 -- Server version:               5.5.24-0ubuntu0.12.04.1 - (Ubuntu)
 -- Server OS:                    debian-linux-gnu
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-08-21 22:19:55
+-- Date/time:                    2012-09-04 21:04:00
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -296,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `escuela` (
 DELETE FROM `escuela`;
 /*!40000 ALTER TABLE `escuela` DISABLE KEYS */;
 INSERT INTO `escuela` (`id`, `cue`, `nombre`, `direccion`, `numero`, `telefono`, `fechaResolucion`, `fechaCreacion`, `fechaCierre`, `nivel`, `especialidad`, `departamento`, `localidad`) VALUES
-	(1, 50023, 'Jorge N Lencinas', 'Algún lugar', 4125, NULL, '2007-07-05', NULL, NULL, 1, 1, 4, 41),
+	(1, 50023, 'Jorge N Lencinas', 'Algún lugar', 4125, '4302562', '2007-07-05', NULL, NULL, 1, 1, 4, 41),
 	(2, 50021, 'Benito Lamas', 'Algun Lugar', 4256, NULL, '2012-07-03', NULL, NULL, 3, 2, 2, 1);
 /*!40000 ALTER TABLE `escuela` ENABLE KEYS */;
 
@@ -796,13 +796,13 @@ DELETE FROM `permisorol`;
 /*!40000 ALTER TABLE `permisorol` DISABLE KEYS */;
 INSERT INTO `permisorol` (`id`, `nombre`, `funcion`) VALUES
 	(1, 'escuela', 'abm'),
-	(2, 'abm', 'plan_estudio'),
-	(3, 'abm', 'materia'),
-	(4, 'abm', 'contenido'),
-	(5, 'abm', 'especialidad'),
-	(6, 'abm', 'persona'),
-	(7, 'admin', 'usuarios'),
-	(8, 'admin', 'roles');
+	(2, 'plan_estudio', 'abm'),
+	(3, 'materia', 'abm'),
+	(4, 'contenido', 'abm'),
+	(5, 'especialidad', 'abm'),
+	(6, 'persona', 'abm'),
+	(7, 'usuarios', 'abm'),
+	(8, 'roles', 'abm');
 /*!40000 ALTER TABLE `permisorol` ENABLE KEYS */;
 
 
@@ -1023,14 +1023,13 @@ INSERT INTO `rol_permiso` (`rol`, `permiso`, `valor`) VALUES
 	(1, 5, 7),
 	(1, 6, 7),
 	(1, 7, 7),
-	(1, 8, 2),
-	(2, 1, 6),
-	(2, 2, 2),
-	(2, 3, 2),
-	(2, 4, 2),
-	(2, 5, 2),
-	(2, 6, 6),
-	(2, 7, 6);
+	(1, 8, 7),
+	(2, 1, 5),
+	(2, 2, 3),
+	(2, 3, 3),
+	(2, 5, 3),
+	(2, 6, 5),
+	(2, 7, 5);
 /*!40000 ALTER TABLE `rol_permiso` ENABLE KEYS */;
 
 

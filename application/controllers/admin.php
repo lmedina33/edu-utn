@@ -100,9 +100,12 @@ class Admin extends CI_Controller {
         $this->grocery_crud->set_theme('datatables');
         
         // Elegimos la tabla sobre la que vamos a trabajar
-        $this->grocery_crud->set_table("permisorol");
+        $this->grocery_crud->set_table("rol_permiso");
         // Nombre que se muestra como referencia a la tabla
         $this->grocery_crud->set_subject('Permisos');
+        
+        $this->grocery_crud->set_relation('rol','rol','nombre');
+        $this->grocery_crud->set_relation('permiso','permisorol','{nombre} - {funcion}');
        // Agregamos la relación n a n con los materias 
         //$this->grocery_crud->set_relation_n_n('permiso','rol_permiso','permisorol','rol','permiso','nombre','');
                
@@ -124,6 +127,20 @@ class Admin extends CI_Controller {
         $this->grocery_crud->set_rules('descripcion','Descripcion','required');*/
       
        
+        $output = $this->grocery_crud->render();
+        $this->load->view('v_abm.php',$output);  
+    }
+    
+     function permisosrol(){
+        
+        $this->load->library('grocery_CRUD');
+        $this->grocery_crud->set_theme('datatables');
+        
+        // Elegimos la tabla sobre la que vamos a trabajar
+        $this->grocery_crud->set_table("permisorol");
+        // Nombre que se muestra como referencia a la tabla
+        $this->grocery_crud->set_subject('Permisos');
+  
         $output = $this->grocery_crud->render();
         $this->load->view('v_abm.php',$output);  
     }
