@@ -50,8 +50,8 @@ $(document).ready(function($){
                 <ul>
                     <li><a href="<?php echo site_url('escuela/abm') ?>">Gestión Escuela</a></li>
                 </ul>
-           </li>
-            <li>
+            </li>
+                <li>
                 <a href="<?php echo site_url('abm/plan_estudio'); ?>">Curriculares</a>
                 <ul>
                     <li><a href="<?php echo site_url('abm/plan_estudio') ?>">Planes de Estudio</a></li>
