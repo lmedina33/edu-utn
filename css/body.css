@@ -25,36 +25,40 @@ a img { /* este selector elimina el borde azul predeterminado que se muestra en 
 	border: none;
 }
 /* ~~ La aplicación de estilo a los vínculos del sitio debe permanecer en este orden (incluido el grupo de selectores que crea el efecto hover -paso por encima-). ~~ */
-a:link {
-	color: #42413C;
-	text-decoration: underline; /* a no ser que aplique estilos a los vínculos para que tengan un aspecto muy exclusivo, es recomendable proporcionar subrayados para facilitar una identificación visual rápida */
-}
-a:visited {
-	color: #6E6C64;
-	text-decoration: underline;
-}
+
 a:hover, a:active, a:focus { /* este grupo de selectores proporcionará a un usuario que navegue mediante el teclado la misma experiencia de hover (paso por encima) que experimenta un usuario que emplea un ratón. */
 	text-decoration: none;
 }
 /* ~~ Este contenedor de anchura fija rodea a todas las demás bloques ~~ */
-.container {
+.container1 {
 	width: auto;
 	background: #FFFFFF; /* el valor automático de los lados, unido a la anchura, centra el diseño  */
 	margin-top: 50px;
 	margin-right: 5%;
 	margin-bottom: 0;
 	margin-left: 5%;
+        padding-top: 1px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
 }
 /* ~~ No se asigna una anchura al encabezado. Se extenderá por toda la anchura del diseño. ~~ */
 header {
-	background-color: #55BDF4;
+	
+        margin: 10px;
+        vertical-align: middle;
 }
 
 .sidebar1 {
 	float: left;
 	width: auto;
 	padding-bottom: 0px;
-	background-color: #A5D0F3;
+	background-color: #50718B;
+        margin: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+         border: 1px solid #D4D4D4;
 }
 .content {
 	padding: 10px 0;
@@ -101,10 +105,23 @@ nav ul a:hover, nav ul a:active, nav ul a:focus { /* esto cambia el color de fon
 
 /* ~~ El pie de página ~~ */
 footer {
+        border: 1px solid #D4D4D4;
 	padding: 10px 0;
+        height: 50px;
 	position: relative;/* esto da a IE6 el parámetro hasLayout para borrar correctamente */
 	clear: both; /* esta propiedad de borrado fuerza a .container a conocer dónde terminan las columnas y a contenerlas */
-	background-color: #6FB4EC;
+        margin-top: 20px;
+        -moz-border-radius: 10px 10px 10px 10px;
+        -webkit-border-radius: 10px 10px 10px 10px;
+        border-radius: 10px 10px 10px 10px;
+        background-color: #50718B;
+        background-image: -moz-linear-gradient(top,white,#50718B);
+        background-image: -webkit-gradient(linear,0 0,0 100%,from(white),to(#50718B));
+        background-image: -webkit-linear-gradient(top,white,#50718B);
+        background-image: -o-linear-gradient(top,white,#50718B);
+        background-image: linear-gradient(to bottom,white,#50718B);
+        background-repeat: repeat-x;
+	/*background-color: #50718B;*/
 }
 /* ~~ Clases float/clear varias ~~ */
 .fltrt {  /* esta clase puede utilizarse para que un elemento flote en la parte derecha de la página. El elemento flotante debe preceder al elemento junto al que debe aparecer en la página. */

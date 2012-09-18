@@ -1,4 +1,5 @@
-  </article>
+</div></div>
+</article>
   
 
  
@@ -10,6 +11,7 @@
  
   </footer>
   <!-- end .container -->
+  
 </div>
 
 </body>
