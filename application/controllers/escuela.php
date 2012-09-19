@@ -20,8 +20,7 @@ class Escuela extends CI_Controller {
 		parent::__construct();
                  
                  // Lo primero que hacemos es cargar la librería que hace el control de los permisos
-        	$this->load->library('control_permisos');
-                $this->load->library('grocery_CRUD');
+        	$this->load->library('grocery_CRUD');
                 $this->grocery_crud->set_theme('datatables');
                 $this->load->library('session');
                 $this->sesion_usuario = $this->session->userdata('logged_in');
@@ -38,11 +37,8 @@ class Escuela extends CI_Controller {
         
     function abm(){
        
-        // Armamos los parámetros con los datos para controlar los permisos (rol hay que sacarlo de la session)
-        $params = array('rol' => $this->sesion_permiso['rol'], 'controlador' => 'escuela', 'funcion' => 'abm');
-        //  print_r($params);exit;
         // Pedimos a la librería que nos traiga el permiso
-        $permiso = $this->control_permisos->get_permiso($params);
+        $permiso = $this->control_permisos->get_permiso($this);
         
         switch ($permiso){
             

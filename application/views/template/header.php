@@ -1,11 +1,26 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Mi Escuela Virtual</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="description" content="">
+   <meta name="keywords" content="">
+   <meta name="author" content="">
+   <title>Mi Escuela Virtual</title>
+
+
+   <link href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
+   <link href="<?php echo base_url('assets/css/bootstrap-responsive.min.css') ?>" rel="stylesheet">
+   <link href="<?php echo base_url('assets/css/font-awesome.css') ?>" rel="stylesheet">
+   <link href="<?php echo base_url('assets/css/style.css') ?>" rel="stylesheet">
+   <link href="<?php echo base_url('assets/css/custom.css') ?>" rel="stylesheet">
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+   <script src="<?php echo base_url('assets/js/bootstrap.min.js') ?>"></script>
+   <script src="<?php echo base_url('assets/js/custom.js') ?>"></script>
+
 <link href="<?php echo base_url();?>css/body.css" rel="stylesheet" type="text/css">
 <link href="<?php echo base_url();?>js/acordion/css/dcaccordion.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type='text/javascript' src='<?php echo base_url();?>js/acordion/js/jquery.cookie.js'></script>
 <script type='text/javascript' src='<?php echo base_url();?>js/acordion/js/jquery.hoverIntent.minified.js'></script>
 <script type='text/javascript' src='<?php echo base_url();?>js/acordion/js/jquery.dcjqaccordion.2.7.min.js'></script>
@@ -29,14 +44,34 @@ $(document).ready(function($){
 <!--[if lt IE 9]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
 </head>
 
 <body>
-<div class="container">
+<div class="container1">
  
   <header>
   <!-- Barra Superior -->
-    <a href="#"><img src="" alt="Insertar logotipo aquí" name="Insert_logo" width="180" height="90" id="Insert_logo" style="background: #C6D580; display:block; background-color: #66CCFF;" /></a>
+  
+  <div class="navbar">
+     
+  <div class="navbar-inner">
+    <img class="brand" src="<?php echo base_url('images/pluma.jpg');?>" class="img-rounded">
+    <a class="brand" href="#">Pluma</a>
+     <div class="btn-group pull-right center-button">
+        <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i> Usuario</a>
+        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="#"><i class="icon-pencil"></i> Editar</a></li>
+            <li><a href="<?php echo site_url('login/logout'); ?>"><i class="icon-ban-circle"></i> Salir</a></li>
+          
+     </div>
+  </div>
+        
+</div>
+    
+    
+  
   </header>
 
   <div class="sidebar1">
@@ -98,14 +133,9 @@ $(document).ready(function($){
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
+   
   </div>
   <article class="content">
+      <div class="container">
+         <div class="hero-unit">
+      
