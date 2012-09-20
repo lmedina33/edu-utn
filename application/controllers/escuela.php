@@ -129,6 +129,62 @@ class Escuela extends CI_Controller {
     }
   
    function division($escuela=""){
+       
+       
+        // Pedimos a la librería que nos traiga el permiso
+        $permiso = $this->control_permisos->get_permiso($this);
+        
+        switch ($permiso){
+            
+            // 1: ver
+            // 2: listar
+            // 4: modificar
+            
+            
+            case 1:
+                // En este caso sólo tiene permiso para listar
+                $this->grocery_crud->unset_add();
+                $this->grocery_crud->unset_edit();
+                $this->grocery_crud->unset_delete();
+                $this->grocery_crud->where('escuela.id',  $this->sesion_permiso['escuela']);
+                break;
+            case 2: 
+                // Este es el caso en que puede ver pero sólo los datos de su escuela
+                $this->grocery_crud->unset_add();
+                $this->grocery_crud->unset_edit();
+                $this->grocery_crud->unset_delete();
+                break;
+            case 3:
+                // Este es el caso en que se puede ver y listar
+                $this->grocery_crud->unset_add();
+                $this->grocery_crud->unset_edit();
+                $this->grocery_crud->unset_delete();
+                break;
+            case 4:
+                // Este es el caso en que puede modificar los datos de su escuela
+                // quitamos la funcion de agregar escuelas
+                $this->grocery_crud->unset_add();
+                $this->grocery_crud->unset_delete();
+                
+                break;
+            case 5:
+                $this->grocery_crud->unset_add();
+                $this->grocery_crud->unset_delete();
+                $this->grocery_crud->where('escuela.id',  $this->sesion_permiso['escuela']);
+                break;
+            case 6:
+                $this->grocery_crud->unset_delete();
+                break;
+            case 7:
+                // Este es el caso en que se pueden listar todas las escuelas y modificarlas
+                $this->grocery_crud->unset_delete();
+                break;
+            
+        }
+       
+       
+        $escuela = $this->sesion_permiso['escuela'];
+        
         $this->load->library('grocery_CRUD');
         $this->grocery_crud->set_theme('datatables');
         
@@ -138,21 +194,21 @@ class Escuela extends CI_Controller {
         // Nombre que se muestra como referencia a la tabla
         $this->grocery_crud->set_subject('Divisiones');
      
-       $this->grocery_crud->where('escuela',$escuela); 
-       $this->grocery_crud->set_relation('turno','turno','nombre');
-       $this->grocery_crud->set_relation('planestudio','plandeestudio','nombre');
-       // Seteamos el id de la escuela
-       $this->grocery_crud->change_field_type('escuela','hidden',$escuela);
+        $this->grocery_crud->where('escuela',$escuela); 
+        $this->grocery_crud->set_relation('turno','turno','nombre');
+        $this->grocery_crud->set_relation('planestudio','plandeestudio','nombre');
+        // Seteamos el id de la escuela
+        $this->grocery_crud->change_field_type('escuela','hidden',$escuela);
     
        // Campos que se requieren para la inserción y modificacion
-       $this->grocery_crud->fields('nombre','descripcion','planestudio','turno','escuela');
+        $this->grocery_crud->fields('nombre','anio','descripcion','planestudio','turno','escuela');
         // Campos que se muestran en la tabla con los registros existentes
-        $this->grocery_crud->columns('nombre','planestudio','turno');
+        $this->grocery_crud->columns('nombre','anio','planestudio','turno');
         
         //Nombre a mostrar por cada campo de la tabla
-        $this->grocery_crud->display_as('nombre','Nombre de la División');
+        $this->grocery_crud->display_as('nombre','Nombre');
         $this->grocery_crud->display_as('descripcion','Observaciones');
-       
+        $this->grocery_crud->display_as('anio','Año');
        
         
         // Reglas de validación de los campos

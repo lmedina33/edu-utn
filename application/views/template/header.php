@@ -85,6 +85,9 @@ $(document).ready(function($){
                 <ul>
                     <li><a href="<?php echo site_url('escuela/abm') ?>">Gestión Escuela</a></li>
                 </ul>
+                 <ul>
+                    <li><a href="<?php echo site_url('escuela/division') ?>">Cursos y Divisiones</a></li>
+                </ul>
             </li>
                 <li>
                 <a href="<?php echo site_url('abm/plan_estudio'); ?>">Curriculares</a>
