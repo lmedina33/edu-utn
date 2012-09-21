@@ -71,8 +71,8 @@ class usuarios_model extends CI_Model{
        
        $query = $this->db->get();
        $data = $query->row_array();
-       
-       return $data['valor'];
+       if($data)  return $data['valor'];
+       else return 0;
         
    }
    
