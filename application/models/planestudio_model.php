@@ -24,6 +24,7 @@ class planestudio_model  extends CI_Model{
         
         return $data;
     }
+    
 }
 
 ?>

@@ -32,11 +32,9 @@ a:hover, a:active, a:focus { /* este grupo de selectores proporcionará a un usu
 /* ~~ Este contenedor de anchura fija rodea a todas las demás bloques ~~ */
 .container1 {
 	width: auto;
+        max-width: 1350px;
 	background: #FFFFFF; /* el valor automático de los lados, unido a la anchura, centra el diseño  */
-	margin-top: 50px;
-	margin-right: 5%;
-	margin-bottom: 0;
-	margin-left: 5%;
+	margin: 50px auto;
         padding-top: 1px;
         -moz-border-radius: 10px;
         -webkit-border-radius: 10px;
@@ -148,5 +146,6 @@ header, section, footer, aside, nav, article, figure {
 .central{
      
     position: relative; 
-    width: 800px;
+    width: 100%;
+
 }

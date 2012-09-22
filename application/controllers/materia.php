@@ -26,7 +26,7 @@ class materia extends CI_Controller {
         $this->grocery_crud->set_relation_n_n('planes','planestudio_materia','plandeestudio','materia','planestudio','nombre','');
       
         
-        $this->grocery_crud->add_action('Contenidos','','abm/contenido','ui-icon-plus');
+        $this->grocery_crud->add_action('Contenidos','','materia/contenido','ui-icon-plus');
         
         // Campos que se requieren para la inserción y modificacion
         $this->grocery_crud->fields('nombre','descripcion','resolucion','planes','year');

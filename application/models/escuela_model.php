@@ -17,18 +17,7 @@ class escuela_model extends CI_Model{
         
     }
     
-    function get_cursado($division="",$materia=""){
-        $this->db->select('*');
-        $this->db->from('cursado');
-        $this->db->where('division',$division);
-        $this->db->where('materia',$materia);
-        
-        $query = $this->db->get();
-        $data = $query->result_array();
-        
-        return $data;
-    }
-    
+ 
     function get_planestudio_division($division=""){
        
         $this->db->select('planestudio');
@@ -42,9 +31,16 @@ class escuela_model extends CI_Model{
         
     }
     
-    function insert_cursado($cursado=""){
-        $this->db->insert('cursado',$cursado);
-        return true;
+    
+    function get_nivel($escuela=""){
+        $this->db->select('nivel');
+        $this->db->from('escuela');
+        $this->db->where('id',$escuela);
+        
+        $query = $this->db->get();
+        $data = $query->row_array();
+        
+        return $data['nivel'];
     }
 }
 

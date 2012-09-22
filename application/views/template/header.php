@@ -9,14 +9,14 @@
    <title>Mi Escuela Virtual</title>
 
 
-   <link href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
-   <link href="<?php echo base_url('assets/css/bootstrap-responsive.min.css') ?>" rel="stylesheet">
+   <link href="<?php echo base_url('assets/css/bootstrap.css') ?>" rel="stylesheet">
+   <link href="<?php echo base_url('assets/css/bootstrap-responsive.css') ?>" rel="stylesheet">
    <link href="<?php echo base_url('assets/css/font-awesome.css') ?>" rel="stylesheet">
    <link href="<?php echo base_url('assets/css/style.css') ?>" rel="stylesheet">
    <link href="<?php echo base_url('assets/css/custom.css') ?>" rel="stylesheet">
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-   <script src="<?php echo base_url('assets/js/bootstrap.min.js') ?>"></script>
+   <script src="<?php echo base_url('assets/js/jquery.min.js') ?>"></script>
+   <script src="<?php echo base_url('assets/js/jquery-ui.min.js') ?>"></script>
+   <script src="<?php echo base_url('assets/js/bootstrap.js') ?>"></script>
    <script src="<?php echo base_url('assets/js/custom.js') ?>"></script>
 
 <link href="<?php echo base_url();?>css/body.css" rel="stylesheet" type="text/css">
@@ -59,10 +59,10 @@ $(document).ready(function($){
     <a class="brand" href="#">Pluma</a>
      <div class="btn-group pull-right">
         <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i> Usuario</a>
-        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+        <a class="btn btn-primary" data-toggle="dropdown" href="#"><span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a href="#"><i class="icon-pencil"></i> Editar</a></li>
-            <li><a href="#"><i class="icon-ban-circle"></i> Salir</a></li>
+            <li><a href="<?php echo site_url('login/logout');?>"><i class="icon-ban-circle"></i> Salir</a></li>
           
      </div>
   </div>
@@ -84,34 +84,37 @@ $(document).ready(function($){
                 <ul>
                     <li><a href="<?php echo site_url('escuela/abm') ?>">Gestión Escuela</a></li>
                 </ul>
+                 <ul>
+                    <li><a href="<?php echo site_url('escuela/division') ?>">Cursos y Divisiones</a></li>
+                </ul>
             </li>
                 <li>
-                <a href="<?php echo site_url('abm/plan_estudio'); ?>">Curriculares</a>
+                <a href="#">Curriculares</a>
                 <ul>
-                    <li><a href="<?php echo site_url('abm/plan_estudio') ?>">Planes de Estudio</a></li>
+                    <li><a href="<?php echo site_url('plan_estudio/abm') ?>">Planes de Estudio</a></li>
                 </ul>
                 <ul>
-                    <li><a href="<?php echo site_url('abm/materia') ?>">Materias</a></li>
+                    <li><a href="<?php echo site_url('materia/abm') ?>">Materias</a></li>
                 </ul>
                 <ul>
-                    <li><a href="<?php echo site_url('abm/especialidad') ?>">Especialidades</a></li>
+                    <li><a href="<?php echo site_url('especialidad/abm') ?>">Especialidades</a></li>
                 </ul>
            </li>
              <li>
                 <a href="#">Personas</a>
                 <ul>
-                    <li><a href="<?php echo site_url('abm/persona') ?>">Listar Personas</a></li>
+                    <li><a href="<?php echo site_url('persona/abm') ?>">Listar Personas</a></li>
                 </ul>
                 <ul>
-                    <li><a href="<?php echo site_url('abm/persona/directivo') ?>">Directivos</a></li>
+                    <li><a href="<?php echo site_url('persona/abm/directivo') ?>">Directivos</a></li>
                 </ul>
                 <ul>
-                    <li><a href="<?php echo site_url('abm/persona/docente') ?>">Docentes</a></li>
+                    <li><a href="<?php echo site_url('persona/abm/docente') ?>">Docentes</a></li>
                 </ul>
                 <ul>
-                    <li><a href="<?php echo site_url('abm/persona/alumno') ?>">Alumnos</a></li>
+                    <li><a href="<?php echo site_url('persona/abm/alumno') ?>">Alumnos</a></li>
                 <ul>
-                    <li><a href="<?php echo site_url('abm/persona/padre') ?>">Padres</a></li>
+                    <li><a href="<?php echo site_url('persona/abm/padre') ?>">Padres</a></li>
                 </ul>
                 </ul>
            </li>
