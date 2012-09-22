@@ -47,6 +47,42 @@ class persona_model extends CI_Model{
         return $data;
         
     }
+    
+    function get_alumno($apenom="",$dni=""){
+        $this->db->select('persona.apellido, persona.nombre, persona.dni');
+        $this->db->from('persona');
+        $this->db->join('alumno','alumno.persona = persona.id','inner');
+        if($apenom){
+            $this->db->like('persona.apellido',$apenom,'both');
+            $this->db->or_like('persona.nombre',$apenom,'both');
+            
+            }
+        if($dni) $this->db->like('dni',$dni);
+        $this->db->limit(7);
+        
+        $query = $this->db->get();
+        $data = $query->result_array();
+        
+        return $data;
+        
+    }
+    function get_alumno_criteria($apellido="",$nombre="",$dni=""){
+       
+        $this->db->select('*');
+        $this->db->from('persona');
+        $this->db->join('alumno','alumno.persona = persona.id','inner');
+        $this->db->where('persona.apellido',$apellido);
+        $this->db->where('persona.nombre',$nombre);
+        $this->db->where('persona.dni',$dni);
+        
+        $query = $this->db->get();
+        $data = $query->row_array();
+        
+        return $data;
+        
+        
+        
+    }
 }
 
 ?>

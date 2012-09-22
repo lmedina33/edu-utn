@@ -15,10 +15,10 @@ class Persona extends CI_Controller {
     
     
     
-    function  abm($tipo=""){
+    function  abm($tipo="",$modal=""){
         
         $this->load->library('grocery_CRUD');
-        $this->grocery_crud->set_theme('datatables');
+       // $this->grocery_crud->set_theme('datatables');
         
         $this->grocery_crud->set_table('persona');
         // Nombre que se muestra como referencia a la tabla
@@ -67,16 +67,22 @@ class Persona extends CI_Controller {
                 $this->grocery_crud->add_action('Familia','','abm/relacionar','ui-icon-plus');
       
                 }
+            else  if($tipo == ''){
+                
+            }
              else{
                 $this->grocery_crud->callback_after_insert(array($this,'crear_'.$tipo));
                 $this->grocery_crud->set_primary_key('persona',$tipo);
                 $this->grocery_crud->set_relation('id',$tipo,'persona');
                 $this->grocery_crud->where('not(persona is null)');
+                 
              }
         }
         $this->grocery_crud->unset_delete();
         $output = $this->grocery_crud->render();
-        $this->load->view('v_abm.php',$output);  
+        
+        if($modal==1) $this->load->view('v_modal.php',$output);
+            else $this->load->view('v_abm.php',$output);  
     }
     
     function crear_alumno($post_array,$primary_key){
@@ -223,6 +229,25 @@ class Persona extends CI_Controller {
          $output = $this->grocery_crud->render();
          $this->load->view('v_abm.php',$output);  
    
+    }
+    
+   public function get_alumno(){
+        $valor = $this->input->post('term');
+        $this->load->model('persona_model');
+        if(is_numeric($valor)){
+             $data = $this->persona_model->get_alumno('',$valor); 
+        }
+        else{
+             $data = $this->persona_model->get_alumno($valor,''); 
+        }
+        
+      
+        $arr = array();
+        foreach($data as $persona):
+           $arr[] = $persona['apellido'] .', '.$persona['nombre'].' - '.$persona['dni'];
+        endforeach;
+        
+        echo json_encode($arr);
     }
 }
 

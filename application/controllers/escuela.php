@@ -184,6 +184,8 @@ class Escuela extends CI_Controller {
        
        
         $escuela = $this->sesion_permiso['escuela'];
+        $this->load->model('escuela_model');
+        $nivel = $this->escuela_model->get_nivel($escuela);
         
         $this->load->library('grocery_CRUD');
         $this->grocery_crud->set_theme('datatables');
@@ -195,8 +197,9 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->set_subject('Divisiones');
      
         $this->grocery_crud->where('escuela',$escuela); 
+     //   $this->grocery_crud->where('plandeestudio.nivel = 1');
         $this->grocery_crud->set_relation('turno','turno','nombre');
-        $this->grocery_crud->set_relation('planestudio','plandeestudio','nombre');
+        $this->grocery_crud->set_relation('planestudio','plandeestudio','nombre','nivel = '.$nivel);
         // Seteamos el id de la escuela
         $this->grocery_crud->change_field_type('escuela','hidden',$escuela);
     
@@ -210,6 +213,8 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->display_as('descripcion','Observaciones');
         $this->grocery_crud->display_as('anio','Año');
        
+        $this->grocery_crud->add_action('Matricula alumnos..','','escuela/inscripcion','ui-icon-plus');
+        $this->grocery_crud->callback_after_insert(array($this, 'generar_cursado'));
         
         // Reglas de validación de los campos
         $this->grocery_crud->set_rules('nombre','Nombre','required');
@@ -221,26 +226,161 @@ class Escuela extends CI_Controller {
        
    }
    
-   function generar_cursado($division=""){
+   function inscripcion($division=""){
+       $this->load->model('cursado_model');
+       
+       $data['division']=$division;
+       $data['inscriptos'] = $this->cursado_model->get_inscriptos_division($division);
+       
+       $this->form_validation->set_rules('alumno', 'Alumno', 'required|callback_alumno_check['.$division.']');
+       if ($this->form_validation->run() == FALSE)
+		{
+                        $data['division']=$division;
+                        $data['inscriptos'] = $this->cursado_model->get_inscriptos_division($division);
+			$this->load->view('v_inscripcion',$data);
+		}
+		else
+		{
+                        $input = $this->input->post('alumno');
+                        $division = $this->input->post('division');
+                        
+                        
+                        $str_explode = explode('-', $input);
+                        $ape_nom = explode(',', $str_explode[0]);
+
+                        $apellido = trim($ape_nom[0]);
+                        $nombre = trim($ape_nom[1]);
+                        $dni = trim($str_explode[1]);
+                        
+                        $this->load->model('persona_model');
+                        $data = $this->persona_model->get_alumno_criteria($apellido,$nombre,$dni);
+                       
+                        $this->inscribir($data['id'],$division);
+                        
+		}
+   }
+  
+   public function alumno_check($str,$division)
+	{ 
+       
+        $this->load->model('persona_model');
+        $str_explode = explode('-', $str);
+        $ape_nom = explode(',', $str_explode[0]);
+        
+        $apellido = trim($ape_nom[0]);
+     
+        if(isset($ape_nom[1]))$nombre = trim($ape_nom[1]);
+        if(isset($str_explode[1]))$dni = trim($str_explode[1]);
+        if(isset($apellido) and isset($dni) and isset($nombre)) $data = $this->persona_model->get_alumno_criteria($apellido,$nombre,$dni);
+       // print_r($data); exit;
+		if (!isset($data))
+                {
+			$this->form_validation->set_message('alumno_check', 'El %s no existe.');
+			return FALSE;
+		}
+                else if(count($data) == 0){
+                   
+                        $this->form_validation->set_message('alumno_check', 'El %s no existe.');
+			return FALSE;
+                }
+		else
+		{
+                        //Ahora verificamos que no este inscripto
+                        $this->load->model('alumno_model');
+                        
+                        if($this->alumno_model->esta_inscripto($data['id'])){
+                            $this->form_validation->set_message('alumno_check', 'El %s ya se encuentra inscripto.');
+                            return FALSE;  
+                            
+                        }
+                    else
+			return TRUE;
+		}
+	}
+   
+  
+   
+   function inscribir($alumno="",$division=""){
+      // primero buscamos los cursados correspondientes a la division
+       $this->load->model('cursado_model');
+       $this->load->model('alumno_model');
+       $cursados = $this->cursado_model->get_cursado_division($division);
+      // print_r($division);
+       foreach($cursados as $cursado):
+            // creamos el cuaderno de comunicaciones
+            $id_cuderno = $this->alumno_model-> create_comunicaciones();
+             $valores  = array(
+                        'alumno' => $alumno,
+                        'comunicaciones' => $id_cuderno,
+                        'estado' => 1,
+                        'cursado' => $cursado['id']
+             );
+            // creamos la inscripcion
+            $id_inscripcion = $this->alumno_model->create_inscripcion ($valores);
+       endforeach;
+       
+       redirect('escuela/inscripcion/'.$division,'refresh');
+       
+   }
+   
+   function cursado($division=""){
+       
+        $escuela = $this->sesion_permiso['escuela'];
+        
+        $this->grocery_crud->set_theme('datatables');
+        
+        // Elegimos la tabla sobre la que vamos a trabajar
+        $this->grocery_crud->set_table("cursado");
+        // Nombre que se muestra como referencia a la tabla
+        $this->grocery_crud->set_subject('Cursados');
+     
+        $this->grocery_crud->set_relation('division','division','{anio} - {nombre}','escuela = '.$escuela);
+        $this->grocery_crud->set_relation('materia','materia','{nombre}');
+        // Seteamos el id de la escuela
+        
+       // Campos que se requieren para la inserción y modificacion
+        /*$this->grocery_crud->fields('nombre','anio','descripcion','planestudio','turno','escuela');
+        // Campos que se muestran en la tabla con los registros existentes
+        $this->grocery_crud->columns('nombre','anio','planestudio','turno');
+        
+        //Nombre a mostrar por cada campo de la tabla
+        $this->grocery_crud->display_as('nombre','Nombre');
+        $this->grocery_crud->display_as('descripcion','Observaciones');
+        $this->grocery_crud->display_as('anio','Año');
+       
+        
+        // Reglas de validación de los campos
+        $this->grocery_crud->set_rules('nombre','Nombre','required');
+       */
+        $output = $this->grocery_crud->render();
+        
+        
+        $this->load->view('v_abm.php',$output);  
+       
+   }
+   //$post_array,$primary_key
+   function generar_cursado($post_array="",$division=""){
        
        $this->load->model('escuela_model');
+       $this->load->model('cursado_model');
+       $this->load->model('planestudio_model');
      
        // Obtenemos el plan de estudio de la division
        $plan_estudio = $this->escuela_model->get_planestudio_division($division);
        
        // Buscamos las materias que tiene asignadas el plan de estudio
-       $this->load->model('planestudio_model');
+       
        $materias = $this->planestudio_model->get_materias_plan($plan_estudio);
        
        // Por cada materia del plan de estudio generamos un cursado
        foreach ($materias as $materia):
            // Verificamos que no exista un cursado activo
-           $cursado = $this->escuela_model->get_cursado($division,$materia['id']);
+           $cursado = $this->cursado_model->get_cursado($division,$materia['id']);
            if(count($cursado)== 0){
                // No existe un cursado activo para la materia y division
                 $cursado['materia'] = $materia['id'];
                 $cursado['division'] = $division;
-                $this->escuela_model->insert_cursado($cursado);
+                $this->cursado_model->insert_cursado($cursado);
            }
            else{
                // Existe un cursado activo para la materia y division
