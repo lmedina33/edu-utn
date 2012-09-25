@@ -24,7 +24,7 @@ class especialidad extends CI_Controller{
         // Campos que se requieren para la inserción y modificacion
         $this->grocery_crud->fields('nombre','descripcion','resolucion');
         // Campos que se muestran en la tabla con los registros existentes
-        $this->grocery_crud->columns('nombre','descripcion','resolucion','fechaAlta','fechaBaja');
+        $this->grocery_crud->columns('nombre','descripcion','resolucion','fechaAlta');
       
         //Nombre a mostrar por cada campo de la tabla
         $this->grocery_crud->display_as('nombre','Nombre de la Especialidad');
@@ -39,6 +39,7 @@ class especialidad extends CI_Controller{
         $this->grocery_crud->set_rules('resolucion','Resolucion','required|alpha_numeric');
        
         $output = $this->grocery_crud->render();
+        $output->titulo = 'Gestión de especialidades';
         $this->load->view('v_abm.php',$output);  
         
     }

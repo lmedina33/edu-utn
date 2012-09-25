@@ -9,14 +9,14 @@
    <title>Mi Escuela Virtual</title>
 
 
-   <link href="<?php echo base_url('assets/css/bootstrap.css') ?>" rel="stylesheet">
-   <link href="<?php echo base_url('assets/css/bootstrap-responsive.css') ?>" rel="stylesheet">
+   <link href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
+   <link href="<?php echo base_url('assets/css/bootstrap-responsive.min.css') ?>" rel="stylesheet">
    <link href="<?php echo base_url('assets/css/font-awesome.css') ?>" rel="stylesheet">
    <link href="<?php echo base_url('assets/css/style.css') ?>" rel="stylesheet">
    <link href="<?php echo base_url('assets/css/custom.css') ?>" rel="stylesheet">
-   <script src="<?php echo base_url('assets/js/jquery.min.js') ?>"></script>
-   <script src="<?php echo base_url('assets/js/jquery-ui.min.js') ?>"></script>
-   <script src="<?php echo base_url('assets/js/bootstrap.js') ?>"></script>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+   <script src="<?php echo base_url('assets/js/bootstrap.min.js') ?>"></script>
    <script src="<?php echo base_url('assets/js/custom.js') ?>"></script>
 
 <link href="<?php echo base_url();?>css/body.css" rel="stylesheet" type="text/css">
@@ -44,6 +44,7 @@ $(document).ready(function($){
 <!--[if lt IE 9]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
 </head>
 
 <body>
@@ -57,14 +58,13 @@ $(document).ready(function($){
   <div class="navbar-inner">
     <img class="brand" src="<?php echo base_url('images/pluma.jpg');?>" class="img-rounded">
     <a class="brand" href="#">Pluma</a>
-     <div class="btn-group pull-right">
+     <div class="btn-group pull-right center-button">
         <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i> Usuario</a>
-        <a class="btn btn-primary" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a href="<?php echo site_url('persona/edit_user');?>"><i class="icon-pencil"></i> Cambiar contraseña</a></li>
-            <li><a href="<?php echo site_url('login/logout');?>"><i class="icon-ban-circle"></i> Salir</a></li>
-           <li class="divider"></li>
-           <li><a href="#myModal2" data-toggle="modal"><i class="icon-pencil"></i>Modificar datos personales.</a></li>
+            <li><a href="#"><i class="icon-pencil"></i> Editar</a></li>
+            <li><a href="<?php echo site_url('login/logout'); ?>"><i class="icon-ban-circle"></i> Salir</a></li>
+          
      </div>
   </div>
         
@@ -73,8 +73,7 @@ $(document).ready(function($){
     
   
   </header>
-    <?php $rol  = $this->session->userdata('rol'); //print_r($rol);exit; ?>
-    <?php $persona = $this->session->userdata('logged_in');?>
+
   <div class="sidebar1">
     <p>
       <!-- Barra lateral Izquierda-->
@@ -86,53 +85,47 @@ $(document).ready(function($){
                 <ul>
                     <li><a href="<?php echo site_url('escuela/abm') ?>">Gestión Escuela</a></li>
                 </ul>
-               <?php if($rol['rol']==2){?>   
-                <ul>
+                 <ul>
                     <li><a href="<?php echo site_url('escuela/division') ?>">Cursos y Divisiones</a></li>
                 </ul>
-               <?php }?> 
             </li>
-         <?php if($rol['rol']==1){?>       
-            <li>
-                <a href="#">Curriculares</a>
+                <li>
+                <a href="<?php echo site_url('abm/plan_estudio'); ?>">Curriculares</a>
                 <ul>
-                    <li><a href="<?php echo site_url('plan_estudio/abm') ?>">Planes de Estudio</a></li>
+                    <li><a href="<?php echo site_url('abm/plan_estudio') ?>">Planes de Estudio</a></li>
                 </ul>
                 <ul>
-                    <li><a href="<?php echo site_url('materia/abm') ?>">Materias</a></li>
+                    <li><a href="<?php echo site_url('abm/materia') ?>">Materias</a></li>
                 </ul>
                 <ul>
-                    <li><a href="<?php echo site_url('especialidad/abm') ?>">Especialidades</a></li>
+                    <li><a href="<?php echo site_url('abm/especialidad') ?>">Especialidades</a></li>
                 </ul>
            </li>
-         <?php }?>
              <li>
                 <a href="#">Personas</a>
                 <ul>
-                    <li><a href="<?php echo site_url('persona/abm/persona') ?>">Todas</a></li>
+                    <li><a href="<?php echo site_url('abm/persona') ?>">Listar Personas</a></li>
                 </ul>
                 <ul>
-                    <li><a href="<?php echo site_url('persona/abm/directivo') ?>">Directivos</a></li>
+                    <li><a href="<?php echo site_url('abm/persona/directivo') ?>">Directivos</a></li>
                 </ul>
                 <ul>
-                    <li><a href="<?php echo site_url('persona/abm/docente') ?>">Docentes</a></li>
+                    <li><a href="<?php echo site_url('abm/persona/docente') ?>">Docentes</a></li>
                 </ul>
                 <ul>
-                    <li><a href="<?php echo site_url('persona/abm/alumno') ?>">Alumnos</a></li>
-                </ul>
+                    <li><a href="<?php echo site_url('abm/persona/alumno') ?>">Alumnos</a></li>
                 <ul>
-                    <li><a href="<?php echo site_url('persona/abm/padre') ?>">Padres</a></li>
-                
+                    <li><a href="<?php echo site_url('abm/persona/padre') ?>">Padres</a></li>
+                </ul>
                 </ul>
            </li>
-         <?php if($rol['rol']==1){?>         
             <li>
                 <a href="#">Usuarios y Permisos</a>
                 <ul>
                     <li><a href="<?php echo site_url('admin/usuarios') ?>">Administrar Usuarios</a></li>
                 </ul>
             </li>
-        <?php }?>
+
         </ul>
         </div>
       
@@ -145,18 +138,6 @@ $(document).ready(function($){
     <p>&nbsp;</p>
    
   </div>
-     <div id="myModal2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h3 id="myModalLabel">Modificar datos Personales</h3>
-            </div>
-            <div class="modal-body">
-                <iframe src="<?php echo site_url('persona/abm/mod/1/edit/'.$persona['persona']);?>" width="930" height="900" frameborder="0"></iframe>
-            </div>
-        <div class="modal-footer">
-              <button class="btn" data-dismiss="modal">Close</button>
-        </div>
-        </div>
   <article class="content">
       <div class="container">
          <div class="hero-unit">

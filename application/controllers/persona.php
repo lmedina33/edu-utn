@@ -13,6 +13,43 @@
 class Persona extends CI_Controller {
     //put your code here   
     
+    function edit_user(){
+       
+        $usuario = $this->session->userdata('logged_in');
+       // print_r($usuario); exit;
+        $this->form_validation->set_rules('old_pass', 'Contraseña actual', 'required|callback_usuario_check['.$usuario['id'].']');
+        $this->form_validation->set_rules('new_pass', 'Contraseña nueva', 'required|min_length[8]');
+        $this->form_validation->set_rules('new_pass1', 'Repita contraseña', 'required|min_length[8]|matches[new_pass]');
+        
+       if ($this->form_validation->run() == FALSE)
+		{
+                       
+			$this->load->view('v_moduser');
+		}
+		else
+		{
+                    $data['exito'] = 1;
+                    $this->load->model('usuarios_model');
+                    $this->usuarios_model->change_pass($this->input->post('new_pass'),$usuario['id']);
+                    $this->load->view('v_moduser',$data);
+                }
+                
+        
+    }
+    
+     public function usuario_check($str,$usuario)
+	{
+         $this->load->model('usuarios_model');
+         $data = $this->usuarios_model->check_pass($str,$usuario);
+         if (count($data)==0)
+                {
+			$this->form_validation->set_message('usuario_check', 'La contraseña actual es incorrecta.');
+			return FALSE;
+                }
+                else {
+                    return TRUE;
+                }
+        }
     
     
     function  abm($tipo="",$modal=""){
@@ -74,6 +111,11 @@ class Persona extends CI_Controller {
                 $this->grocery_crud->add_action('Marcar padre/madre',base_url('images/pama.png'),'persona/marcar_padre');
              
                 }
+           else if($tipo == 'mod'){
+                    $this->grocery_crud->unset_back_to_list();
+                    $tipo = 'datos personales';
+                    $this->grocery_crud->set_subject($tipo);
+           }
            else{
                 $this->grocery_crud->callback_after_insert(array($this,'crear_'.$tipo));
                 $this->grocery_crud->set_primary_key('persona',$tipo);

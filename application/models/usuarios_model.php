@@ -110,6 +110,26 @@ class usuarios_model extends CI_Model{
      // print_r($data); exit; 
       return $data;
    }
+   function check_pass($pass="",$usuario=""){
+       
+       $this->db->select('id');
+       $this->db->from('usuario');
+       $this->db->where('id',$usuario);
+       $this->db->where('password',  md5($pass));
+       $query = $this->db->get();
+       $data = $query->row_array();
+       
+       return $data;
+   }
+   
+   function change_pass($pass="",$usuario=""){
+       $this->db->set('password',  md5($pass));
+       $this->db->where('id',$usuario);
+       $this->db->update('usuario');
+       
+       return true;
+       
+   }
 }
 
 ?>

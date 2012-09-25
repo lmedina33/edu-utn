@@ -4234,7 +4234,7 @@ input[type="submit"].btn.btn-mini {
 .navbar .btn-group .btn,
 .navbar .input-prepend .btn,
 .navbar .input-append .btn {
-  margin-top: 0;
+  margin-top: 10%;
 }
 
 .navbar-form {
@@ -4901,6 +4901,7 @@ input[type="submit"].btn.btn-mini {
   left: 50%;
   z-index: 1050;
   width: auto;
+  height: auto;
   margin: -250px 0 0 -380px;
   overflow: auto;
   background-color: #ffffff;
