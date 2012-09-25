@@ -10,7 +10,7 @@ foreach($css_files as $file): ?>
 <section>
     
     <div class="central">
-        <p><h3><?php if(isset($titulo)) echo $titulo ; ?></h1></p><br />
+       
         <p><?php echo $output; ?></p>
         <p><?php if(isset($html_inf)) echo $html_inf ; ?></p>
     </div>
