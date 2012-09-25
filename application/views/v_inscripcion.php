@@ -1,5 +1,5 @@
 <?php $this->load->view('template/header');?>
-  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <link href="<?php echo base_url('assets/css/jquery-ui.css');?>" rel="stylesheet" type="text/css"/>
 <script type="text/javascript"> 
 
 $(document).ready(function() {
