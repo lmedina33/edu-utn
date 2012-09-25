@@ -3,7 +3,7 @@
 -- Server version:               5.5.24-0ubuntu0.12.04.1 - (Ubuntu)
 -- Server OS:                    debian-linux-gnu
 -- HeidiSQL version:             7.0.0.4053
--- Date/time:                    2012-09-21 20:07:56
+-- Date/time:                    2012-09-25 02:33:17
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -26,15 +26,33 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   PRIMARY KEY (`id`),
   KEY `persona` (`persona`),
   CONSTRAINT `persona` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.alumno: ~3 rows (approximately)
+-- Dumping data for table edu.alumno: ~21 rows (approximately)
 DELETE FROM `alumno`;
 /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
 INSERT INTO `alumno` (`id`, `fechaIngreso`, `fechaEngreso`, `fechaSalida`, `persona`) VALUES
 	(1, '2012-07-17', NULL, NULL, 4),
 	(2, '2012-07-17', NULL, NULL, 5),
-	(3, '2012-07-17', NULL, NULL, 6);
+	(3, '2012-07-17', NULL, NULL, 6),
+	(4, '2012-09-22', NULL, NULL, 10),
+	(5, '2012-09-22', NULL, NULL, 11),
+	(6, '2012-09-22', NULL, NULL, 12),
+	(7, '2012-09-22', NULL, NULL, 13),
+	(8, '2012-09-22', NULL, NULL, 14),
+	(9, '2012-09-22', NULL, NULL, 15),
+	(10, '2012-09-22', NULL, NULL, 16),
+	(11, '2012-09-22', NULL, NULL, 17),
+	(12, '2012-09-22', NULL, NULL, 18),
+	(13, '2012-09-22', NULL, NULL, 19),
+	(14, '2012-09-22', NULL, NULL, 20),
+	(15, '2012-09-22', NULL, NULL, 21),
+	(16, '2012-09-22', NULL, NULL, 22),
+	(17, '2012-09-22', NULL, NULL, 23),
+	(18, '2012-09-22', NULL, NULL, 24),
+	(19, '2012-09-23', NULL, NULL, 25),
+	(20, '2012-09-24', NULL, NULL, 26),
+	(21, '2012-09-24', NULL, NULL, 27);
 /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
 
 
@@ -53,18 +71,66 @@ DELETE FROM `cargo`;
 /*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
 
 
+-- Dumping structure for table edu.ci_sessions
+DROP TABLE IF EXISTS `ci_sessions`;
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+  `session_id` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '0',
+  `ip_address` varchar(16) COLLATE utf8_bin NOT NULL DEFAULT '0',
+  `user_agent` varchar(150) COLLATE utf8_bin NOT NULL,
+  `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
+  `user_data` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`session_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- Dumping data for table edu.ci_sessions: ~1 rows (approximately)
+DELETE FROM `ci_sessions`;
+/*!40000 ALTER TABLE `ci_sessions` DISABLE KEYS */;
+INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
+	('565d27d8d19d71cd0f30abee03319128', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.11 (KHTML, like Gecko) Ubuntu/12.04 Chromium/20.0.1132.47 Chrome/20.0.11', 1348535691, '');
+/*!40000 ALTER TABLE `ci_sessions` ENABLE KEYS */;
+
+
 -- Dumping structure for table edu.comunicaciones
 DROP TABLE IF EXISTS `comunicaciones`;
 CREATE TABLE IF NOT EXISTS `comunicaciones` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `fechaAlta` date DEFAULT NULL,
+  `fechaAlta` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaBaja` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.comunicaciones: ~0 rows (approximately)
+-- Dumping data for table edu.comunicaciones: ~25 rows (approximately)
 DELETE FROM `comunicaciones`;
 /*!40000 ALTER TABLE `comunicaciones` DISABLE KEYS */;
+INSERT INTO `comunicaciones` (`id`, `fechaAlta`, `fechaBaja`) VALUES
+	(1, '2012-09-21 23:53:23', '0000-00-00'),
+	(2, '2012-09-21 23:53:44', '0000-00-00'),
+	(3, '2012-09-21 23:53:44', '0000-00-00'),
+	(4, '2012-09-21 23:53:44', '0000-00-00'),
+	(5, '2012-09-22 00:03:04', '0000-00-00'),
+	(6, '2012-09-22 00:03:04', '0000-00-00'),
+	(7, '2012-09-22 00:03:04', '0000-00-00'),
+	(8, '2012-09-22 00:04:16', '0000-00-00'),
+	(9, '2012-09-22 00:04:16', '0000-00-00'),
+	(10, '2012-09-22 00:04:16', '0000-00-00'),
+	(11, '2012-09-22 00:31:03', '0000-00-00'),
+	(12, '2012-09-22 00:31:03', '0000-00-00'),
+	(13, '2012-09-22 00:31:03', '0000-00-00'),
+	(14, '2012-09-22 01:49:36', '0000-00-00'),
+	(15, '2012-09-22 01:49:36', '0000-00-00'),
+	(16, '2012-09-22 01:49:36', '0000-00-00'),
+	(17, '2012-09-22 01:52:53', '0000-00-00'),
+	(18, '2012-09-22 01:52:53', '0000-00-00'),
+	(19, '2012-09-22 01:52:53', '0000-00-00'),
+	(20, '2012-09-23 23:13:35', '0000-00-00'),
+	(21, '2012-09-23 23:13:35', '0000-00-00'),
+	(22, '2012-09-23 23:13:35', '0000-00-00'),
+	(23, '2012-09-23 23:30:15', '0000-00-00'),
+	(24, '2012-09-23 23:30:15', '0000-00-00'),
+	(25, '2012-09-23 23:30:15', '0000-00-00'),
+	(26, '2012-09-24 22:09:10', '0000-00-00'),
+	(27, '2012-09-24 22:09:10', '0000-00-00'),
+	(28, '2012-09-24 22:09:10', '0000-00-00');
 /*!40000 ALTER TABLE `comunicaciones` ENABLE KEYS */;
 
 
@@ -92,7 +158,7 @@ INSERT INTO `contenido` (`id`, `nombre`, `descripcion`, `materia`) VALUES
 DROP TABLE IF EXISTS `cursado`;
 CREATE TABLE IF NOT EXISTS `cursado` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `fechaAlta` date DEFAULT NULL,
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaBaja` date DEFAULT NULL,
   `descripcion` longtext CHARACTER SET latin1,
   `materia` bigint(20) unsigned NOT NULL,
@@ -102,11 +168,21 @@ CREATE TABLE IF NOT EXISTS `cursado` (
   KEY `division` (`division`),
   CONSTRAINT `division` FOREIGN KEY (`division`) REFERENCES `division` (`id`),
   CONSTRAINT `materia` FOREIGN KEY (`materia`) REFERENCES `materia` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.cursado: ~0 rows (approximately)
+-- Dumping data for table edu.cursado: ~9 rows (approximately)
 DELETE FROM `cursado`;
 /*!40000 ALTER TABLE `cursado` DISABLE KEYS */;
+INSERT INTO `cursado` (`id`, `fechaAlta`, `fechaBaja`, `descripcion`, `materia`, `division`) VALUES
+	(5, '2012-09-21 23:17:12', NULL, NULL, 4, 15),
+	(6, '2012-09-21 23:17:12', NULL, NULL, 5, 15),
+	(7, '2012-09-21 23:17:12', NULL, NULL, 6, 15),
+	(8, '2012-09-22 01:49:21', NULL, NULL, 4, 16),
+	(9, '2012-09-22 01:49:21', NULL, NULL, 5, 16),
+	(10, '2012-09-22 01:49:21', NULL, NULL, 6, 16),
+	(11, '2012-09-23 23:33:13', NULL, NULL, 4, 17),
+	(12, '2012-09-23 23:33:13', NULL, NULL, 5, 17),
+	(13, '2012-09-23 23:33:13', NULL, NULL, 6, 17);
 /*!40000 ALTER TABLE `cursado` ENABLE KEYS */;
 
 
@@ -210,13 +286,15 @@ CREATE TABLE IF NOT EXISTS `directivo` (
   PRIMARY KEY (`id`),
   KEY `FK_persona` (`persona`),
   CONSTRAINT `FK_persona` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.directivo: ~1 rows (approximately)
+-- Dumping data for table edu.directivo: ~3 rows (approximately)
 DELETE FROM `directivo`;
 /*!40000 ALTER TABLE `directivo` DISABLE KEYS */;
 INSERT INTO `directivo` (`id`, `persona`) VALUES
-	(1, 8);
+	(4, 7),
+	(1, 8),
+	(2, 9);
 /*!40000 ALTER TABLE `directivo` ENABLE KEYS */;
 
 
@@ -240,9 +318,9 @@ CREATE TABLE IF NOT EXISTS `division` (
   CONSTRAINT `escuela` FOREIGN KEY (`escuela`) REFERENCES `escuela` (`id`),
   CONSTRAINT `planestudio` FOREIGN KEY (`planestudio`) REFERENCES `plandeestudio` (`id`),
   CONSTRAINT `turno` FOREIGN KEY (`turno`) REFERENCES `turno` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.division: ~10 rows (approximately)
+-- Dumping data for table edu.division: ~9 rows (approximately)
 DELETE FROM `division`;
 /*!40000 ALTER TABLE `division` DISABLE KEYS */;
 INSERT INTO `division` (`id`, `nombre`, `fechaAlta`, `fechaBaja`, `descripcion`, `numero`, `anio`, `escuela`, `planestudio`, `turno`) VALUES
@@ -252,10 +330,9 @@ INSERT INTO `division` (`id`, `nombre`, `fechaAlta`, `fechaBaja`, `descripcion`,
 	(5, 'B', '2012-09-19 19:39:20', NULL, NULL, NULL, '1', 1, 2, 1),
 	(6, 'B', '2012-09-19 19:39:43', NULL, NULL, NULL, '3', 1, 2, 1),
 	(7, 'A', '2012-09-19 19:41:18', NULL, NULL, NULL, '1', 1, 2, 1),
-	(8, 'A', '2012-09-21 19:20:20', NULL, NULL, NULL, '1', 2, 3, 1),
-	(9, 'B', '2012-09-21 19:20:31', NULL, NULL, NULL, '1', 2, 3, 2),
-	(10, 'A', '2012-09-21 19:20:43', NULL, NULL, NULL, '2', 2, 3, 1),
-	(11, 'B', '2012-09-21 19:20:58', NULL, NULL, NULL, '2', 2, 3, 2);
+	(15, 'A', '2012-09-21 23:17:12', NULL, NULL, NULL, '1', 2, 3, 1),
+	(16, 'A', '2012-09-22 01:49:21', NULL, NULL, NULL, '2', 2, 3, 1),
+	(17, 'A', '2012-09-23 23:33:13', NULL, NULL, NULL, '3', 2, 3, 1);
 /*!40000 ALTER TABLE `division` ENABLE KEYS */;
 
 
@@ -267,13 +344,14 @@ CREATE TABLE IF NOT EXISTS `docente` (
   PRIMARY KEY (`id`),
   KEY `FKD_persona` (`persona`),
   CONSTRAINT `FKD_persona` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.docente: ~1 rows (approximately)
+-- Dumping data for table edu.docente: ~2 rows (approximately)
 DELETE FROM `docente`;
 /*!40000 ALTER TABLE `docente` DISABLE KEYS */;
 INSERT INTO `docente` (`id`, `persona`) VALUES
-	(1, 7);
+	(1, 7),
+	(2, 8);
 /*!40000 ALTER TABLE `docente` ENABLE KEYS */;
 
 
@@ -309,7 +387,7 @@ DELETE FROM `escuela`;
 /*!40000 ALTER TABLE `escuela` DISABLE KEYS */;
 INSERT INTO `escuela` (`id`, `cue`, `nombre`, `direccion`, `numero`, `telefono`, `fechaResolucion`, `fechaCreacion`, `fechaCierre`, `nivel`, `especialidad`, `departamento`, `localidad`) VALUES
 	(1, 50023, 'Jorge N Lencinas', 'Algún lugar', 4125, '4302562', '2007-07-05', NULL, NULL, 3, 1, 4, 41),
-	(2, 50021, 'Benito Lamas', 'Algun Lugar', 4256, NULL, '2012-07-03', NULL, NULL, 1, 4, 2, 1);
+	(2, 50021, 'Benito Lamas', 'Algun Lugar', 4256, '0261548796', '2012-07-03', NULL, NULL, 1, 4, 2, 1);
 /*!40000 ALTER TABLE `escuela` ENABLE KEYS */;
 
 
@@ -327,11 +405,12 @@ CREATE TABLE IF NOT EXISTS `escuelapersona` (
   CONSTRAINT `persona_id` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.escuelapersona: ~2 rows (approximately)
+-- Dumping data for table edu.escuelapersona: ~3 rows (approximately)
 DELETE FROM `escuelapersona`;
 /*!40000 ALTER TABLE `escuelapersona` DISABLE KEYS */;
 INSERT INTO `escuelapersona` (`escuela`, `persona`, `tiporelacion_esc`) VALUES
 	(1, 8, 1),
+	(2, 7, 1),
 	(2, 8, 1);
 /*!40000 ALTER TABLE `escuelapersona` ENABLE KEYS */;
 
@@ -382,11 +461,19 @@ CREATE TABLE IF NOT EXISTS `estadoinscripcion` (
   `nombre` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `descripcion` text COLLATE utf8_spanish_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.estadoinscripcion: ~0 rows (approximately)
+-- Dumping data for table edu.estadoinscripcion: ~2 rows (approximately)
 DELETE FROM `estadoinscripcion`;
 /*!40000 ALTER TABLE `estadoinscripcion` DISABLE KEYS */;
+INSERT INTO `estadoinscripcion` (`id`, `nombre`, `descripcion`) VALUES
+	(1, 'Cursando', 'El Alumno se encuentra cursando'),
+	(2, 'Abandono', 'Abandono del cursado'),
+	(3, 'Pase', 'Pase de colegio'),
+	(4, 'Cambio', 'Cambio de curso'),
+	(5, 'Promocion', 'Promoción de curso'),
+	(6, 'Libre', 'Condición de libre'),
+	(7, 'Repetidor', 'Repetidor de curso');
 /*!40000 ALTER TABLE `estadoinscripcion` ENABLE KEYS */;
 
 
@@ -395,7 +482,7 @@ DROP TABLE IF EXISTS `eventomateria`;
 CREATE TABLE IF NOT EXISTS `eventomateria` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `descripcion` tinytext CHARACTER SET latin1,
+  `descripcion` longtext CHARACTER SET latin1,
   `inicio` datetime DEFAULT NULL,
   `fin` datetime DEFAULT NULL,
   `cursado` bigint(20) unsigned NOT NULL,
@@ -440,7 +527,7 @@ DELETE FROM `examen`;
 DROP TABLE IF EXISTS `inscripcionalumno`;
 CREATE TABLE IF NOT EXISTS `inscripcionalumno` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `fechaAlta` date DEFAULT NULL,
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaBaja` date DEFAULT NULL,
   `alumno` bigint(20) unsigned NOT NULL,
   `comunicaciones` bigint(20) unsigned NOT NULL,
@@ -455,11 +542,33 @@ CREATE TABLE IF NOT EXISTS `inscripcionalumno` (
   CONSTRAINT `fk_comunicaciones_1` FOREIGN KEY (`comunicaciones`) REFERENCES `comunicaciones` (`id`),
   CONSTRAINT `fk_cursado_1` FOREIGN KEY (`cursado`) REFERENCES `cursado` (`id`),
   CONSTRAINT `fk_estadoinscripcion_1` FOREIGN KEY (`estado`) REFERENCES `estadoinscripcion` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.inscripcionalumno: ~0 rows (approximately)
+-- Dumping data for table edu.inscripcionalumno: ~18 rows (approximately)
 DELETE FROM `inscripcionalumno`;
 /*!40000 ALTER TABLE `inscripcionalumno` DISABLE KEYS */;
+INSERT INTO `inscripcionalumno` (`id`, `fechaAlta`, `fechaBaja`, `alumno`, `comunicaciones`, `estado`, `cursado`) VALUES
+	(1, '2012-09-21 23:53:44', '2012-09-24', 2, 2, 3, 5),
+	(2, '2012-09-21 23:53:44', '2012-09-24', 2, 3, 3, 6),
+	(3, '2012-09-21 23:53:44', '2012-09-24', 2, 4, 3, 7),
+	(7, '2012-09-22 00:04:16', '2012-09-24', 1, 8, 3, 5),
+	(8, '2012-09-22 00:04:16', '2012-09-24', 1, 9, 3, 6),
+	(9, '2012-09-22 00:04:16', '2012-09-24', 1, 10, 3, 7),
+	(10, '2012-09-22 00:31:03', '2012-09-24', 3, 11, 5, 5),
+	(11, '2012-09-22 00:31:03', '2012-09-24', 3, 12, 5, 6),
+	(12, '2012-09-22 00:31:03', '2012-09-24', 3, 13, 5, 7),
+	(16, '2012-09-22 01:52:53', '2012-09-24', 4, 17, 5, 8),
+	(17, '2012-09-22 01:52:53', '2012-09-24', 4, 18, 5, 9),
+	(18, '2012-09-22 01:52:53', '2012-09-24', 4, 19, 5, 10),
+	(19, '2012-09-23 23:13:35', '2012-09-24', 19, 20, 5, 8),
+	(20, '2012-09-23 23:13:35', '2012-09-24', 19, 21, 5, 9),
+	(21, '2012-09-23 23:13:35', '2012-09-24', 19, 22, 5, 10),
+	(22, '2012-09-23 23:30:15', '2012-09-24', 5, 23, 5, 8),
+	(23, '2012-09-23 23:30:15', '2012-09-24', 5, 24, 5, 9),
+	(24, '2012-09-23 23:30:15', '2012-09-24', 5, 25, 5, 10),
+	(25, '2012-09-24 22:09:10', NULL, 19, 26, 1, 5),
+	(26, '2012-09-24 22:09:10', NULL, 19, 27, 1, 6),
+	(27, '2012-09-24 22:09:10', NULL, 19, 28, 1, 7);
 /*!40000 ALTER TABLE `inscripcionalumno` ENABLE KEYS */;
 
 
@@ -685,13 +794,16 @@ CREATE TABLE IF NOT EXISTS `materia` (
   `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaBaja` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
 
--- Dumping data for table edu.materia: ~1 rows (approximately)
+-- Dumping data for table edu.materia: ~4 rows (approximately)
 DELETE FROM `materia`;
 /*!40000 ALTER TABLE `materia` DISABLE KEYS */;
 INSERT INTO `materia` (`id`, `nombre`, `descripcion`, `resolucion`, `year`, `fechaAlta`, `fechaBaja`) VALUES
-	(3, 'Matematica', '<p>1Ma</p>', '123', '1', '2012-07-26 22:04:51', NULL);
+	(3, 'Matematica', '<p>1Ma</p>', '123', '1', '2012-07-26 22:04:51', NULL),
+	(4, 'Lengua', '<p>\n	Lengua</p>\n', '123456', '1', '2012-09-21 23:13:25', NULL),
+	(5, 'Matematica', '<p>\n	Matematica</p>\n', '123456', '1', '2012-09-21 23:13:43', NULL),
+	(6, 'Ciencias Sociales', '<p>\n	cs cs</p>\n', '654', '1', '2012-09-21 23:14:15', NULL);
 /*!40000 ALTER TABLE `materia` ENABLE KEYS */;
 
 
@@ -741,7 +853,7 @@ DELETE FROM `nota`;
 DROP TABLE IF EXISTS `novedadmateria`;
 CREATE TABLE IF NOT EXISTS `novedadmateria` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `descripcion` tinytext CHARACTER SET latin1,
+  `descripcion` longtext CHARACTER SET latin1,
   `fechaAlta` datetime DEFAULT NULL,
   `fechaBaja` datetime DEFAULT NULL,
   `titulo` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
@@ -785,12 +897,14 @@ CREATE TABLE IF NOT EXISTS `padre` (
   PRIMARY KEY (`id`),
   KEY `FKP_persona` (`persona`),
   CONSTRAINT `FKP_persona` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.padre: ~1 rows (approximately)
+-- Dumping data for table edu.padre: ~3 rows (approximately)
 DELETE FROM `padre`;
 /*!40000 ALTER TABLE `padre` DISABLE KEYS */;
 INSERT INTO `padre` (`id`, `persona`) VALUES
+	(3, 7),
+	(2, 8),
 	(1, 9);
 /*!40000 ALTER TABLE `padre` ENABLE KEYS */;
 
@@ -846,9 +960,9 @@ CREATE TABLE IF NOT EXISTS `persona` (
   KEY `FK_persona_departamento` (`departamento`),
   CONSTRAINT `FK_persona_departamento` FOREIGN KEY (`departamento`) REFERENCES `departamento` (`id`),
   CONSTRAINT `FK_persona_localidad` FOREIGN KEY (`localidad`) REFERENCES `localidad` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.persona: ~8 rows (approximately)
+-- Dumping data for table edu.persona: ~26 rows (approximately)
 DELETE FROM `persona`;
 /*!40000 ALTER TABLE `persona` DISABLE KEYS */;
 INSERT INTO `persona` (`id`, `legajo`, `dni`, `nombre`, `apellido`, `sexo`, `email`, `telefono`, `celular`, `direccion`, `codPostal`, `departamento`, `localidad`, `provincia`, `pais`, `nacimiento`, `fechaAlta`, `fechaBaja`, `estado`) VALUES
@@ -859,7 +973,25 @@ INSERT INTO `persona` (`id`, `legajo`, `dni`, `nombre`, `apellido`, `sexo`, `ema
 	(6, NULL, '12345678', 'Mercedes', 'Real', 'F', NULL, NULL, NULL, 'a', NULL, 3, 165, NULL, NULL, '2012-07-11', '2012-07-17 14:02:08', NULL, NULL),
 	(7, NULL, '12345678', 'Eugenia', 'Bustos', 'F', NULL, NULL, NULL, 'a', NULL, 2, 1, NULL, NULL, '2012-07-04', '2012-07-17 14:02:56', NULL, NULL),
 	(8, NULL, '12456789', 'Miguel', 'Calud', 'M', NULL, NULL, NULL, 'a', NULL, 2, 1, NULL, NULL, '2012-07-04', '2012-07-17 14:03:36', NULL, NULL),
-	(9, NULL, '12321456', 'Raul', 'Reza', 'M', NULL, NULL, NULL, 'A', NULL, 2, 1, NULL, NULL, '2012-07-12', '2012-07-17 14:05:14', NULL, NULL);
+	(9, NULL, '12321456', 'Raul', 'Reza', 'M', NULL, NULL, NULL, 'A', NULL, 2, 1, NULL, NULL, '2012-07-12', '2012-07-17 14:05:14', NULL, NULL),
+	(10, NULL, '45321458', 'Mariano', 'Eligazetta', 'M', NULL, NULL, NULL, 'Algun lugar', NULL, 2, 165, NULL, NULL, '2002-09-06', '2012-09-22 01:12:31', NULL, NULL),
+	(11, NULL, '45547895', 'Micaela', 'Trujillo', 'F', NULL, NULL, NULL, 'Por ahi 123', NULL, 2, 165, NULL, NULL, '1992-06-02', '2012-09-22 01:56:13', NULL, NULL),
+	(12, NULL, '31245789', 'Gregorio', 'Ubendu', 'M', NULL, NULL, NULL, 'Por ahi 123', NULL, 3, 2, NULL, NULL, '1985-07-05', '2012-09-22 01:56:55', NULL, NULL),
+	(13, NULL, '35457895', 'Dionisio', 'Frasquito', 'M', NULL, NULL, NULL, 'Por ahi 123', NULL, 5, 165, NULL, NULL, '1991-05-21', '2012-09-22 01:57:31', NULL, NULL),
+	(14, NULL, '37548987', 'Adriana', 'Tirso', 'F', NULL, NULL, NULL, 'Por ahi 123', NULL, 3, 165, NULL, NULL, '1995-10-26', '2012-09-22 01:58:57', NULL, NULL),
+	(15, NULL, '33547897', 'Miguel', 'Tajo', 'M', NULL, NULL, NULL, 'Por ahi 123', NULL, 2, 5, NULL, NULL, '1988-08-06', '2012-09-22 01:59:31', NULL, NULL),
+	(16, NULL, '39458654', 'Rosio', 'Marengo', 'F', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 3, 1, NULL, NULL, '1993-01-21', '2012-09-22 02:01:21', NULL, NULL),
+	(17, NULL, '12456789', 'Eduardo', 'Galeano', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 1, 171, NULL, NULL, '1954-03-05', '2012-09-22 02:03:01', NULL, NULL),
+	(18, NULL, '21456789', 'Oliverio', 'Girondo', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 1, 171, NULL, NULL, '1975-04-05', '2012-09-22 02:04:21', NULL, NULL),
+	(19, NULL, '10123456', 'Paco', 'Urondo', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 3, 165, NULL, NULL, '1968-07-09', '2012-09-22 02:06:14', NULL, NULL),
+	(20, NULL, '10245678', 'Mario R.', 'Santucho', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 2, 1, NULL, NULL, '1970-02-02', '2012-09-22 02:09:09', NULL, NULL),
+	(21, NULL, '10213456', 'Severino', 'Di Giovanni', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 3, 1, NULL, NULL, '1956-02-01', '2012-09-22 02:09:51', NULL, NULL),
+	(22, NULL, '10547895', 'Liborio', 'Justo', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 5, 1, NULL, NULL, '1943-07-03', '2012-09-22 02:10:24', NULL, NULL),
+	(23, NULL, '07856123', 'Nahuel ', 'Moreno', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 4, 171, NULL, NULL, '1943-04-06', '2012-09-22 02:10:52', NULL, NULL),
+	(24, NULL, '10257456', 'Victorio', 'Codovilla', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 1, 171, NULL, NULL, '1945-06-01', '2012-09-22 02:11:27', NULL, NULL),
+	(25, NULL, '08954123', 'Leopoldo', 'Luque', 'M', NULL, NULL, NULL, 'Algun lugar siempre cerca', NULL, 4, 85, NULL, NULL, '2012-09-01', '2012-09-23 23:13:22', NULL, NULL),
+	(26, NULL, '35621475', 'Jerónimo', 'Reza', 'M', NULL, NULL, NULL, 'por ahi', NULL, 1, 171, NULL, NULL, '1989-06-05', '2012-09-24 19:31:29', NULL, NULL),
+	(27, NULL, '35654789', 'Marcelo', 'Reza', 'M', NULL, NULL, NULL, 'por ahi', NULL, 1, 171, NULL, NULL, '1990-09-04', '2012-09-24 19:33:41', NULL, NULL);
 /*!40000 ALTER TABLE `persona` ENABLE KEYS */;
 
 
@@ -916,9 +1048,13 @@ CREATE TABLE IF NOT EXISTS `planestudio_materia` (
   CONSTRAINT `planestudio_id` FOREIGN KEY (`planestudio`) REFERENCES `plandeestudio` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.planestudio_materia: ~0 rows (approximately)
+-- Dumping data for table edu.planestudio_materia: ~3 rows (approximately)
 DELETE FROM `planestudio_materia`;
 /*!40000 ALTER TABLE `planestudio_materia` DISABLE KEYS */;
+INSERT INTO `planestudio_materia` (`planestudio`, `materia`) VALUES
+	(3, 4),
+	(3, 5),
+	(3, 6);
 /*!40000 ALTER TABLE `planestudio_materia` ENABLE KEYS */;
 
 
@@ -939,6 +1075,26 @@ CREATE TABLE IF NOT EXISTS `pregunta` (
 DELETE FROM `pregunta`;
 /*!40000 ALTER TABLE `pregunta` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pregunta` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.publicmateria
+DROP TABLE IF EXISTS `publicmateria`;
+CREATE TABLE IF NOT EXISTS `publicmateria` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` longtext CHARACTER SET latin1,
+  `fechaAlta` datetime DEFAULT NULL,
+  `fechaBaja` datetime DEFAULT NULL,
+  `titulo` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `cursado` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_publicmateria_cursado_1` (`cursado`),
+  CONSTRAINT `fk_publicmateria_cursado_1` FOREIGN KEY (`cursado`) REFERENCES `cursado` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.publicmateria: ~0 rows (approximately)
+DELETE FROM `publicmateria`;
+/*!40000 ALTER TABLE `publicmateria` DISABLE KEYS */;
+/*!40000 ALTER TABLE `publicmateria` ENABLE KEYS */;
 
 
 -- Dumping structure for table edu.recurso
@@ -979,13 +1135,22 @@ CREATE TABLE IF NOT EXISTS `relacion` (
   CONSTRAINT `fk_relacion_tiporelacion_1` FOREIGN KEY (`tipoRelacion`) REFERENCES `tiporelacion` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.relacion: ~3 rows (approximately)
+-- Dumping data for table edu.relacion: ~8 rows (approximately)
 DELETE FROM `relacion`;
 /*!40000 ALTER TABLE `relacion` DISABLE KEYS */;
 INSERT INTO `relacion` (`idprimera`, `idsegunda`, `tipoRelacion`) VALUES
 	(5, 8, 1),
+	(26, 9, 1),
+	(27, 9, 1),
 	(5, 7, 2),
-	(4, 6, 3);
+	(26, 7, 2),
+	(27, 7, 2),
+	(4, 26, 3),
+	(4, 27, 3),
+	(26, 4, 3),
+	(26, 27, 3),
+	(27, 4, 3),
+	(27, 26, 3);
 /*!40000 ALTER TABLE `relacion` ENABLE KEYS */;
 
 
@@ -1138,19 +1303,20 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `persona` bigint(20) unsigned DEFAULT NULL,
   `ussername` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `password` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `fechaAlta` datetime DEFAULT NULL,
+  `fechaAlta` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `fechaBaja` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_usuario_persona` (`persona`),
   CONSTRAINT `FK_usuario_persona` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.usuario: ~2 rows (approximately)
+-- Dumping data for table edu.usuario: ~3 rows (approximately)
 DELETE FROM `usuario`;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` (`id`, `persona`, `ussername`, `password`, `fechaAlta`, `fechaBaja`) VALUES
 	(1, 8, 'gonza', 'c390230d013b917281314197e363dc5c', NULL, NULL),
-	(2, 3, 'mcalud', NULL, NULL, NULL);
+	(2, 3, 'mcalud', '25f9e794323b453885f5181f1b624d0b', NULL, NULL),
+	(5, 21, 'sgiovanni', '25f9e794323b453885f5181f1b624d0b', NULL, NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 
@@ -1165,13 +1331,14 @@ CREATE TABLE IF NOT EXISTS `usuario_rol` (
   CONSTRAINT `fk_usario_rol_usuario_1` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Dumping data for table edu.usuario_rol: ~3 rows (approximately)
+-- Dumping data for table edu.usuario_rol: ~4 rows (approximately)
 DELETE FROM `usuario_rol`;
 /*!40000 ALTER TABLE `usuario_rol` DISABLE KEYS */;
 INSERT INTO `usuario_rol` (`usuario`, `rol`) VALUES
 	(1, 1),
 	(1, 2),
-	(2, 2);
+	(2, 2),
+	(5, 3);
 /*!40000 ALTER TABLE `usuario_rol` ENABLE KEYS */;
 /*!40014 SET FOREIGN_KEY_CHECKS=1 */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
