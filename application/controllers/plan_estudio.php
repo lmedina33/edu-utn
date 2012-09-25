@@ -48,6 +48,9 @@ class plan_estudio extends CI_Controller{
         $this->grocery_crud->set_rules('fechaAlta','Fecha de Alta','required');
        
         $output = $this->grocery_crud->render();
+        
+        $output -> titulo = 'Gestión de planes de estudio';
+        
         $this->load->view('v_abm.php',$output);  
     
         
@@ -88,6 +91,7 @@ class plan_estudio extends CI_Controller{
         $this->grocery_crud->set_rules('year','Año','required|numeric|max_length[1]|less_than[9]|greater_than[0]');
        
         $output = $this->grocery_crud->render();
+         $output -> titulo = 'Gestión de planes de materias';
         $this->load->view('v_abm.php',$output);  
     }
     

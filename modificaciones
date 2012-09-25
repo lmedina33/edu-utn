@@ -1,0 +1,20 @@
+ALTER TABLE `edu`.`publicmateria` CHANGE COLUMN `descripcion` `descripcion` LONGTEXT CHARACTER SET 'latin1' NULL DEFAULT NULL  ;
+ALTER TABLE `edu`.`novedadmateria` CHANGE COLUMN `descripcion` `descripcion` LONGTEXT CHARACTER SET 'latin1' NULL DEFAULT NULL  ;
+ALTER TABLE `edu`.`eventomateria` CHANGE COLUMN `descripcion` `descripcion` LONGTEXT CHARACTER SET 'latin1' NULL DEFAULT NULL  ;
+
+
+DROP TABLE IF EXISTS `publicmateria`;
+CREATE TABLE IF NOT EXISTS `publicmateria` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` tinytext CHARACTER SET latin1,
+  `fechaAlta` datetime DEFAULT NULL,
+  `fechaBaja` datetime DEFAULT NULL,
+  `titulo` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `cursado` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_publicmateria_cursado_1` (`cursado`),
+  CONSTRAINT `fk_publicmateria_cursado_1` FOREIGN KEY (`cursado`) REFERENCES `cursado` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+
