@@ -72,7 +72,6 @@ $(document).ready(function($){
     
   
   </header>
-
   <div class="sidebar1">
     <p>
       <!-- Barra lateral Izquierda-->
@@ -103,7 +102,7 @@ $(document).ready(function($){
              <li>
                 <a href="#">Personas</a>
                 <ul>
-                    <li><a href="<?php echo site_url('persona/abm') ?>">Listar Personas</a></li>
+                    <li><a href="<?php echo site_url('persona/abm/persona') ?>">Todas</a></li>
                 </ul>
                 <ul>
                     <li><a href="<?php echo site_url('persona/abm/directivo') ?>">Directivos</a></li>
@@ -113,9 +112,10 @@ $(document).ready(function($){
                 </ul>
                 <ul>
                     <li><a href="<?php echo site_url('persona/abm/alumno') ?>">Alumnos</a></li>
+                </ul>
                 <ul>
                     <li><a href="<?php echo site_url('persona/abm/padre') ?>">Padres</a></li>
-                </ul>
+                
                 </ul>
            </li>
             <li>

@@ -123,7 +123,7 @@ class Escuela extends CI_Controller {
         
         $output = $this->grocery_crud->render();
         
-        $output -> titulo = 'Gestión Escuela';
+        $output -> titulo = 'Gestionar Escuela';
         $output -> html_inf = '';
         $this->load->view('v_abm.php',$output);  
     }
@@ -220,16 +220,45 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->set_rules('nombre','Nombre','required');
        
         $output = $this->grocery_crud->render();
-        
+        $output -> titulo = 'Gestionar cursos y divisiones';
         
         $this->load->view('v_abm.php',$output);  
        
    }
    
+   function modificar_estado_cursado($persona="",$estado="",$division=""){
+       $this->load->model('alumno_model');
+       $inscripciones = $this->alumno_model->get_inscripciones($persona,'Cursando',$division);
+      // print_r($inscripciones); exit;
+      
+       foreach ($inscripciones as $inscrip):       
+       switch ($estado){
+           case 'abandono':
+               $this->alumno_model->modifica_cursado($inscrip,'abandono');
+               break;
+           case 'pase':
+               $this->alumno_model->modifica_cursado($inscrip,'pase');
+               break;
+           case 'cambio':
+                $this->alumno_model->modifica_cursado($inscrip,'cambio');
+               break;
+           case 'promocion':
+                $this->alumno_model->modifica_cursado($inscrip,'promocion');
+               break;
+       }
+       endforeach;
+       redirect('escuela/inscripcion/'.$division);
+       
+   }
+
+
+
+
    function inscripcion($division=""){
        $this->load->model('cursado_model');
        
        $data['division']=$division;
+       $data['curso'] = $this->cursado_model->get_datos_curso($division);
        $data['inscriptos'] = $this->cursado_model->get_inscriptos_division($division);
        
        $this->form_validation->set_rules('alumno', 'Alumno', 'required|callback_alumno_check['.$division.']');
@@ -322,6 +351,7 @@ class Escuela extends CI_Controller {
        redirect('escuela/inscripcion/'.$division,'refresh');
        
    }
+   
    
    function cursado($division=""){
        

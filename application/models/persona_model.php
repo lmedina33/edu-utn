@@ -12,6 +12,19 @@
  */
 class persona_model extends CI_Model{
     //put your code here
+   
+    function es_($tipo="",$persona=""){
+        $this->db->select('id');
+        $this->db->from($tipo);
+        $this->db->where('persona',$persona);
+        
+        $query = $this->db->get();
+        $data = $query->row_array();
+        
+        return $data['id'];
+        
+    }
+    
     function get_relacion($tipo_relacion,$primary_key){
         
         $this->db->select('*');
@@ -46,6 +59,17 @@ class persona_model extends CI_Model{
         
         return $data;
         
+    }
+    
+    function get_persona($persona=""){
+        $this->db->select('*');
+        $this->db->from('persona');
+        $this->db->where('id',$persona);
+        
+        $query = $this->db->get();
+        $data = $query->row_array();
+        
+        return $data;
     }
     
     function get_alumno($apenom="",$dni=""){

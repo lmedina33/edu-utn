@@ -76,9 +76,7 @@ aside {
 }
 
 /* ~~ Este selector agrupado da espacio a las listas del área de .content ~~ */
-.content ul, .content ol {
-	padding: 0 15px 15px 40px; /* este relleno reproduce en espejo el relleno derecho de la regla de encabezados y de párrafo incluida más arriba. El relleno se ha colocado en la parte inferior para que el espacio existente entre otros elementos de la lista y a la izquierda cree la sangría. Estos pueden ajustarse como se desee. */
-}
+
 
 /* ~~ Los estilos de lista de navegación (pueden eliminarse si opta por usar un menú desplegable predefinido como el de Spry) ~~ */
 nav ul {

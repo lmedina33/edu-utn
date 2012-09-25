@@ -55,34 +55,80 @@ class Persona extends CI_Controller {
         $this->grocery_crud->set_rules('codPostal','Código Postal','numeric');
         $this->grocery_crud->set_rules('email','Correo Electrónico','valid_email');
        
-        if($tipo){
-            if($tipo == 'alumno'){
+       
+           if($tipo == 'alumno'){
                 $this->grocery_crud->callback_after_insert(array($this,'crear_alumno'));
                 $this->grocery_crud->set_primary_key('persona','alumno');
                 $this->grocery_crud->set_relation('id','alumno','persona');
                 $this->grocery_crud->where('not(persona is null)');
-                $this->grocery_crud->add_action('Padre','','abm/relacion/padre','ui-icon-plus');
-                $this->grocery_crud->add_action('Madre','','abm/relacion/madre','ui-icon-plus');
-                $this->grocery_crud->add_action('Hermanos','','abm/relacion/hermano','ui-icon-plus');
-                $this->grocery_crud->add_action('Familia','','abm/relacionar','ui-icon-plus');
+                $this->grocery_crud->add_action('Padre',base_url('images/hombre.png'),'persona/relacion/padre');
+                $this->grocery_crud->add_action('Madre',base_url('images/women.png'),'persona/relacion/madre');
+                $this->grocery_crud->add_action('Hermanos',base_url('images/familia2.gif'),'persona/relacion/hermano');
       
                 }
-            else  if($tipo == ''){
-                
-            }
-             else{
+           
+          else if($tipo == 'persona'){
+                $this->grocery_crud->unset_operations();
+                $this->grocery_crud->add_action('Marcar directivo',base_url('images/directivo.png'),'persona/marcar_directivo');
+                $this->grocery_crud->add_action('Marcar profesor',base_url('images/profesor.png'),'persona/marcar_docente');
+                $this->grocery_crud->add_action('Marcar padre/madre',base_url('images/pama.png'),'persona/marcar_padre');
+             
+                }
+           else{
                 $this->grocery_crud->callback_after_insert(array($this,'crear_'.$tipo));
                 $this->grocery_crud->set_primary_key('persona',$tipo);
                 $this->grocery_crud->set_relation('id',$tipo,'persona');
                 $this->grocery_crud->where('not(persona is null)');
-                 
-             }
-        }
+           }
+        
         $this->grocery_crud->unset_delete();
         $output = $this->grocery_crud->render();
-        
+        $output->titulo = 'Listado de '.$tipo.'s';
         if($modal==1) $this->load->view('v_modal.php',$output);
-            else $this->load->view('v_abm.php',$output);  
+            else $this->load->view('v_abm.php',$output);
+      
+    }
+    
+    function marcar_directivo($persona){
+        $this->load->model('persona_model');
+        $aux = $this->persona_model->es_('directivo',$persona);
+        
+        if($aux == ''){
+            $directivo = array(
+                'persona' => $persona,
+
+            );
+            $this->db->insert('directivo',$directivo);
+        }
+        redirect('persona/abm/directivo');
+    }
+    
+     function marcar_docente($persona){
+        $this->load->model('persona_model');
+        $aux = $this->persona_model->es_('docente',$persona);
+        
+        if($aux == ''){
+            $directivo = array(
+                'persona' => $persona,
+
+            );
+            $this->db->insert('docente',$directivo);
+        }
+        redirect('persona/abm/docente');
+    }
+    
+     function marcar_padre($persona){
+        $this->load->model('persona_model');
+        $aux = $this->persona_model->es_('padre',$persona);
+        
+        if($aux == ''){
+            $directivo = array(
+                'persona' => $persona,
+
+            );
+            $this->db->insert('padre',$directivo);
+        }
+        redirect('persona/abm/padre');
     }
     
     function crear_alumno($post_array,$primary_key){
@@ -131,17 +177,13 @@ class Persona extends CI_Controller {
         // Buscamos si existen relaciones con el tipo
         $this->load->model('persona_model');
         $data['relaciones'] = $this->persona_model->get_relacion($tipo,$primary_key);
-        
-        
         // En caso de que no existan relaciones redirigimos para agregar las relaciones del tipo.
      
-         //    
-      //    $this->grocery_crud->unset_edit();
-      //    $this->grocery_crud->unset_delete();
-        
         $this->load->library('grocery_CRUD');
         $this->grocery_crud->set_theme('datatables');
-        
+        $this->grocery_crud->unset_edit();
+        $this->grocery_crud->unset_print();
+        $this->grocery_crud->unset_export();
         
         $this->grocery_crud->set_table('relacion');
         // Nombre que se muestra como referencia a la tabla
@@ -163,49 +205,65 @@ class Persona extends CI_Controller {
         
         $id_tipo = $data['id'];
         
-        $this->grocery_crud->where('idprimera ='.$primary_key);
-        $this->grocery_crud->change_field_type('tipoRelacion', 'hidden', $id_tipo);
-        $this->grocery_crud->change_field_type('idprimera', 'hidden', $primary_key);
-        
         switch ($tipo){
             case 'padre':
-           
+                $parentesco = 'Padre';
+                $this->grocery_crud->where('idprimera ='.$primary_key);
+                $this->grocery_crud->change_field_type('tipoRelacion', 'hidden', $id_tipo);
+                $this->grocery_crud->change_field_type('idprimera', 'hidden', $primary_key);
                 $this->grocery_crud->set_relation('idsegunda','persona','{nombre}, {apellido} - {dni}','sexo = "M" and  id != '.$primary_key);
                 $this->grocery_crud->where('tipoRelacion = '.$id_tipo);
                 $this->grocery_crud->display_as('idsegunda','Padre');
                 break;
             case 'madre':
+                $parentesco = 'Madre';
+                $this->grocery_crud->where('idprimera ='.$primary_key);
+                $this->grocery_crud->change_field_type('tipoRelacion', 'hidden', $id_tipo);
+                $this->grocery_crud->change_field_type('idprimera', 'hidden', $primary_key);
                 $this->grocery_crud->set_relation('idsegunda','persona','{nombre}, {apellido} - {dni}','sexo = "F" and  id != '.$primary_key);
                 $this->grocery_crud->where('tipoRelacion = '.$id_tipo);
                 $this->grocery_crud->display_as('idsegunda','Madre');
                 break;
             case 'hermano':
-                //$this->grocery_crud->set_relation('idsegunda','alumn','id','not(id s null)');
-                $this->grocery_crud->set_relation('idsegunda','persona','{nombre}, {apellido} - {dni}','id != '.$primary_key);
-                
+                $parentesco = 'Hermanos';
+                $this->grocery_crud->where('idprimera ='.$primary_key);
+              //  $this->grocery_crud->or_where('idprimera ='.$primary_key);
+                $this->grocery_crud->change_field_type('tipoRelacion', 'hidden', $id_tipo);
+                $this->grocery_crud->change_field_type('idprimera', 'hidden', $primary_key);
+                $this->grocery_crud->set_relation('idsegunda','persona','{nombre}, {apellido} - {dni}','persona.id != '.$primary_key);
                 $this->grocery_crud->where('tipoRelacion = '.$id_tipo);
                 $this->grocery_crud->display_as('idsegunda','Hermanos');
+               // $this->grocery_crud->callback_after_delete(array($this,'del_hermano'));
+                $this->grocery_crud->callback_after_insert(array($this,'add_hermano'));
+                
                 break;
                      
         }
         
         // Campos que se muestran en la tabla con los registros existentes
         $this->grocery_crud->columns('idsegunda');
-      //  $this->grocery_crud->fields('idsegunda');
-       // print_r($this);exit;
-        //if($this['sexo'] == 'M') 
-       
-   
-      //  $this->grocery_crud->set_primary_key('idprimera','relacion');
-     //   $this->grocery_crud->set_relation_n_n('Familiares','relacion','persona','idprimera','idsegunda','nombre','');
-     //   $this->grocery_crud->set_relation('idsegunda','persona','nombre');
-      //  $this->grocery_crud->set_relation('idsegunda','persona','apellido');
-       
-    //    $this->grocery_crud->set_relation('localidad','localidad','nombre');
-        
         $output = $this->grocery_crud->render();
+        $this->load->model('persona_model');
+        $persona = $this->persona_model->get_persona($primary_key);
+        
+        
+        $output->titulo = $parentesco. ' de '.$persona['apellido'].', '.$persona['nombre'];
+        
         $this->load->view('v_abm.php',$output);  
     }
+    
+    function add_hermano($post_array,$primary_key)
+        {
+            $relacion = array(
+                "idsegunda" => $post_array['idprimera'],
+                "idprimera" => $post_array['idsegunda'],
+                "tipoRelacion" => 3
+            );
+
+            $this->db->insert('relacion',$relacion);
+
+            return true;
+        }
     
     function relacionar($primary_key){
       

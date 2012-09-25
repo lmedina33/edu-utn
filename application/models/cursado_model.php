@@ -53,6 +53,7 @@ class cursado_model extends CI_Model{
         $this->db->join('alumno','inscripcionalumno.alumno = alumno.id','left outer');
         $this->db->join('persona','alumno.persona = persona.id','left outer');
         $this->db->where('cursado.division',$division);
+        $this->db->where('inscripcionalumno.fechaBaja is null');
         //$this->db->group
         
         $query = $this->db->get();
@@ -60,6 +61,19 @@ class cursado_model extends CI_Model{
         
         return $data;
         
+    }
+    
+    function get_datos_curso($division=""){
+        $this->db->select('division.nombre, division.anio, turno.nombre as turno, plandeestudio.nombre as plan');
+        $this->db->from('division');
+        $this->db->join('turno','division.turno = turno.id','left outer');
+        $this->db->join('plandeestudio','division.planestudio = plandeestudio.id','left outer');
+        $this->db->where('division.id',$division);
+        
+        $query = $this->db->get();
+        $data = $query->row_array();
+        
+        return $data;
     }
     
     

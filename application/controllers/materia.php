@@ -49,6 +49,8 @@ class materia extends CI_Controller {
         $this->grocery_crud->set_rules('year','Año','required|numeric|max_length[1]|less_than[9]|greater_than[0]');
        
         $output = $this->grocery_crud->render();
+       
+        $output -> titulo = 'Gestión de materias';
         $this->load->view('v_abm.php',$output);  
     
     }
@@ -80,6 +82,7 @@ class materia extends CI_Controller {
       
        
         $output = $this->grocery_crud->render();
+        $output -> titulo = 'Contenidos de ';
         $this->load->view('v_abm.php',$output);  
     }
 }
