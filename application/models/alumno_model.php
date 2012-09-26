@@ -20,7 +20,7 @@ class Alumno_model extends CI_Model{
    }
    
    function create_comunicaciones(){
-       $this->db->set('fechaBaja','');
+       $this->db->set('fechaBaja','0000-00-00');
        $this->db->insert('comunicaciones');
        return $this->db->insert_id();
    }
@@ -75,6 +75,17 @@ class Alumno_model extends CI_Model{
         
         return true;
         
+    }
+    
+    function get_alumno_id($persona){
+        $this->db->select('alumno.id');
+        $this->db->from('persona');
+        $this->db->join('alumno','persona.id = alumno.persona','inner');
+        $this->db->where('persona.id',$persona);
+        $query = $this->db->get();
+        $data = $query->row_array();
+        
+        return $data['id'];
     }
     
 }

@@ -21,6 +21,26 @@ $(document).ready(function() {
        minLength: 2
         });
     });
+    
+    $("input[name=checktodos]").change(function(){
+		$('input[name*=check]').each( function() {			
+			if($("input[name=checktodos]:checked").length == 1){
+				this.checked = true;
+			} else {
+				this.checked = false;
+			}
+		});
+	});
+     
+      $("input[name=repetodos]").change(function(){
+		$('input[name*=repe]').each( function() {			
+			if($("input[name=repetodos]:checked").length == 1){
+				this.checked = true;
+			} else {
+				this.checked = false;
+			}
+		});
+	});
 });
 
 
@@ -40,7 +60,7 @@ $(document).ready(function() {
        </ul>
         <div class="row-fluid">
             <div class="span6">
-                <form method="post" action="<? echo site_url('escuela/inscripcion/'.$division); ?>">
+                <form method="post" action="<?php echo site_url('escuela/inscripcion/'.$division); ?>">
                         <legend>Inscripcion a Cursado:</legend>
                         <label>Alumno:</label>
                         <span class="help-block">(Apellido, Nombre - Documento)</span>
@@ -60,9 +80,10 @@ $(document).ready(function() {
                  </form>
            <br />
            </div>
-           <div class="span6">
+           <div class="span12">
                  <legend>Alumnos inscriptos:</legend>
             <!--Body content-->
+            <form id="form1" name="form1" method="post" action="<?php echo site_url('escuela/finalizar_cursado/'.$division);?>">
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
@@ -71,6 +92,8 @@ $(document).ready(function() {
                         <th>Nombre</th>
                         <th>Documento</th>
                         <th>Editar estado</th>
+                        <th>Promocionan <p>(seleccionar todos) <input type="checkbox" name="checktodos" value="ON" onchange="" title="Seleccionar todos"/></p></th>
+                        <th>Repiten <p>(seleccionar todos) <input type="checkbox" name="repetodos" value="ON" onchange="" title="Seleccionar todos"/></p></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,12 +120,35 @@ $(document).ready(function() {
                               </div>
                             </div>
                         </td>
+                        <td><input type="checkbox" id="check<?php echo $i;?>" name="check<?php echo $i;?>" value="<?php echo $inscrip['id'];?>" /></td>
+                        <td><input type="checkbox" id="repe<?php echo $i;?>" name="repe<?php echo $i;?>" value="<?php echo $inscrip['id'];?>" /></td>
                     </tr>
                     <?php $i++;?>
                     <?php endforeach;?>
                     <?php }?>
+                    <tr>
+                        <td colspan="7">
+                            <label>Finalizar cursado y mover alumnos:</label> 
+                            <div class="btn-toolbar pull-right" style="margin: 0;">
+                            <div class="btn-group pull-right">
+                                <button class="btn dropdown-toggle" data-toggle="dropdown">cursos ...<span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                  <?php if(count($cursos)>0){?>
+                                    <?php foreach($cursos as $curso):?>
+                                    <li name="asd" value="123"><a onclick="document.getElementById('curso').value='<?php echo $curso['id'];?>';document.form1.submit();"><?php echo $curso['anio'] .'º - '. $curso['nombre']?></a></li>
+                                    <?php endforeach;?>
+                                   <?php } else {?>
+                                    <li><a onclick="document.getElementById('curso').value='0';document.form1.submit();">Egresar del colegio</a></li>
+                                   <?php }?>
+                                </ul>
+                              </div>
+                            </div>
+                           <input type="hidden" name="curso" id="curso" value="" />
+                         </td>
+                    </tr>
                 </tbody>
             </table>
+            </form>
             </div>
         </div>
         </div>
