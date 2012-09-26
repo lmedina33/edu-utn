@@ -76,6 +76,26 @@ class cursado_model extends CI_Model{
         return $data;
     }
     
+    function get_cursos_mayores($division){
+        $this->db->select('anio, escuela');
+        $this->db->from('division');
+        $this->db->where('id',$division);
+        $query = $this->db->get();
+        $data = $query->row_array();
+        
+        $this->db->select('id, anio, nombre');
+        $this->db->from('division');
+        $this->db->where('anio >',$data['anio']);
+        $this->db->where('anio <=',$data['anio']+1);
+        $this->db->where('escuela',$data['escuela']);
+        
+        $query1 = $this->db->get();
+        $datos = $query1->result_array();
+        
+        return $datos;
+       
+    }
+    
     
 }
 

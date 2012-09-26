@@ -226,7 +226,7 @@ class Escuela extends CI_Controller {
        
    }
    
-   function modificar_estado_cursado($persona="",$estado="",$division=""){
+   function modificar_estado_cursado($persona="",$estado="",$division="",$redirect=""){
        $this->load->model('alumno_model');
        $inscripciones = $this->alumno_model->get_inscripciones($persona,'Cursando',$division);
       // print_r($inscripciones); exit;
@@ -245,10 +245,13 @@ class Escuela extends CI_Controller {
            case 'promocion':
                 $this->alumno_model->modifica_cursado($inscrip,'promocion');
                break;
+           case 'egreso':
+                $this->alumno_model->modifica_cursado($inscrip,'egreso');
+               break;
        }
        endforeach;
-       redirect('escuela/inscripcion/'.$division);
-       
+       if(!$redirect) redirect('escuela/inscripcion/'.$division);
+       else return true;
    }
 
 
@@ -260,7 +263,8 @@ class Escuela extends CI_Controller {
        $data['division']=$division;
        $data['curso'] = $this->cursado_model->get_datos_curso($division);
        $data['inscriptos'] = $this->cursado_model->get_inscriptos_division($division);
-       
+       $data['cursos'] = $this->cursado_model->get_cursos_mayores($division);
+      // print_r($data['cursos']); exit;
        $this->form_validation->set_rules('alumno', 'Alumno', 'required|callback_alumno_check['.$division.']');
        if ($this->form_validation->run() == FALSE)
 		{
@@ -285,7 +289,7 @@ class Escuela extends CI_Controller {
                         $data = $this->persona_model->get_alumno_criteria($apellido,$nombre,$dni);
                        
                         $this->inscribir($data['id'],$division);
-                        
+                        redirect('escuela/inscripcion/'.$division,'refresh');
 		}
    }
   
@@ -347,11 +351,28 @@ class Escuela extends CI_Controller {
             // creamos la inscripcion
             $id_inscripcion = $this->alumno_model->create_inscripcion ($valores);
        endforeach;
-       
-       redirect('escuela/inscripcion/'.$division,'refresh');
-       
+      
    }
    
+   function finalizar_cursado($division_origen=""){
+       $division_destino = $this->input->post('curso');
+       $inputs = $this->input->post();
+       $inputs['curso'] = '';
+      // print_r($inputs);exit;
+       $this->load->model('alumno_model');
+       foreach($inputs as $inpt):
+           if($inpt != 'ON' and $inpt != ''){
+               if($division_destino != 0){
+                  $this->modificar_estado_cursado($inpt,'promocion', $division_origen,'1');
+                  $this->inscribir($this->alumno_model->get_alumno_id($inpt), $division_destino);
+                  }
+                else{
+                  $this->modificar_estado_cursado($inpt,'egreso', $division_origen,'1');
+                  }
+           }
+       endforeach;
+       redirect('escuela/inscripcion/'.$division_origen,'refresh'); 
+   }
    
    function cursado($division=""){
        
