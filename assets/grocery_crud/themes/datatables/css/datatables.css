@@ -14,7 +14,7 @@
 .DTTT_button.ui-button
 {
 	margin-right: 0px !important;
-	margin-left: 4px !important;
+	/*margin-left: 4px !important;*/
 }
 div.DTTT_container
 {

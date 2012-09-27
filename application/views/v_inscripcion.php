@@ -32,15 +32,9 @@ $(document).ready(function() {
 		});
 	});
      
-      $("input[name=repetodos]").change(function(){
-		$('input[name*=repe]').each( function() {			
-			if($("input[name=repetodos]:checked").length == 1){
-				this.checked = true;
-			} else {
-				this.checked = false;
-			}
-		});
-	});
+   $('#example').tooltip()
+   $('#example1').tooltip()  
+   $('#example2').tooltip() 
 });
 
 
@@ -81,20 +75,25 @@ $(document).ready(function() {
            <br />
            </div>
            <div class="span12">
-                 <legend>Alumnos inscriptos:</legend>
+            <legend>Alumnos inscriptos a cursado:</legend>
             <!--Body content-->
             <form id="form1" name="form1" method="post" action="<?php echo site_url('escuela/finalizar_cursado/'.$division);?>">
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Apellido</th>
-                        <th>Nombre</th>
-                        <th>Documento</th>
-                        <th>Editar estado</th>
-                        <th>Promocionan <p>(seleccionar todos) <input type="checkbox" name="checktodos" value="ON" onchange="" title="Seleccionar todos"/></p></th>
-                        <th>Repiten <p>(seleccionar todos) <input type="checkbox" name="repetodos" value="ON" onchange="" title="Seleccionar todos"/></p></th>
+            <table class="table table-striped table-bordered" >
+                <thead >
+                    <tr >
+                        <th rowspan="2">#</th>
+                        <th rowspan="2">Apellido</th>
+                        <th rowspan="2">Nombre</th>
+                        <th rowspan="2">Documento</th>
+                        <th rowspan="2" width="70">Editar estado</th>
+                        <th colspan="2" style="text-align: center;"><a id="example2" href="#" rel="toltip" data-original-title="Debe seleccionar todos los alumnos para finalizar el cursado.">Finalizar Cursado</a></th>
+                        
                     </tr>
+                    <tr>
+                        <th width="70" style="text-align: center;"><a id="example" href="#" rel="toltip" data-original-title="Seleccione los alumnos que promocionan el cursado">Promociona</a></th>
+                        <th width="70" style="text-align: center;"><a id="example1" href="#" rel="toltip" data-original-title="Seleccione los alumnos que repiten el cursado">Repite</a></th>
+                    </tr>
+                    
                 </thead>
                 <tbody>
                     <?php $i=1;?>
@@ -120,18 +119,18 @@ $(document).ready(function() {
                               </div>
                             </div>
                         </td>
-                        <td><input type="checkbox" id="check<?php echo $i;?>" name="check<?php echo $i;?>" value="<?php echo $inscrip['id'];?>" /></td>
-                        <td><input type="checkbox" id="repe<?php echo $i;?>" name="repe<?php echo $i;?>" value="<?php echo $inscrip['id'];?>" /></td>
+                        <td style="text-align: center;"><input type="radio" name="check<?php echo $i;?>" id="check<?php echo $i;?>" value="p-<?php echo $inscrip['id'];?>" checked="checked" /> </td>
+                        <td style="text-align: center;"><input type="radio" name="check<?php echo $i;?>" id="check<?php echo $i;?>" value="r-<?php echo $inscrip['id'];?>" /> </td>
                     </tr>
                     <?php $i++;?>
                     <?php endforeach;?>
                     <?php }?>
                     <tr>
-                        <td colspan="7">
-                            <label>Finalizar cursado y mover alumnos:</label> 
-                            <div class="btn-toolbar pull-right" style="margin: 0;">
-                            <div class="btn-group pull-right">
-                                <button class="btn dropdown-toggle" data-toggle="dropdown">cursos ...<span class="caret"></span></button>
+                        <td colspan="5"></td>
+                        <td colspan="2">
+                            <div class="btn-toolbar" style="margin: 0;">
+                            <div class="btn-group">
+                                <button class="btn dropdown-toggle" data-toggle="dropdown">Pasar a ...<span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                   <?php if(count($cursos)>0){?>
                                     <?php foreach($cursos as $curso):?>
