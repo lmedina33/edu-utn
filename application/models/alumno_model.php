@@ -20,8 +20,8 @@ class Alumno_model extends CI_Model{
    }
    
    function create_comunicaciones(){
-       $this->db->set('fechaBaja','0000-00-00');
-       $this->db->insert('comunicaciones');
+      
+       $this->db->query('insert into comunicaciones values ()');
        return $this->db->insert_id();
    }
   
@@ -86,6 +86,23 @@ class Alumno_model extends CI_Model{
         $data = $query->row_array();
         
         return $data['id'];
+    }
+    
+    function finalizar_cursado($division){
+        
+        /*
+         * 
+         * Consulta para cuando existen 2 cursados activos
+            update cursado as c 
+            left join cursado as c2 on c.materia = c2.materia and c.division = c2.division 
+            set c.fechaBaja = now() 
+            where c.division = 19  and c.fechaAlta < c2.fechaAlta
+         * 
+         */
+        
+        $this->db->set('fechaBaja',date("Y-m-d hh:mm:ss"));
+        $this->db->where();
+        $this->db->update('cursado');
     }
     
 }
