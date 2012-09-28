@@ -76,6 +76,19 @@ class cursado_model extends CI_Model{
         return $data;
     }
     
+    function get_cursos_activos($escuela=""){
+        $this->db->select('distinct(division.id as division, cursado.id as cursado)');
+        $this->db->from('division');
+        $this->db->join('cursado','cursado.division = division.id','left outer');
+        $this->db->where('division.escuela',$escuela);
+        $this->db->where('cursado.fechaBaja is null');
+        
+        $query = $this->db->get();
+        $data = $query->result_array();
+        
+        return $data;
+   }
+    
     function get_cursos_mayores($division){
         $this->db->select('anio, escuela');
         $this->db->from('division');
@@ -94,6 +107,54 @@ class cursado_model extends CI_Model{
         
         return $datos;
        
+    }
+    
+     function finalizar_cursado($division){
+        
+        /*
+         * 
+         * Consulta para cuando existen 2 cursados activos
+            update cursado as c 
+            left join cursado as c2 on c.materia = c2.materia and c.division = c2.division 
+            set c.fechaBaja = now() 
+            where c.division = 19  and c.fechaAlta < c2.fechaAlta
+         * 
+         */
+        $this->db->select('materia, division, count(*) as cantidad');
+        $this->db->from('cursado');
+        $this->db->where('cursado.division',$division);
+        $this->db->where('cursado.fechaBaja is null');
+        $this->db->group_by('materia, division');
+        $query = $this->db->get();
+        $cursados = $query->result_array();
+        
+        foreach($cursados as $curso):
+            if($curso['cantidad']>1){
+                
+                $this->db->select('id');
+                $this->db->from('cursado');
+                $this->db->where('division',$division);
+                $this->db->where('materia',$curso['materia']);
+                $this->db->where('cursado.fechaBaja is null');
+                $this->db->order_by('id','asc');
+                $this->db->limit('1');
+                $query1 = $this->db->get();
+                $data = $query1->row_array();
+                
+                $this->db->set('fechaBaja',date("Y-m-d"));
+                $this->db->where('id',$data['id']);
+                $this->db->update('cursado');
+            }
+        else {
+            $this->db->set('fechaBaja',date("Y-m-d"));
+            $this->db->where('division',$division);
+            $this->db->where('materia',$curso['materia']);
+            $this->db->where('fechaBaja is null');
+            $this->db->update('cursado');
+        }    
+            
+        endforeach;
+                 
     }
     
     

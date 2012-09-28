@@ -13,9 +13,7 @@
 class escuela_model extends CI_Model{
     
     //put your code here
-    function get_divisiones($escuela=""){
-        
-    }
+    
     
  
     function get_planestudio_division($division=""){
@@ -41,6 +39,20 @@ class escuela_model extends CI_Model{
         $data = $query->row_array();
         
         return $data['nivel'];
+    }
+    
+    function get_divisiones($escuela=""){
+        $this->db->select('id');
+        $this->db->from('division');
+        $this->db->where('division.escuela',$escuela);
+        $this->db->where('fechaBaja is null');
+        $this->db->order_by('anio','asc');
+        
+        $query = $this->db->get();
+        $data = $query->result_array();
+        
+        return $data;
+              
     }
 }
 
