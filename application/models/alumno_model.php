@@ -88,22 +88,7 @@ class Alumno_model extends CI_Model{
         return $data['id'];
     }
     
-    function finalizar_cursado($division){
-        
-        /*
-         * 
-         * Consulta para cuando existen 2 cursados activos
-            update cursado as c 
-            left join cursado as c2 on c.materia = c2.materia and c.division = c2.division 
-            set c.fechaBaja = now() 
-            where c.division = 19  and c.fechaAlta < c2.fechaAlta
-         * 
-         */
-        
-        $this->db->set('fechaBaja',date("Y-m-d hh:mm:ss"));
-        $this->db->where();
-        $this->db->update('cursado');
-    }
+   
     
 }
 
