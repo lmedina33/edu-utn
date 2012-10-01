@@ -86,13 +86,8 @@ $(document).ready(function() {
                         <th rowspan="2">Nombre</th>
                         <th rowspan="2">Documento</th>
                         <th rowspan="2" width="70">Editar estado</th>
-                        <th colspan="2" style="text-align: center;"><a id="example2" href="#" rel="toltip" data-original-title="Debe seleccionar todos los alumnos para finalizar el cursado.">Finalizar Cursado</a></th>
-                        
                     </tr>
-                    <tr>
-                        <th width="70" style="text-align: center;"><a id="example" href="#" rel="toltip" data-original-title="Seleccione los alumnos que promocionan el cursado">Promociona</a></th>
-                        <th width="70" style="text-align: center;"><a id="example1" href="#" rel="toltip" data-original-title="Seleccione los alumnos que repiten el cursado">Repite</a></th>
-                    </tr>
+                   
                     
                 </thead>
                 <tbody>
@@ -112,39 +107,15 @@ $(document).ready(function() {
                                   <li><a href="<?php echo site_url('escuela/modificar_estado_cursado/'.$inscrip['id'].'/abandono/'.$division);?>">Abandono</a></li>
                                   <li><a href="<?php echo site_url('escuela/modificar_estado_cursado/'.$inscrip['id'].'/pase/'.$division);?>">Pase de colegio</a></li>
                                   <li><a href="<?php echo site_url('escuela/modificar_estado_cursado/'.$inscrip['id'].'/cambio/'.$division);?>">Cambio de curso</a></li>
-                                  <li class="divider"></li>
-                                  <li><a href="<?php echo site_url('escuela/modificar_estado_cursado/'.$inscrip['id'].'/promocion/'.$division);?>">Promoción de curso</a></li>
-                                  <li><a href="<?php echo site_url('escuela/modificar_estado_cursado/'.$inscrip['id'].'/repetidor/'.$division);?>">Repetidor de curso</a></li>
-                                </ul>
+                                 
                               </div>
                             </div>
                         </td>
-                        <td style="text-align: center;"><input type="radio" name="check<?php echo $i;?>" id="check<?php echo $i;?>" value="p-<?php echo $inscrip['id'];?>" checked="checked" /> </td>
-                        <td style="text-align: center;"><input type="radio" name="check<?php echo $i;?>" id="check<?php echo $i;?>" value="r-<?php echo $inscrip['id'];?>" /> </td>
-                    </tr>
+                       </tr>
                     <?php $i++;?>
                     <?php endforeach;?>
                     <?php }?>
-                    <tr>
-                        <td colspan="5"></td>
-                        <td colspan="2">
-                            <div class="btn-toolbar" style="margin: 0;">
-                            <div class="btn-group">
-                                <button class="btn dropdown-toggle" data-toggle="dropdown">Pasar a ...<span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                  <?php if(count($cursos)>0){?>
-                                    <?php foreach($cursos as $curso):?>
-                                    <li name="asd" value="123"><a onclick="document.getElementById('curso').value='<?php echo $curso['id'];?>';document.form1.submit();"><?php echo $curso['anio'] .'º - '. $curso['nombre']?></a></li>
-                                    <?php endforeach;?>
-                                   <?php } else {?>
-                                    <li><a onclick="document.getElementById('curso').value='0';document.form1.submit();">Egresar del colegio</a></li>
-                                   <?php }?>
-                                </ul>
-                              </div>
-                            </div>
-                           <input type="hidden" name="curso" id="curso" value="" />
-                         </td>
-                    </tr>
+                  
                 </tbody>
             </table>
             </form>
@@ -153,17 +124,20 @@ $(document).ready(function() {
         </div>
       
     </div>
-       <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+       
+    
+</section>
+<?php $this->load->view('template/footer');?>
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h3 id="myModalLabel">Agregar Alumnos</h3>
             </div>
             <div class="modal-body">
-                <iframe src="<?php echo site_url('persona/abm/alumno/1');?>" height="700px" width="900px" frameborder="0"></iframe>
+              <iframe src="<?php echo site_url('persona/abm/alumno/1');?>" class="frame" frameborder="0"></iframe>  
             </div>
         <div class="modal-footer">
               <button class="btn" data-dismiss="modal">Close</button>
         </div>
-        </div>
-</section>
-<?php $this->load->view('template/footer');?>
+</div>
+

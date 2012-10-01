@@ -52,14 +52,14 @@
 		</div>	
 		<div class='buttons-box'>
 			<div class='form-button-box'>
-				<input type='submit' value='<?php echo $this->l('form_update_changes'); ?>' class='ui-input-button' />
+				<input type='submit' value='<?php echo $this->l('form_update_changes'); ?>' class='btn btn-large' />
 			</div>
 			<?php 	if(!$this->unset_back_to_list) { ?>
 			<div class='form-button-box'>
-				<input type='button' value='<?php echo $this->l('form_update_and_go_back'); ?>' class='ui-input-button' id="save-and-go-back-button"/>
+				<input type='button' value='<?php echo $this->l('form_update_and_go_back'); ?>' class='btn btn-large' id="save-and-go-back-button"/>
 			</div>			
 			<div class='form-button-box'>
-				<input type='button' value='<?php echo $this->l('form_cancel'); ?>' onclick='javascript: return goToList()' class='ui-input-button' />
+				<input type='button' value='<?php echo $this->l('form_cancel'); ?>' onclick='javascript: return goToList()' class='btn btn-large' />
 			</div>
 			<?php }?>			
 			<div class='form-button-box loading-box'>
