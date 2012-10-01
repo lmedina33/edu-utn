@@ -123,13 +123,13 @@
     <p>&nbsp;</p>
    
   </div>
-     <div id="myModal2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     <div id="myModal2" class="modal-datos hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h3 id="myModalLabel">Modificar datos Personales</h3>
             </div>
             <div class="modal-body">
-                <iframe src="<?php echo site_url('persona/abm/mod/1/edit/'.$persona['persona']);?>" width="930" height="900" frameborder="0"></iframe>
+                <iframe src="<?php echo site_url('persona/abm/mod/1/edit/'.$persona['persona']);?>" width="930" height="700" frameborder="0"></iframe>
             </div>
         <div class="modal-footer">
               <button class="btn" data-dismiss="modal">Close</button>

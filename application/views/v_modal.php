@@ -7,13 +7,8 @@ foreach($css_files as $file): ?>
  
     <script src="<?php echo $file; ?>"></script>
 <?php endforeach; ?>
-<section>
-    
-    <div class="central">
+
        
         <p><?php echo $output; ?></p>
         <p><?php if(isset($html_inf)) echo $html_inf ; ?></p>
-    </div>
-        
-</section>
 

@@ -296,7 +296,7 @@ class Escuela extends CI_Controller {
 		}
    }
   
-      function finalizar_cursado_anual(){
+      function fin_cursado(){
        $this->load->model('cursado_model');
        $this->load->model('escuela_model');
        
@@ -309,6 +309,7 @@ class Escuela extends CI_Controller {
            $data['cursos'][$i]['datos'] = $this->cursado_model->get_datos_curso($division['id']);
            $data['cursos'][$i]['inscriptos'] = $this->cursado_model->get_inscriptos_division($division['id']);
            $data['cursos'][$i]['mayores'] = $this->cursado_model->get_cursos_mayores($division['id']);
+           $data['cursos'][$i]['division'] = $division['id'];
            $i++;
        endforeach;
        //print_r($data); exit;
@@ -316,6 +317,57 @@ class Escuela extends CI_Controller {
        $this->load->view('v_fin_curso',$data);
 		
    }
+   
+   
+    function finalizar_cursado($division_origen=""){
+      
+       $division_destino = $this->input->post('curso');
+       $inputs = $this->input->post();
+       //$inputs['curso'] = '';
+     //  print_r($inputs);exit;
+       $this->load->model('alumno_model');
+       $i=0;
+       $alumno = array();
+       foreach($inputs as $inpt):
+          
+               $data = explode('-', $inpt);
+             print_r($inpt); 
+               if(count($data) == 1){
+                   $division_destino[$i] = $data[0];
+                    $i++;
+               }
+               else{
+                   $alumno[$i][] = $data[1];
+                   
+               }
+               
+               /*if($division_destino != 0){
+                   // Estos son los alumnos que promocionan
+                   if($data[0]=='p'){
+                        $this->modificar_estado_cursado($data[1],'promocion', $division_origen,'1');
+                        // hay q inscribirlos pero en un nuevo cursado
+                        $this->inscribir($this->alumno_model->get_alumno_id($data[1]), $division_destino,'1');
+                   }
+                   // Estos son los alumnos que repiten de curso
+                   else if($data[0]=='r'){
+                      // aca va los que repiten
+                        $this->modificar_estado_cursado($data[1],'repetidor', $division_origen,'1');
+                   }
+                 
+                  }
+                else{
+                  $this->modificar_estado_cursado($data[1],'egreso', $division_origen,'1');
+                  }*/
+         
+       endforeach;
+       print_r($alumno);print_r($division_destino); exit;
+       // Ahora es momento de finalizar el cursado de esta division
+     /*  $this->load->model('cursado_model');
+       $this->cursado_model->finalizar_cursado($division_origen);
+       // Tendriamos que crear un nuevo cursado para la división origen
+       redirect('escuela/inscripcion/'.$division_origen,'refresh'); */
+   }
+   
    
    public function alumno_check($str,$division)
 	{ 
@@ -357,15 +409,13 @@ class Escuela extends CI_Controller {
    
   
    
-   function inscribir($alumno="",$division="",$nuevo=""){
+   function inscribir($alumno="",$division=""){
       // primero buscamos los cursados correspondientes a la division
        $this->load->model('cursado_model');
        $this->load->model('alumno_model');
        
-       
-       
        $cursados = $this->cursado_model->get_cursado_division($division);
-      // print_r($division);
+      // print_r($cursados);exit;
        foreach($cursados as $cursado):
             // creamos el cuaderno de comunicaciones
             $id_cuderno = $this->alumno_model-> create_comunicaciones();
@@ -381,42 +431,7 @@ class Escuela extends CI_Controller {
       
    }
    
-   function finalizar_cursado($division_origen=""){
-      
-       $division_destino = $this->input->post('curso');
-       $inputs = $this->input->post();
-       $inputs['curso'] = '';
-      // print_r($inputs);exit;
-       $this->load->model('alumno_model');
-       foreach($inputs as $inpt):
-           if($inpt != 'ON' and $inpt != ''){
-               $data = explode('-', $inpt);
-             
-               if($division_destino != 0){
-                   // Estos son los alumnos que promocionan
-                   if($data[0]=='p'){
-                        $this->modificar_estado_cursado($data[1],'promocion', $division_origen,'1');
-                        // hay q inscribirlos pero en un nuevo cursado
-                        $this->inscribir($this->alumno_model->get_alumno_id($data[1]), $division_destino,'1');
-                   }
-                   // Estos son los alumnos que repiten de curso
-                   else if($data[0]=='r'){
-                      // aca va los que repiten
-                        $this->modificar_estado_cursado($data[1],'repetidor', $division_origen,'1');
-                   }
-                 
-                  }
-                else{
-                  $this->modificar_estado_cursado($data[1],'egreso', $division_origen,'1');
-                  }
-           }
-       endforeach;
-       // Ahora es momento de finalizar el cursado de esta division
-       $this->load->model('cursado_model');
-       $this->cursado_model->finalizar_cursado($division_origen);
-       // Tendriamos que crear un nuevo cursado para la división origen
-       redirect('escuela/inscripcion/'.$division_origen,'refresh'); 
-   }
+  
    
    function cursado($division=""){
        
