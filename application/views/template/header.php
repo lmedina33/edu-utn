@@ -68,6 +68,9 @@
                 <ul>
                     <li><a href="<?php echo site_url('escuela/division') ?>">Cursos y Divisiones</a></li>
                 </ul>
+                <ul>
+                    <li><a href="<?php echo site_url('escuela/fin_cursado') ?>">Finalizar Cursado Anual</a></li>
+                </ul>
                <?php }?> 
             </li>
          <?php if($rol['rol']==1){?>       

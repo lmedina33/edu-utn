@@ -104,9 +104,9 @@ $(document).ready(function() {
                             <div class="btn-group">
                                 <button class="btn dropdown-toggle" data-toggle="dropdown">estados ...<span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                  <li><a href="<?php echo site_url('escuela/modificar_estado_cursado/'.$inscrip['id'].'/abandono/'.$division);?>">Abandono</a></li>
-                                  <li><a href="<?php echo site_url('escuela/modificar_estado_cursado/'.$inscrip['id'].'/pase/'.$division);?>">Pase de colegio</a></li>
-                                  <li><a href="<?php echo site_url('escuela/modificar_estado_cursado/'.$inscrip['id'].'/cambio/'.$division);?>">Cambio de curso</a></li>
+                                  <li><a href="<?php echo site_url('escuela/modificar_estado_cursado/'.$inscrip['alumno'].'/abandono/'.$division);?>">Abandono</a></li>
+                                  <li><a href="<?php echo site_url('escuela/modificar_estado_cursado/'.$inscrip['alumno'].'/pase/'.$division);?>">Pase de colegio</a></li>
+                                  <li><a href="<?php echo site_url('escuela/modificar_estado_cursado/'.$inscrip['alumno'].'/cambio/'.$division);?>">Cambio de curso</a></li>
                                  
                               </div>
                             </div>
@@ -134,7 +134,7 @@ $(document).ready(function() {
               <h3 id="myModalLabel">Agregar Alumnos</h3>
             </div>
             <div class="modal-body">
-              <iframe src="<?php echo site_url('persona/abm/alumno/1');?>" class="frame" frameborder="0"></iframe>  
+              <iframe src="<?php echo site_url('persona/abm/alumno/1/add');?>" class="frame" frameborder="0"></iframe>  
             </div>
         <div class="modal-footer">
               <button class="btn" data-dismiss="modal">Close</button>

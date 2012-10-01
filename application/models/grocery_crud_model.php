@@ -356,6 +356,7 @@ class grocery_CRUD_Model  extends CI_Model  {
     
     function get_relation_n_n_selection_array($primary_key_value, $field_info)
     {
+       
     	$select = "";    	
     	$related_field_title = $field_info->title_field_selection_table;
     	$use_template = strpos($related_field_title,'{') !== false;;
@@ -402,7 +403,8 @@ class grocery_CRUD_Model  extends CI_Model  {
     function get_relation_n_n_unselected_array($field_info, $selected_values)
     {
     	$use_where_clause = !empty($field_info->where_clause);
-    	
+    	 
+        
     	$select = "";
     	$related_field_title = $field_info->title_field_selection_table;
     	$use_template = strpos($related_field_title,'{') !== false;
@@ -420,6 +422,7 @@ class grocery_CRUD_Model  extends CI_Model  {
     	$this->db->select('*, '.$select,false);
     	
     	if($use_where_clause){
+          
     		$this->db->where($field_info->where_clause);	
     	}
     	

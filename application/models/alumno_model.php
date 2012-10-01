@@ -41,7 +41,7 @@ class Alumno_model extends CI_Model{
         else return false;
         
     }
-    function get_inscripciones($persona="",$estado="",$division=""){
+    function get_inscripciones($alumno="",$estado="",$division=""){
         $this->db->select('inscripcionalumno.id');
         $this->db->from('cursado');
         $this->db->join('inscripcionalumno','cursado.id = inscripcionalumno.cursado','inner');
@@ -49,7 +49,7 @@ class Alumno_model extends CI_Model{
         $this->db->join('alumno','inscripcionalumno.alumno = alumno.id','left outer');
         $this->db->join('persona','alumno.persona = persona.id','left outer');
         $this->db->join('division','cursado.division = division.id','left outer');
-        $this->db->where('persona.id',$persona);
+        $this->db->where('alumno.id',$alumno);
         $this->db->where('estadoinscripcion.nombre',$estado);
         $this->db->where('division.id',$division);
         $this->db->where('inscripcionalumno.fechaBaja is null');

@@ -226,10 +226,10 @@ class Escuela extends CI_Controller {
        
    }
    
-   function modificar_estado_cursado($persona="",$estado="",$division="",$redirect=""){
+   function modificar_estado_cursado($alumno="",$estado="",$division="",$redirect=""){
        $this->load->model('alumno_model');
-       $inscripciones = $this->alumno_model->get_inscripciones($persona,'Cursando',$division);
-      // print_r($inscripciones); exit;
+       $inscripciones = $this->alumno_model->get_inscripciones($alumno,'Cursando',$division);
+       //print_r($inscripciones); exit;
       
        foreach ($inscripciones as $inscrip):       
        switch ($estado){
@@ -296,7 +296,7 @@ class Escuela extends CI_Controller {
 		}
    }
   
-      function fin_cursado(){
+   function fin_cursado(){
        $this->load->model('cursado_model');
        $this->load->model('escuela_model');
        
@@ -324,48 +324,79 @@ class Escuela extends CI_Controller {
        $division_destino = $this->input->post('curso');
        $inputs = $this->input->post();
        //$inputs['curso'] = '';
-     //  print_r($inputs);exit;
+      // print_r($inputs);exit;
        $this->load->model('alumno_model');
+       $this->load->model('cursado_model');
        $i=0;
        $alumno = array();
        foreach($inputs as $inpt):
           
                $data = explode('-', $inpt);
-             print_r($inpt); 
-               if(count($data) == 1){
-                   $division_destino[$i] = $data[0];
-                    $i++;
+              // print_r($data); 
+               if($data[0] == 'origen'){
+                   $pase[$i]['origen'] = $data[1];
+                    
                }
-               else{
-                   $alumno[$i][] = $data[1];
+               else if($data[0] == 'destino'){
+                   $pase[$i]['destino'] = $data[1];
+                   $i++;
+               }
+               else if($data[0]=='p'){
+                   $pase[$i]['alumno']['pase'][] = $data[1];
                    
                }
-               
-               /*if($division_destino != 0){
-                   // Estos son los alumnos que promocionan
-                   if($data[0]=='p'){
-                        $this->modificar_estado_cursado($data[1],'promocion', $division_origen,'1');
-                        // hay q inscribirlos pero en un nuevo cursado
-                        $this->inscribir($this->alumno_model->get_alumno_id($data[1]), $division_destino,'1');
-                   }
-                   // Estos son los alumnos que repiten de curso
-                   else if($data[0]=='r'){
-                      // aca va los que repiten
-                        $this->modificar_estado_cursado($data[1],'repetidor', $division_origen,'1');
-                   }
-                 
-                  }
-                else{
-                  $this->modificar_estado_cursado($data[1],'egreso', $division_origen,'1');
-                  }*/
-         
+               else{
+                  $pase[$i]['alumno']['repe'][] = $data[1]; 
+               }
+                    
        endforeach;
-       print_r($alumno);print_r($division_destino); exit;
-       // Ahora es momento de finalizar el cursado de esta division
-     /*  $this->load->model('cursado_model');
-       $this->cursado_model->finalizar_cursado($division_origen);
-       // Tendriamos que crear un nuevo cursado para la división origen
-       redirect('escuela/inscripcion/'.$division_origen,'refresh'); */
+    //  print_r($pase); exit;
+      $cursos = array();
+     
+      foreach ($pase as $ps):
+          //1º Finalizar el cursado actual
+          //2º Generamos los nuevos cursados
+           
+          if(! (in_array($ps['origen'], $cursos))){
+               $this->cursado_model->fin_cursado($ps['origen']);
+               $this->generar_cursado('', $ps['origen']);
+               $cursos[] = $ps['origen'];
+          }
+          if(! (in_array($ps['destino'], $cursos))) {
+              if($ps['destino'] != 'egreso'){
+               $this->cursado_model->fin_cursado($ps['destino']);
+               $this->generar_cursado('', $ps['destino']);   
+               $cursos[] = $ps['destino'];
+              } 
+          } 
+          
+          //3º Modificamos las inscripciones de los alumnos
+          if(isset($ps['alumno']['repe'])){
+              //print_r($ps['alumno']['repe']); exit;
+          foreach($ps['alumno']['repe'] as $alumno):
+              $this->modificar_estado_cursado($alumno,'repetidor', $ps['origen'],'1');
+              $this->inscribir($alumno, $ps['origen']);
+          endforeach;
+          }
+          if(isset($ps['alumno']['pase'])){
+          foreach($ps['alumno']['pase'] as $alumno):
+             
+                if($ps['destino'] != 'egreso') {
+                     $this->modificar_estado_cursado($alumno,'pase', $ps['origen'],'1');
+                     $this->inscribir($alumno, $ps['destino']);
+                }
+                else {
+                  //  print_r($alumno); exit;
+                    $this->modificar_estado_cursado($alumno,'egreso', $ps['origen'],'1');
+                
+                }
+                
+          endforeach;
+          }
+          
+      endforeach;
+      
+      redirect('escuela/fin_cursado','refresh'); 
    }
    
    
@@ -477,10 +508,10 @@ class Escuela extends CI_Controller {
      
        // Obtenemos el plan de estudio de la division
        $plan_estudio = $this->escuela_model->get_planestudio_division($division);
-       
+       $datos_division = $this->escuela_model->get_datos_division($division);
        // Buscamos las materias que tiene asignadas el plan de estudio
        
-       $materias = $this->planestudio_model->get_materias_plan($plan_estudio);
+       $materias = $this->planestudio_model->get_materias_plan($plan_estudio,$datos_division['anio']);
        
        // Por cada materia del plan de estudio generamos un cursado
        foreach ($materias as $materia):
@@ -503,7 +534,6 @@ class Escuela extends CI_Controller {
    }
    
    function add_personal($primary_key){
-        $this->load->library('grocery_CRUD');
         $this->grocery_crud->set_theme('datatables');
         
      
@@ -533,6 +563,30 @@ class Escuela extends CI_Controller {
         $output = $this->grocery_crud->render();
         $this->load->view('v_abm.php',$output);  
        
+   }
+   
+   function materias(){
+        $this->grocery_crud->set_theme('datatables');
+        $escuela = $this->sesion_permiso['escuela'];
+     
+        // Elegimos la tabla sobre la que vamos a trabajar
+        $this->grocery_crud->set_table("cursado");
+        // Nombre que se muestra como referencia a la tabla
+        $this->grocery_crud->set_subject('Materias');
+        
+        
+        $this->grocery_crud->set_relation('division','division','{anio}º - {nombre}','division.escuela = '.$escuela);
+        $this->grocery_crud->set_relation('materia','materia','nombre');
+        
+        $this->grocery_crud->where('cursado.fechaBaja is null'); 
+     //   $this->grocery_crud->where('division.escuela',$escuela); 
+      
+       
+        
+        
+         $output = $this->grocery_crud->render();
+        $this->load->view('v_abm.php',$output);  
+
    }
 
 }
