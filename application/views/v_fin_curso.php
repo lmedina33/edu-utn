@@ -38,7 +38,7 @@ $(document).ready(function() {
                    <small>Turno: <?php echo $curso['datos']['turno'] ?> - Plan de estudios: <?php echo $curso['datos']['plan'] ?></small>
                 </h4>
            </legend>
-       
+           <input type="hidden" name="origen-<?php echo $curso['division'];?>" value="origen-<?php echo $curso['division'];?>" />
         <div class="row-fluid">
           
            <div class="span12">
@@ -69,8 +69,8 @@ $(document).ready(function() {
                         <td><?php echo $inscrip['apellido']?></td>
                         <td><?php echo $inscrip['nombre']?></td>
                         <td><?php echo $inscrip['dni']?></td>
-                        <td style="text-align: center;"><input type="radio" name="check<?php echo $i;?>-<?php echo $curso['division'];?>" id="check<?php echo $i;?>" value="p-<?php echo $inscrip['id'];?>" checked="checked" /> </td>
-                        <td style="text-align: center;"><input type="radio" name="check<?php echo $i;?>-<?php echo $curso['division'];?>" id="check<?php echo $i;?>" value="r-<?php echo $inscrip['id'];?>" /> </td>
+                        <td style="text-align: center;"><input type="radio" name="check<?php echo $i;?>-<?php echo $curso['division'];?>" id="check<?php echo $i;?>" value="p-<?php echo $inscrip['alumno'];?>" checked="checked" /> </td>
+                        <td style="text-align: center;"><input type="radio" name="check<?php echo $i;?>-<?php echo $curso['division'];?>" id="check<?php echo $i;?>" value="r-<?php echo $inscrip['alumno'];?>" /> </td>
                     </tr>
                     <?php $i++;?>
                     <?php endforeach;?>
@@ -86,10 +86,10 @@ $(document).ready(function() {
                                  <?php if(count($curso['mayores'])>0){?>
                                     <?php foreach($curso['mayores'] as $curso_m):?>
                                     
-                                    <option value="<?php echo $curso_m['id']?>"><?php echo $curso_m['anio'] .'º - '. $curso_m['nombre']?></option>
+                                    <option value="destino-<?php echo $curso_m['id']?>"><?php echo $curso_m['anio'] .'º - '. $curso_m['nombre']?></option>
                                     <?php endforeach;?>
                                    <?php } else {?>
-                                    <option value="egreso">Egresar del colegio</option>
+                                    <option value="destino-egreso">Egresar del colegio</option>
                                    <?php }?>
                                 
                                  </select>
@@ -103,7 +103,7 @@ $(document).ready(function() {
         </div>
          </ul>  
          <?php }?>
-         <button class="btn btn-primary btn-inverse btn-large" type="submit">Guardar</button>
+         <button class="btn btn-primary btn-inverse btn-large" type="submit">Finalizar Cursado</button>
      </form>
        
         </div>

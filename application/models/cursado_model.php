@@ -32,6 +32,7 @@ class cursado_model extends CI_Model{
         $this->db->from('cursado');
         $this->db->where('division',$division);
         $this->db->where('materia',$materia);
+        $this->db->where('fechaBaja is null');
         
         $query = $this->db->get();
         $data = $query->result_array();
@@ -46,7 +47,7 @@ class cursado_model extends CI_Model{
     }
     
     function get_inscriptos_division($division=""){
-        $this->db->select('persona.id, persona.nombre, persona.apellido, persona.dni');
+        $this->db->select('persona.id, persona.nombre, persona.apellido, persona.dni, alumno.id as alumno');
         $this->db->distinct('persona.id');
         $this->db->from('cursado');
         $this->db->join('inscripcionalumno','cursado.id = inscripcionalumno.cursado','inner');
@@ -155,6 +156,13 @@ class cursado_model extends CI_Model{
             
         endforeach;
                  
+    }
+    function fin_cursado($division=""){
+        $this->db->set('fechaBaja',date("Y-m-d"));
+        $this->db->where('division',$division);
+        $this->db->where('fechaBaja is null');
+        $this->db->update('cursado');
+        
     }
     
     

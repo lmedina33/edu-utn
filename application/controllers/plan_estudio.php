@@ -47,6 +47,8 @@ class plan_estudio extends CI_Controller{
         $this->grocery_crud->set_rules('resolucion','Resolucion','required|alpha_numeric');
         $this->grocery_crud->set_rules('fechaAlta','Fecha de Alta','required');
        
+         $this->grocery_crud->add_action('Materias','','plan_estudio/materia','ui-icon-plus');
+        
         $output = $this->grocery_crud->render();
         
         $output -> titulo = 'Gestión de planes de estudio';
@@ -56,7 +58,7 @@ class plan_estudio extends CI_Controller{
         
     }
     
-    function materia(){
+    function materia($plan_estudio=""){
         $this->load->library('grocery_CRUD');
         $this->grocery_crud->set_theme('datatables');
         
@@ -65,24 +67,31 @@ class plan_estudio extends CI_Controller{
         $this->grocery_crud->set_table('materia');
         // Nombre que se muestra como referencia a la tabla
         $this->grocery_crud->set_subject('Materia');
-        $this->grocery_crud->set_relation_n_n('planes','planestudio_materia','plandeestudio','materia','planestudio','nombre','');
-      
+       if($plan_estudio) {
+           $this->grocery_crud->set_primary_key('materia','planestudio_materia');
+           $this->grocery_crud->set_relation('id','planestudio_materia','materia','materia.id = planestudio.materia and planestudio_materia.planestudio ='.$plan_estudio);
+       }
+           
+       //    $this->grocery_crud->set_relation_n_n('materias','planestudio_materia','materia','planestudio','materia','nombre','','planestudio_materia.planestudio = '.$plan_estudio);
+      // else $this->grocery_crud->set_relation_n_n('materias','planestudio_materia','plandeestudio','materia','planestudio','nombre','');
         
-        $this->grocery_crud->add_action('Contenidos','','abm/contenido','ui-icon-plus');
+        $this->grocery_crud->where('planestudio',$plan_estudio);
+        $this->grocery_crud->add_action('Contenidos','','materia/contenido','ui-icon-plus');
         
         // Campos que se requieren para la inserción y modificacion
         $this->grocery_crud->fields('nombre','descripcion','resolucion','planes','year');
         // Campos que se muestran en la tabla con los registros existentes
-        $this->grocery_crud->columns('nombre','descripcion','year','fechaAlta','fechaBaja');
+        $this->grocery_crud->columns('nombre','descripcion','year','fechaAlta');
+        $this->grocery_crud->order_by('year','asc');
         
         //Nombre a mostrar por cada campo de la tabla
         $this->grocery_crud->display_as('nombre','Nombre de la Materia');
         $this->grocery_crud->display_as('descripcion','Descripción');
         $this->grocery_crud->display_as('year','Año');
-        $this->grocery_crud->display_as('planes','Plan de Estudio');
+        $this->grocery_crud->display_as('materias','Plan de Estudio');
         $this->grocery_crud->display_as('resolucion','Nº de Resolución');
         $this->grocery_crud->display_as('fechaAlta','Fecha de Alta');
-        $this->grocery_crud->display_as('fechaBaja','Fecha de Baja');
+        
        
         // Reglas de validación de los campos
         $this->grocery_crud->set_rules('nombre','Nombre','required');
@@ -91,7 +100,7 @@ class plan_estudio extends CI_Controller{
         $this->grocery_crud->set_rules('year','Año','required|numeric|max_length[1]|less_than[9]|greater_than[0]');
        
         $output = $this->grocery_crud->render();
-         $output -> titulo = 'Gestión de planes de materias';
+         $output -> titulo = 'Materias del Plan de Estudios';
         $this->load->view('v_abm.php',$output);  
     }
     

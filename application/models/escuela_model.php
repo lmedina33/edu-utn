@@ -54,6 +54,19 @@ class escuela_model extends CI_Model{
         return $data;
               
     }
+    function get_datos_division($division=""){
+        $this->db->select('*');
+        $this->db->from('division');
+        $this->db->where('division.id',$division);
+        
+        $query = $this->db->get();
+        $data = $query->row_array();
+        
+        return $data;
+        
+    }
+    
+    
 }
 
 
