@@ -27,6 +27,17 @@ class planestudio_model  extends CI_Model{
         return $data;
     }
     
+    function get_nombre($plan=""){
+        $this->db->select('nombre');
+        $this->db->from('plandeestudio');
+        $this->db->where('id',$plan);
+        
+        $query = $this->db->get();
+        $data = $query->row_array();
+        
+        return $data['nombre'];
+    }
+    
 }
 
 ?>

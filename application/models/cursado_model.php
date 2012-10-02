@@ -165,6 +165,14 @@ class cursado_model extends CI_Model{
         
     }
     
+    function baja_profesor($dictado=""){
+        $this->db->set('fechaBaja',date("Y-m-d"));
+        $this->db->where('fechaBaja is null');
+        $this->db->where('id',$dictado);
+        $this->db->update('dictadoprofesor');
+    }
+    
+    
     
 }
 

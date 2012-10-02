@@ -24,15 +24,16 @@ class plan_estudio extends CI_Controller{
         // Nombre que se muestra como referencia a la tabla
         $this->grocery_crud->set_subject('Plan de Estudios');
        // Agregamos la relación n a n con los materias 
-        $this->grocery_crud->set_relation_n_n('materias','planestudio_materia','materia','planestudio','materia','nombre','');
+       // $this->grocery_crud->set_relation_n_n('materias','planestudio_materia','materia','planestudio','materia','nombre','');
         $this->grocery_crud->set_relation('nivel','nivel','nombre');
         //asd
         
-
+        $this->grocery_crud->unset_delete();
+       
         // Campos que se requieren para la inserción y modificacion
         $this->grocery_crud->fields('nombre','descripcion','resolucion','fechaAlta','nivel');
         // Campos que se muestran en la tabla con los registros existentes
-        $this->grocery_crud->columns('nombre','descripcion','resolucion','fechaAlta','fechaBaja','materias');
+        $this->grocery_crud->columns('nombre','descripcion','resolucion','fechaAlta');
         
         //Nombre a mostrar por cada campo de la tabla
         $this->grocery_crud->display_as('nombre','Nombre del Plan');
@@ -78,6 +79,10 @@ class plan_estudio extends CI_Controller{
         $this->grocery_crud->where('planestudio',$plan_estudio);
         $this->grocery_crud->add_action('Contenidos','','materia/contenido','ui-icon-plus');
         
+        $this->grocery_crud->unset_add();
+        $this->grocery_crud->unset_edit();
+        $this->grocery_crud->unset_delete();
+       
         // Campos que se requieren para la inserción y modificacion
         $this->grocery_crud->fields('nombre','descripcion','resolucion','planes','year');
         // Campos que se muestran en la tabla con los registros existentes
@@ -100,7 +105,9 @@ class plan_estudio extends CI_Controller{
         $this->grocery_crud->set_rules('year','Año','required|numeric|max_length[1]|less_than[9]|greater_than[0]');
        
         $output = $this->grocery_crud->render();
-         $output -> titulo = 'Materias del Plan de Estudios';
+        $this->load->model('planestudio_model');
+        $nombre_plan = $this->planestudio_model->get_nombre($plan_estudio);
+        $output -> titulo = 'Materias del Plan de Estudios "'.$nombre_plan.'"';
         $this->load->view('v_abm.php',$output);  
     }
     

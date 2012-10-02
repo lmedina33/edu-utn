@@ -14,7 +14,7 @@ class materia extends CI_Controller {
     
     //put your code here
     
-    public function abm($plan_estudio=""){
+    public function abm(){
         $this->load->library('grocery_CRUD');
         $this->grocery_crud->set_theme('datatables');
         
@@ -24,8 +24,7 @@ class materia extends CI_Controller {
         // Nombre que se muestra como referencia a la tabla
         $this->grocery_crud->set_subject('Materia');
        
-       if($plan_estudio) $this->grocery_crud->set_relation_n_n('planes','planestudio_materia','plandeestudio','materia','planestudio','nombre','','plandeestudio.id = '.$plan_estudio);
-       else $this->grocery_crud->set_relation_n_n('planes','planestudio_materia','plandeestudio','materia','planestudio','nombre','');
+        $this->grocery_crud->set_relation_n_n('planes','planestudio_materia','plandeestudio','materia','planestudio','nombre','');
        
        
         
@@ -34,7 +33,7 @@ class materia extends CI_Controller {
         // Campos que se requieren para la inserción y modificacion
         $this->grocery_crud->fields('nombre','descripcion','resolucion','planes','year');
         // Campos que se muestran en la tabla con los registros existentes
-        $this->grocery_crud->columns('nombre','descripcion','year','fechaAlta','fechaBaja','planes');
+        $this->grocery_crud->columns('nombre','descripcion','year','fechaAlta','planes');
         
         //Nombre a mostrar por cada campo de la tabla
         $this->grocery_crud->display_as('nombre','Nombre de la Materia');
