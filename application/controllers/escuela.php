@@ -214,11 +214,13 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->display_as('anio','Año');
        
         $this->grocery_crud->add_action('Matricula alumnos..','','escuela/inscripcion','ui-icon-plus');
+        $this->grocery_crud->add_action('Materias','','escuela/materias','ui-icon-plus');
         $this->grocery_crud->callback_after_insert(array($this, 'generar_cursado'));
         
         // Reglas de validación de los campos
         $this->grocery_crud->set_rules('nombre','Nombre','required');
-       
+        $this->grocery_crud->unset_delete();
+        
         $output = $this->grocery_crud->render();
         $output -> titulo = 'Gestionar cursos y divisiones';
         
@@ -565,7 +567,7 @@ class Escuela extends CI_Controller {
        
    }
    
-   function materias(){
+   function materias($division=""){
         $this->grocery_crud->set_theme('datatables');
         $escuela = $this->sesion_permiso['escuela'];
      
@@ -579,14 +581,60 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->set_relation('materia','materia','nombre');
         
         $this->grocery_crud->where('cursado.fechaBaja is null'); 
-     //   $this->grocery_crud->where('division.escuela',$escuela); 
-      
-       
+        $this->grocery_crud->where('cursado.division ='.$division);
+        
+    
+        $this->grocery_crud->columns('materia','division');
+        $this->grocery_crud->add_action('Profesor','','escuela/profesor','ui-icon-plus');
+        
+        $this->grocery_crud->unset_delete();
+        $this->grocery_crud->unset_add();
+        $this->grocery_crud->unset_edit();
         
         
          $output = $this->grocery_crud->render();
+         $output -> titulo = 'Materias del cursado';  
+         
         $this->load->view('v_abm.php',$output);  
 
+   }
+   function profesor($cursado=""){
+        $this->grocery_crud->set_theme('datatables');
+        $escuela = $this->sesion_permiso['escuela'];
+     
+        // Elegimos la tabla sobre la que vamos a trabajar
+        $this->grocery_crud->set_table("dictadoprofesor");
+        // Nombre que se muestra como referencia a la tabla
+        $this->grocery_crud->set_subject('Profesor');
+        
+        
+        $this->grocery_crud->where('fechaBaja is null'); 
+        $this->grocery_crud->where('cursado ='.$cursado);
+        
+        $this->grocery_crud->set_relation_n_n('profesor','persona_dictado','persona','dictado','persona','{nombre}, {apellido} - {dni}','','persona.id in (select persona from docente)');
+        $this->grocery_crud->set_relation('cargo','cargo','nombre');
+        
+        $this->grocery_crud->change_field_type('cursado','hidden',$cursado);
+        
+        $this->grocery_crud->callback_delete(array($this,'callback_delete_profesor'));
+        
+        $this->grocery_crud->fields('profesor','cargo','cursado');
+        $this->grocery_crud->columns('profesor','cargo');
+        
+        
+        $output = $this->grocery_crud->render();
+        
+        $output -> titulo = 'Profesores del cursado'; 
+        
+        $this->load->view('v_abm.php',$output);  
+       
+   }
+   
+   function callback_delete_profesor($primary_key){
+       $this->load->model('cursado_model');
+       $this->cursado_model->baja_profesor($primary_key);
+       
+       return true;
    }
 
 }
