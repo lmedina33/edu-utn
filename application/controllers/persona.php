@@ -226,14 +226,14 @@ class Persona extends CI_Controller {
         // En caso de que no existan relaciones redirigimos para agregar las relaciones del tipo.
      
         $this->load->library('grocery_CRUD');
-      //  $this->grocery_crud->set_theme('datatables');
+        $this->grocery_crud->set_theme('datatables');
         $this->grocery_crud->unset_edit();
         $this->grocery_crud->unset_print();
         $this->grocery_crud->unset_export();
         
         $this->grocery_crud->set_table('relacion');
         // Nombre que se muestra como referencia a la tabla
-        $this->grocery_crud->set_subject($tipo);
+        $this->grocery_crud->set_subject('Relacion '.$tipo);
         
        if($tipo == 'padre' or $tipo == 'madre'){
         if(count($data['relaciones'])> 0){
@@ -242,7 +242,7 @@ class Persona extends CI_Controller {
         }
         
         
-        $add_html = '<button href="#myModal" role="button" class="btn btn-large btn-inverse" data-toggle="modal">Agregar Padre/Madre...</button>
+        $add_html = '<button href="#myModal" role="button" class="btn btn-large btn-info" data-toggle="modal">Agregar Padre/Madre...</button>
             <div id="myModal" class="modal-datos hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -252,9 +252,17 @@ class Persona extends CI_Controller {
               <iframe src="'.site_url("persona/abm/padre/1/add").'" class="frame" width=930 height=700 frameborder="0"></iframe>  
             </div>
         <div class="modal-footer">
-              <button class="btn" data-dismiss="modal">Close</button>
+              <button class="btn" data-dismiss="modal" onclick="location.reload();">Close</button>
         </div>
-</div>';
+     </div>
+<script type="text/javascript">
+    $(document).focusout(function() {
+        $("#myModal").focusout(function() {
+            location.reload();
+        });
+    });
+</script>     
+';
       }
         
         $this->db->select('id');
@@ -304,7 +312,7 @@ class Persona extends CI_Controller {
         // Campos que se muestran en la tabla con los registros existentes
         $this->grocery_crud->columns('idsegunda');
         $output = $this->grocery_crud->render();
-        if($add_html){
+        if(isset($add_html)){
             $output->html_inf = $add_html;
         }
         $this->load->model('persona_model');

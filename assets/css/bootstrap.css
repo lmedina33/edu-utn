@@ -4923,6 +4923,8 @@ input[type="submit"].btn.btn-mini {
   z-index: 1050;
   width: auto;
   height: auto;
+  min-width: 800px;
+  min-height: 700px;
   top: 50%;
   margin: -45% 5% auto;
   overflow: auto;

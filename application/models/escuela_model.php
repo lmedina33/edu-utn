@@ -14,7 +14,16 @@ class escuela_model extends CI_Model{
     
     //put your code here
     
-    
+    function get_datos_escuela($escuela=""){
+        $this->db->select('*');
+        $this->db->from('escuela');
+        $this->db->where('id',$escuela);
+        
+        $query = $this->db->get();
+        $data = $query->row_array();
+        
+        return $data;
+    }
  
     function get_planestudio_division($division=""){
        

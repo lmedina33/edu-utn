@@ -318,9 +318,6 @@ class grocery_CRUD_Model  extends CI_Model  {
     	if($where_clause !== null)
     		$this->db->where($where_clause);
 
-    	if($where_clause !== null)
-    		$this->db->where($where_clause);    	
-
     	if($limit !== null)
     		$this->db->limit($limit);    	
     	
@@ -356,7 +353,6 @@ class grocery_CRUD_Model  extends CI_Model  {
     
     function get_relation_n_n_selection_array($primary_key_value, $field_info)
     {
-       
     	$select = "";    	
     	$related_field_title = $field_info->title_field_selection_table;
     	$use_template = strpos($related_field_title,'{') !== false;;
@@ -403,8 +399,7 @@ class grocery_CRUD_Model  extends CI_Model  {
     function get_relation_n_n_unselected_array($field_info, $selected_values)
     {
     	$use_where_clause = !empty($field_info->where_clause);
-    	 
-        
+    	
     	$select = "";
     	$related_field_title = $field_info->title_field_selection_table;
     	$use_template = strpos($related_field_title,'{') !== false;
@@ -422,7 +417,6 @@ class grocery_CRUD_Model  extends CI_Model  {
     	$this->db->select('*, '.$select,false);
     	
     	if($use_where_clause){
-          
     		$this->db->where($field_info->where_clause);	
     	}
     	
@@ -505,7 +499,7 @@ class grocery_CRUD_Model  extends CI_Model  {
     		$db_field_types[$db_field_type->Field]['db_null'] = $db_field_type->Null == 'YES' ? true : false;
     		$db_field_types[$db_field_type->Field]['db_extra'] = $db_field_type->Extra;
     	}
-    	
+
     	$results = $this->db->field_data($this->table_name);
     	foreach($results as $num => $row)
     	{
