@@ -17,12 +17,14 @@ foreach($css_files as $file): ?>
                    <?php if(isset($titulo)) echo $titulo ; ?>
                    <small></small>
                 </h3>
+               
            </legend>
+             <p><?php if(isset($html_inf)) echo $html_inf ; ?></p>
        </ul>
         
        <br />
         <p><?php echo $output; ?></p>
-        <p><?php if(isset($html_inf)) echo $html_inf ; ?></p>
+       
     </div>
         
 </section>

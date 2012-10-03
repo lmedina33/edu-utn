@@ -61,7 +61,7 @@ $(document).ready(function() {
                         
                         <div class="input-append">
                             <input type="text" placeholder="Busque al alumno…" size="100" id="autocomplete" name="alumno" rel="tooltip" data-placement="bottom" title="Escriba apellido, nombre o documento"> 
-                           <button href="#myModal" role="button" class="btn " data-toggle="modal">Agregar...</button>
+                           <button href="#myModal" role="button" class="btn" data-toggle="modal">Agregar...</button>
                            <button type="submit" class="btn"> Inscribir</button>
                         </div>
                         <?php if(validation_errors()){ ?>
