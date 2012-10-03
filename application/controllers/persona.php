@@ -123,6 +123,10 @@ class Persona extends CI_Controller {
                 $this->grocery_crud->where('not(persona is null)');
            }
         
+        if($modal==1){
+            $this->grocery_crud->unset_back_to_list(); 
+        }   
+           
         $this->grocery_crud->unset_delete();
         $output = $this->grocery_crud->render();
         $output->titulo = 'Listado de '.$tipo.'s';
@@ -222,7 +226,7 @@ class Persona extends CI_Controller {
         // En caso de que no existan relaciones redirigimos para agregar las relaciones del tipo.
      
         $this->load->library('grocery_CRUD');
-        $this->grocery_crud->set_theme('datatables');
+      //  $this->grocery_crud->set_theme('datatables');
         $this->grocery_crud->unset_edit();
         $this->grocery_crud->unset_print();
         $this->grocery_crud->unset_export();
@@ -236,6 +240,21 @@ class Persona extends CI_Controller {
              $this->grocery_crud->unset_add();  
              
         }
+        
+        
+        $add_html = '<button href="#myModal" role="button" class="btn btn-large btn-inverse" data-toggle="modal">Agregar Padre/Madre...</button>
+            <div id="myModal" class="modal-datos hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3 id="myModalLabel">Agregar Padre/Madre</h3>
+            </div>
+            <div class="modal-body">
+              <iframe src="'.site_url("persona/abm/padre/1/add").'" class="frame" width=930 height=700 frameborder="0"></iframe>  
+            </div>
+        <div class="modal-footer">
+              <button class="btn" data-dismiss="modal">Close</button>
+        </div>
+</div>';
       }
         
         $this->db->select('id');
@@ -285,6 +304,9 @@ class Persona extends CI_Controller {
         // Campos que se muestran en la tabla con los registros existentes
         $this->grocery_crud->columns('idsegunda');
         $output = $this->grocery_crud->render();
+        if($add_html){
+            $output->html_inf = $add_html;
+        }
         $this->load->model('persona_model');
         $persona = $this->persona_model->get_persona($primary_key);
         

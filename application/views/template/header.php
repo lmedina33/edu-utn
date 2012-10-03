@@ -73,6 +73,14 @@
                 </ul>
                <?php }?> 
             </li>
+          <?php if($rol['rol']==2){?>       
+            <li>
+                <a href="#">Alumnos</a>
+                <ul>
+                    <li><a href="<?php echo site_url('escuela/alumnos') ?>">Listado de Alumnos</a></li>
+                </ul>
+           </li>
+         <?php }?>
          <?php if($rol['rol']==1){?>       
             <li>
                 <a href="#">Curriculares</a>
@@ -86,7 +94,7 @@
                     <li><a href="<?php echo site_url('especialidad/abm') ?>">Especialidades</a></li>
                 </ul>
            </li>
-         <?php }?>
+         
              <li>
                 <a href="#">Personas</a>
                 <ul>
@@ -106,6 +114,7 @@
                 
                 </ul>
            </li>
+         <?php }?>
          <?php if($rol['rol']==1){?>         
             <li>
                 <a href="#">Usuarios y Permisos</a>

@@ -624,6 +624,7 @@ class Escuela extends CI_Controller {
         
         $output = $this->grocery_crud->render();
         
+        
         $output -> titulo = 'Profesores del cursado'; 
         
         $this->load->view('v_abm.php',$output);  
@@ -635,6 +636,64 @@ class Escuela extends CI_Controller {
        $this->cursado_model->baja_profesor($primary_key);
        
        return true;
+   }
+   
+   function alumnos(){
+        $escuela = $this->sesion_permiso['escuela'];
+       
+        $this->grocery_crud->set_theme('flexigrid');
+        $this->grocery_crud->set_table('persona');
+        // Nombre que se muestra como referencia a la tabla
+        $this->grocery_crud->set_subject('Alumnos');
+        
+        $this->grocery_crud->set_relation('departamento','departamento','nombre');
+        $this->grocery_crud->set_relation('localidad','localidad','nombre');
+        
+        // Campos que se requieren para la inserción y modificacion
+        $this->grocery_crud->fields('nombre','apellido','dni','nacimiento','sexo','direccion','departamento','localidad','codPostal','telefono','celular','email');
+        // Campos que se muestran en la tabla con los registros existentes
+        $this->grocery_crud->columns('nombre','apellido','dni','nacimiento');
+        
+        
+         $this->grocery_crud->required_fields('nombre','apellido','dni','nacimiento','sexo','direccion','departamento','localidad','email');
+        // Reglas de validación de los campos
+        $this->grocery_crud->set_rules('dni','Nº Documento','numeric|max_length[8]');
+        $this->grocery_crud->set_rules('telefono','Nº de Teléfono','numeric|max_length[10]');
+        $this->grocery_crud->set_rules('celular','Nº de Celular','numeric|max_length[10]');
+        $this->grocery_crud->set_rules('codPostal','Código Postal','numeric');
+        $this->grocery_crud->set_rules('email','Correo Electrónico','valid_email');
+        
+        
+        //Nombre a mostrar por cada campo de la tabla
+        $this->grocery_crud->display_as('nombre','Nombre');
+        $this->grocery_crud->display_as('apellido','Apellido');
+        $this->grocery_crud->display_as('dni','Nº Documento');
+        $this->grocery_crud->display_as('nacimiento','Fecha de Nacimiento');
+        $this->grocery_crud->display_as('dirección','Dirección');
+        $this->grocery_crud->display_as('departamento','Departamento');
+        $this->grocery_crud->display_as('localidad','Localidad');
+        $this->grocery_crud->display_as('codPostal','Código Postal');
+        $this->grocery_crud->display_as('telefono','Nº de Teléfono');
+        $this->grocery_crud->display_as('celular','Nº de Celular');
+        $this->grocery_crud->display_as('email','Correo Electrónico');
+       
+        $this->grocery_crud->set_primary_key('persona','alumno');
+        $this->grocery_crud->set_relation('id','alumno','persona','alumno.id in (select distinct(alumno) from inscripcionalumno 
+left join cursado on inscripcionalumno.cursado = cursado.id 
+left join division on cursado.division = division.id 
+where cursado.fechaBaja is null and inscripcionalumno.fechaBaja is null and division.escuela ='.$escuela.')');
+        $this->grocery_crud->where('not(persona is null)');
+        $this->grocery_crud->add_action('Padre',base_url('images/hombre.png'),'persona/relacion/padre');
+        $this->grocery_crud->add_action('Madre',base_url('images/women.png'),'persona/relacion/madre');
+        $this->grocery_crud->add_action('Hermanos',base_url('images/familia2.gif'),'persona/relacion/hermano');
+         
+        $this->grocery_crud->unset_delete();
+        $this->grocery_crud->unset_add();
+        
+        $output = $this->grocery_crud->render();
+        $output->titulo = 'Listado de Alumnos';
+        $this->load->view('v_abm.php',$output);
+        
    }
 
 }
