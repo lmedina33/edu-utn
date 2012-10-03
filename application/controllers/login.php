@@ -105,7 +105,7 @@ class Login extends CI_Controller {
                             $aux[$i]['rol'] = $rol['id'];
                             $aux[$i]['id'] = $rol['id'].'-'.$escuela['id'];
                             $aux[$i]['escuela'] = $escuela['numero'];
-                        
+                                                    
                             $i++;
                         endforeach;
                         
@@ -153,9 +153,13 @@ class Login extends CI_Controller {
                     'rol' => $rol_esc[0], 
                     'escuela' => $rol_esc[1]
                     );
-
+                   
+                    $this->load->model('escuela_model');
+                    $escuela = $this->escuela_model->get_datos_escuela($sess_array['escuela']);
+                    
+                    if($escuela != NULL)$this -> session -> set_userdata('escuela',$escuela);
                     $this -> session -> set_userdata('rol', $sess_array);
-                  
+                   // exit;
                     //print_r($this->session->userdata('rol')); exit(); 
                     
                     redirect('inicio','refresh');

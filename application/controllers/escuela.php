@@ -563,6 +563,8 @@ class Escuela extends CI_Controller {
          $this->grocery_crud->required_fields('persona','tiporelacion_esc');
       
         $output = $this->grocery_crud->render();
+        $output -> titulo = 'Personal Directivo del Colegio';  
+       
         $this->load->view('v_abm.php',$output);  
        
    }
@@ -621,10 +623,33 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->fields('profesor','cargo','cursado');
         $this->grocery_crud->columns('profesor','cargo');
         
+          $add_html = '<button href="#myModal" role="button" class="btn btn-large btn-info" data-toggle="modal">Agregar Personal Docente...</button>
+            <div id="myModal" class="modal-datos hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3 id="myModalLabel">Agregar Padre/Madre</h3>
+            </div>
+            <div class="modal-body">
+              <iframe src="'.site_url("persona/abm/docente/1/add").'" class="frame" width=930 height=700 frameborder="0"></iframe>  
+            </div>
+        <div class="modal-footer">
+              <button class="btn" data-dismiss="modal" onclick="location.reload();">Close</button>
+        </div>
+     </div>
+<script type="text/javascript">
+    $(document).focusout(function() {
+        $("#myModal").focusout(function() {
+            location.reload();
+        });
+    });
+</script>     
+';
         
         $output = $this->grocery_crud->render();
         
-        
+        if(isset($add_html)){
+            $output->html_inf = $add_html;
+        }
         $output -> titulo = 'Profesores del cursado'; 
         
         $this->load->view('v_abm.php',$output);  
@@ -676,25 +701,35 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->display_as('telefono','Nº de Teléfono');
         $this->grocery_crud->display_as('celular','Nº de Celular');
         $this->grocery_crud->display_as('email','Correo Electrónico');
-       
+      
         $this->grocery_crud->set_primary_key('persona','alumno');
-        $this->grocery_crud->set_relation('id','alumno','persona','alumno.id in (select distinct(alumno) from inscripcionalumno 
-left join cursado on inscripcionalumno.cursado = cursado.id 
-left join division on cursado.division = division.id 
-where cursado.fechaBaja is null and inscripcionalumno.fechaBaja is null and division.escuela ='.$escuela.')');
-        $this->grocery_crud->where('not(persona is null)');
+        $where = 'jb80bb774.id in (select distinct(alumno) from inscripcionalumno left join cursado on inscripcionalumno.cursado = cursado.id left join division on cursado.division = division.id where cursado.fechaBaja is null and inscripcionalumno.fechaBaja is null and division.escuela ='.$escuela.')';
+        
+        $this->grocery_crud->set_relation('id','alumno','persona');
+        $this->grocery_crud->where('not(persona is null) and '.$where);
+
         $this->grocery_crud->add_action('Padre',base_url('images/hombre.png'),'persona/relacion/padre');
         $this->grocery_crud->add_action('Madre',base_url('images/women.png'),'persona/relacion/madre');
         $this->grocery_crud->add_action('Hermanos',base_url('images/familia2.gif'),'persona/relacion/hermano');
          
         $this->grocery_crud->unset_delete();
         $this->grocery_crud->unset_add();
-        
+     
         $output = $this->grocery_crud->render();
+        
         $output->titulo = 'Listado de Alumnos';
         $this->load->view('v_abm.php',$output);
         
    }
+      protected function _unique_join_name($field_name)
+    {
+    	return 'j'.substr(md5($field_name),0,8); //This j is because is better for a string to begin with a letter and not a number
+    }	
+
+    protected function _unique_field_name($field_name)
+    {
+    	return 's'.substr(md5($field_name),0,8); //This s is because is better for a string to begin with a letter and not a number
+    } 
 
 }
 

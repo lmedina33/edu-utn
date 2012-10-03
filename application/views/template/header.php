@@ -35,7 +35,7 @@
   <div class="navbar-inner">
     <img class="brand" src="<?php echo base_url('images/pluma.jpg');?>" class="img-rounded">
     <a class="brand" href="#">Pluma</a>
-     <div class="btn-group pull-right">
+       <div class="btn-group pull-right">
         <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i> Usuario</a>
         <a class="btn btn-primary" data-toggle="dropdown" href="#"><span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -150,4 +150,14 @@
   <article class="content">
       <div class="container">
          <div class="hero-unit">
-      
+            
+            <?php if($rol['rol']==2){
+                $escuela = $this->session->userdata('escuela');
+                ?>
+             <div class="navbar ">
+                <div class="navbar-inner">
+                    <a class="brand" href="#">Escuela Nº <?php echo $escuela['numero'].' '.$escuela['nombre'];?></a>
+                </div>
+                </div>
+          
+             <?php }?>
