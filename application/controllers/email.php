@@ -19,10 +19,12 @@ class email extends CI_Controller{
         $this->load->library('email');
         $config['protocol'] = 'smtp';
         $config['charset'] = 'utf-8';
-        $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+      //  $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+          $config['smtp_host'] = 'smtp.googlemail.com';
+      
         $config['smtp_user'] = 'pluma.mendoza@gmail.com';
         $config['smtp_pass'] = 'pluma2012';
-        $config['smtp_port'] = '465';
+       // $config['smtp_port'] = '465';
         $config['mailtype'] = 'HTML';
         $config['wordwrap'] = TRUE;
 
@@ -32,7 +34,7 @@ class email extends CI_Controller{
     function index(){
         
     }
-    function send_mail($to="",$subject="",$mensaje=""){
+    function send_mail($to="matias13@gmail.com",$subject="Alta usuario",$mensaje="Puto"){
         
         
         $this->email->from('pluma.mendoza@gmail.com', 'Pluma, tu Escuela Virtual');
