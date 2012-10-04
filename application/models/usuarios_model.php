@@ -130,6 +130,30 @@ class usuarios_model extends CI_Model{
        return true;
        
    }
+   
+   function create_user($usuario){
+       $this->db->insert('usuario',$usuario);
+       
+       return $this->db->insert_id();
+   }
+   
+   function get_rol_id($rol=""){
+       $this->db->select('id');
+       $this->db->from('rol');
+       $this->db->where('nombre',$rol);
+       
+       $query = $this->db->get();
+       $data = $query->row_array();
+       
+       return $data['id'];
+   }
+   
+   function insert_rol($rol){
+       $this->db->insert('usuario_rol',$rol);
+       return true;
+   }
+   
 }
 
 ?>
+

@@ -125,7 +125,9 @@ class Login extends CI_Controller {
                // print_r($aux); exit();
                 
                 $data['roles'] = $aux;
-
+                print_r($roles);exit;
+                
+                
                 $this -> load -> view('v_login_roles',$data);
            }
            else{

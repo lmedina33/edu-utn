@@ -84,7 +84,7 @@ class Persona extends CI_Controller {
         $this->grocery_crud->display_as('celular','Nº de Celular');
         $this->grocery_crud->display_as('email','Correo Electrónico');
        
-        $this->grocery_crud->required_fields('nombre','apellido','dni','nacimiento','sexo','direccion','departamento','localidad');
+        $this->grocery_crud->required_fields('nombre','apellido','email','dni','nacimiento','sexo','direccion','departamento','localidad');
         // Reglas de validación de los campos
         $this->grocery_crud->set_rules('dni','Nº Documento','numeric|max_length[8]');
         $this->grocery_crud->set_rules('telefono','Nº de Teléfono','numeric|max_length[10]');
@@ -126,13 +126,60 @@ class Persona extends CI_Controller {
         if($modal==1){
             $this->grocery_crud->unset_back_to_list(); 
         }   
-           
+        
+        
         $this->grocery_crud->unset_delete();
         $output = $this->grocery_crud->render();
         $output->titulo = 'Listado de '.$tipo.'s';
         if($modal==1) $this->load->view('v_modal.php',$output);
             else $this->load->view('v_abm.php',$output);
       
+    }
+    
+    function crear_usuario($post_array,$tipo,$primary_key){
+        $this->load->model('usuarios_model');
+        $pass = $this->get_random_password();
+        $usuario = array(
+            'persona' => $primary_key,
+            'ussername' => $post_array['email'],
+            'password' => md5($pass)
+            
+        );
+        $id_user = $this->usuarios_model->create_user($usuario);
+        $id_rol = $this->usuarios_model->get_rol_id($tipo);
+        
+        $rol = array(
+            'usuario' => $id_user,
+            'rol' => $id_rol
+        );
+        
+        $this->usuarios_model->insert_rol($rol);
+        
+        $this->load->library('envio_email');
+        $html = 'ee loco est es tu usuario:'.$post_array['email'].' y esta es tu contraseña:'.$pass;
+        $this->envio_email->send_mail($post_array['email'],'Alta usuario Pluma',$html);
+        
+        return true;
+    }
+    
+     function get_random_password($chars_min=6, $chars_max=8, $use_upper_case=false, $include_numbers=true, $include_special_chars=false)
+    {
+        $length = rand($chars_min, $chars_max);
+        $selection = 'aeuoyibcdfghjklmnpqrstvwxz';
+        if($include_numbers) {
+            $selection .= "1234567890";
+        }
+        if($include_special_chars) {
+            $selection .= "!@\"#$%&[]{}?|";
+        }
+                                
+        $password = "";
+        for($i=0; $i<$length; $i++) {
+            $current_letter = $use_upper_case ? (rand(0,1) ? strtoupper($selection[(rand() % strlen($selection))]) : $selection[(rand() % strlen($selection))]) : $selection[(rand() % strlen($selection))];            
+            $password .=  $current_letter;
+        }                
+        
+        return $password;
     }
     
     function marcar_directivo($persona){
@@ -204,6 +251,7 @@ class Persona extends CI_Controller {
                 
         );
         $this->db->insert('directivo',$directivo);
+        $this->crear_usuario($post_array, 'directivo', $primary_key);
         
         return true;
     }
