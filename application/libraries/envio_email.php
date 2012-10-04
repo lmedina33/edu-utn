@@ -42,7 +42,7 @@ class envio_email {
 
         $this->ci->email->send();
 
-        //echo $this->email->print_debugger();
+        //print_r($this->email->print_debugger()); exit;
         return true;
    }    
     

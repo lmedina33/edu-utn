@@ -16,6 +16,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>js/login/css/demo.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>js/login/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>js/login/css/animate-custom.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap.css" />
     </head>
  <body>
   <div id="container_demo" >
@@ -25,7 +26,7 @@
     <div id="wrapper">
         <div id="login" class="animate form">
             <form  action="<?php echo site_url('login/process');?>" autocomplete="on" method="post"> 
-                <h1>Acceso a Mi Escuela Virtual</h1> 
+                <h1>Acceso a Pluma</h1> 
                 <p> 
                     <label for="username" class="uname" data-icon="u" > Tu email o usuario </label>
                     <input id="username" name="username" required="required" type="text" placeholder="minombreusuario o mimail@mail.com"/>
@@ -34,28 +35,32 @@
                     <label for="password" class="youpasswd" data-icon="p"> Tu contraseña </label>
                     <input id="password" name="password" required="required" type="password" placeholder="je. X8df!90EO" /> 
                 </p>
-              
-                <p class="login button"> 
-                    <input type="submit" value="Acceder" /> 
-                </p>
                 <p>
-                    <?php if(isset($error))
-                    {
-                    ?>
-                    <div class="error">
+                 
+                    <?php if(isset($error)){?>
+                      <div class="alert alert-error">
+                          <button type="button" class="close" data-dismiss="alert">×</button>
                     <?php 
                     echo $error;
                     ?>
-                    </div>
-                    <?php 
-                    }
+                    
+                    <?php                  
                     echo validation_errors(); 
                     ?>
+                   </div>
+                <?php }?>
                 </p>
+                <p class="login button"> 
+                    <input type="submit" value="Acceder" /> 
+                </p>
+                
             </form>
         </div>
        
     </div>
-</div>  
+</div>
+      <script src="<?php echo base_url('assets/js/jquery.min.js') ?>"></script>
+     <script src="<?php echo base_url('assets/js/bootstrap.js') ?>"></script>
+
  </body>
 </html>

@@ -108,7 +108,9 @@ class Login extends CI_Controller {
                                                     
                             $i++;
                         endforeach;
-                        
+                     
+                        //si el directivo no tiene una escuela asignada
+                    
                         
                     }
                     
@@ -121,14 +123,22 @@ class Login extends CI_Controller {
                     }
                     
                 endforeach;
-               
-               // print_r($aux); exit();
                 
-                $data['roles'] = $aux;
-                print_r($roles);exit;
-                
-                
-                $this -> load -> view('v_login_roles',$data);
+                 if(! isset($escuela) || $escuelas == NULL){
+                           $data['error'] = 'Actualmente no tiene Escuela asignada.'; //Error que será enviado a la vista en forma de arreglo
+                           $this -> load -> view('v_login', $data);
+                          
+                     }
+                     else{
+
+                    // print_r($aux); exit();
+
+                        $data['roles'] = $aux;
+                    //  print_r($roles);exit;
+
+
+                        $this -> load -> view('v_login_roles',$data);
+                     }
            }
            else{
                // Recibimos por post el dato del rol con el que accedera
