@@ -311,6 +311,7 @@ p.change_link{
 	opacity: 0;
 }
 #login{
+     
         position: absolute;
         margin-top: 40%;
 	z-index: 22;

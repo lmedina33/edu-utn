@@ -156,7 +156,12 @@ class Persona extends CI_Controller {
         $this->usuarios_model->insert_rol($rol);
         
         $this->load->library('envio_email');
-        $html = 'ee loco est es tu usuario:'.$post_array['email'].' y esta es tu contraseña:'.$pass;
+        
+        $data['usuario'] = $post_array['email'];
+        $data['pass'] = $pass;
+        
+        
+        $html = $this->load->view('email',$data,true);
         $this->envio_email->send_mail($post_array['email'],'Alta usuario Pluma',$html);
         
         return true;
@@ -290,9 +295,9 @@ class Persona extends CI_Controller {
         }
         
         
-        $add_html = '<button href="#myModal" role="button" class="btn btn-large btn-info" data-toggle="modal">Agregar Padre/Madre...</button>
-            <div id="myModal" class="modal-datos hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-header">
+        $add_html = '<button href="#myModal2" role="button" class="btn btn-large btn-info" data-toggle="modal">Agregar Padre/Madre...</button>
+  <div id="myModal2" class="modal-datos hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h3 id="myModalLabel">Agregar Padre/Madre</h3>
             </div>

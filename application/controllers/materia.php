@@ -59,6 +59,8 @@ class materia extends CI_Controller {
     
      function contenido($materia){
         $this->load->library('grocery_CRUD');
+        $this->load->model('planestudio_model');
+        $datos_materia = $this->planestudio_model->get_datos_materia($materia);
         $this->grocery_crud->set_theme('datatables');
         
         // Elegimos la tabla sobre la que vamos a trabajar
@@ -84,7 +86,7 @@ class materia extends CI_Controller {
       
        
         $output = $this->grocery_crud->render();
-        $output -> titulo = 'Contenidos de ';
+        $output -> titulo = 'Contenidos de '.$datos_materia['nombre'].' - '.$datos_materia['year'].'º Año';
         $this->load->view('v_abm.php',$output);  
     }
 }

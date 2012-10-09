@@ -28,7 +28,7 @@
     <div id="wrapper">
         <div id="login" class="animate form">
             <form  action="<?php echo site_url('login/selecciona_rol');?>" autocomplete="on" method="post"> 
-                <h1>Acceso a Mi Escuela Virtual</h1> 
+                <h1>Acceso a Pluma</h1> 
                 <p> 
                     <label class="uname" data-icon="u" > Seleccione un rol para loguearse.. </label>
                 <p align="center">

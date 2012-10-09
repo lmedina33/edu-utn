@@ -38,6 +38,18 @@ class planestudio_model  extends CI_Model{
         return $data['nombre'];
     }
     
+    function get_datos_materia($materia=""){
+        $this->db->select('nombre, year');
+        $this->db->from('materia');
+        $this->db->where('id',$materia);
+        
+        $query = $this->db->get();
+        $data = $query->row_array();
+       //     print_r($data); exit;
+        return $data;
+    
+        
+    }
 }
 
 ?>

@@ -9,7 +9,7 @@
         <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
         <title>Acceso a Mi Escuela Virtual</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        <meta name="description" content="Login a Mi Escuela Virtual" />
+        <meta name="description" content="Login a Pluma" />
         <meta name="keywords" content="html5, css3, form, switch, animation, :target, pseudo-class" />
         <meta name="author" content="" />
       
@@ -17,6 +17,25 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>js/login/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>js/login/css/animate-custom.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap.css" />
+        <style>
+            #fondo{
+               width: 100%;
+               height: 100%;
+            }
+         #img {
+            position: fixed;
+            z-index: -20;
+            heigth: 700px;
+            margin-left: -180px;
+            margin-top: -150px;
+            top: 50%;
+            left: 50%;
+            opacity:0.1;
+            
+            
+            }
+
+        </style>
     </head>
  <body>
   <div id="container_demo" >
@@ -24,9 +43,13 @@
     <a class="hiddenanchor" id="toregister"></a>
     <a class="hiddenanchor" id="tologin"></a>
     <div id="wrapper">
+        
         <div id="login" class="animate form">
+            <div id="fondo">
+                <img id="img" src="<?php echo base_url('images/pluma.png');?>"/>
+
             <form  action="<?php echo site_url('login/process');?>" autocomplete="on" method="post"> 
-                <h1>Acceso a Pluma</h1> 
+                <h1>Acceso a Pluma</h1>
                 <p> 
                     <label for="username" class="uname" data-icon="u" > Tu email o usuario </label>
                     <input id="username" name="username" required="required" type="text" placeholder="minombreusuario o mimail@mail.com"/>
@@ -56,7 +79,7 @@
                 
             </form>
         </div>
-       
+        </div> 
     </div>
 </div>
       <script src="<?php echo base_url('assets/js/jquery.min.js') ?>"></script>

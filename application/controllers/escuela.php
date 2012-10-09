@@ -623,14 +623,14 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->fields('profesor','cargo','cursado');
         $this->grocery_crud->columns('profesor','cargo');
         
-          $add_html = '<button href="#myModal" role="button" class="btn btn-large btn-info" data-toggle="modal">Agregar Personal Docente...</button>
-            <div id="myModal" class="modal-datos hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          $add_html = '<button href="#myModal2" role="button" class="btn btn-large btn-info" data-toggle="modal">Agregar Personal Docente...</button>
+             <div id="myModal2" class="modal-datos hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h3 id="myModalLabel">Agregar Padre/Madre</h3>
             </div>
             <div class="modal-body">
-              <iframe src="'.site_url("persona/abm/docente/1/add").'" class="frame" width=930 height=700 frameborder="0"></iframe>  
+              <iframe src="'.site_url("persona/abm/docente/1/add").'"  width=930 height=700 frameborder="0"></iframe>  
             </div>
         <div class="modal-footer">
               <button class="btn" data-dismiss="modal" onclick="location.reload();">Close</button>
