@@ -6,7 +6,7 @@
    <meta name="description" content="">
    <meta name="keywords" content="">
    <meta name="author" content="">
-   <title>Mi Escuela Virtual</title>
+   <title>Pluma</title>
 
 
    <link href="<?php echo base_url('assets/css/bootstrap.css') ?>" rel="stylesheet">
@@ -31,8 +31,8 @@
   <div class="navbar">
      
   <div class="navbar-inner">
-    <img class="brand" src="<?php echo base_url('images/pluma.jpg');?>" class="img-rounded">
-    <a class="brand" href="#">Pluma</a>
+    <img class="brand" src="<?php echo base_url('images/logo.png');?>" width="80px" class="img-rounded">
+    <a class="brand" href="#"></a>
        <div class="btn-group pull-right">
         <a class="btn btn-primary" href="#"><i class="icon-user icon-white"></i> Usuario</a>
         <a class="btn btn-primary" data-toggle="dropdown" href="#"><span class="caret"></span></a>

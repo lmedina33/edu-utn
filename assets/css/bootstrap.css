@@ -4926,7 +4926,7 @@ input[type="submit"].btn.btn-mini {
   min-width: 800px;
   min-height: 700px;
   top: 50%;
-  margin: -45% 5% auto;
+  margin: -45% 17% auto;
   overflow: auto;
   background-color: #ffffff;
   border: 1px solid #999;
@@ -5759,6 +5759,7 @@ a.badge:hover {
 }
 
 .hero-unit {
+ width: 100%;
   padding: 30px;
   margin-bottom: 30px;
   background-color: #eeeeee;
