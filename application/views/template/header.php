@@ -14,9 +14,7 @@
    <link href="<?php echo base_url('assets/css/font-awesome.css') ?>" rel="stylesheet">
    <link href="<?php echo base_url('assets/css/style.css') ?>" rel="stylesheet">
    <link href="<?php echo base_url('assets/css/custom.css') ?>" rel="stylesheet">
-   <link href="<?php echo base_url();?>js/acordion/css/skins/blue.css" rel="stylesheet" type="text/css" />
-   <link href="<?php echo base_url();?>js/acordion/css/skins/graphite.css" rel="stylesheet" type="text/css" />
-   <link href="<?php echo base_url();?>js/acordion/css/skins/grey.css" rel="stylesheet" type="text/css" />
+   <link href="<?php echo base_url();?>js/acordion/css/skins/clean.css" rel="stylesheet" type="text/css" />
    <link href="<?php echo base_url();?>css/body.css" rel="stylesheet" type="text/css"> 
    <link href="<?php echo base_url();?>js/acordion/css/dcaccordion.css" rel="stylesheet" type="text/css" />
    <script src="<?php echo base_url('assets/js/jquery.min.js') ?>"></script>
@@ -56,13 +54,13 @@
   <div class="sidebar1">
     <p>
       <!-- Barra lateral Izquierda-->
-        <div class="grey demo-container">
+        <div class="clean demo-container">
         <ul class="accordion"  id="accordion-5">
             <li><a href="<?php echo site_url('inicio') ?>">Inicio</a></li>
             <li>
                 <a href="#">Escuela</a>
                 <ul>
-                    <li><a href="<?php echo site_url('escuela/abm') ?>">Gestión Escuela</a></li>
+                    <li><a href="<?php echo site_url('escuela/abm') ?>">Gestiónar Escuela</a></li>
                 </ul>
                <?php if($rol['rol']==2){?>   
                 <ul>

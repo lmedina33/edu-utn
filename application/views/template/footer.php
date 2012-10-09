@@ -14,7 +14,7 @@
 <script src="<?php echo base_url('assets/js/custom.js') ?>"></script>
 <script type='text/javascript' src='<?php echo base_url();?>js/acordion/js/jquery.cookie.js'></script>
 <script type='text/javascript' src='<?php echo base_url();?>js/acordion/js/jquery.hoverIntent.minified.js'></script>
-<script type='text/javascript' src='<?php echo base_url();?>js/acordion/js/jquery.dcjqaccordion.2.7.min.js'></script>
+<script type='text/javascript' src='<?php echo base_url();?>js/acordion/js/jquery.dcjqaccordion.2.7.js'></script>
 <script type="text/javascript">
 $(document).ready(function($){
 					$('#accordion-5').dcAccordion({

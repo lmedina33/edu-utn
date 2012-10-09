@@ -101,7 +101,7 @@ class Escuela extends CI_Controller {
         // Campos que se requieren para la inserción y modificacion
         $this->grocery_crud->fields('nombre','cue','numero','direccion','departamento','localidad','telefono','fechaResolucion','especialidad','nivel');
         // Campos que se muestran en la tabla con los registros existentes
-        $this->grocery_crud->columns('nombre','numero','telefono','departamento');
+        $this->grocery_crud->columns('nombre','numero','cue','direccion','departamento','localidad');
         
         //Nombre a mostrar por cada campo de la tabla
         $this->grocery_crud->display_as('nombre','Nombre');
@@ -352,7 +352,7 @@ class Escuela extends CI_Controller {
                }
                     
        endforeach;
-    //  print_r($pase); exit;
+   //   print_r($pase); exit;
       $cursos = array();
      
       foreach ($pase as $ps):
@@ -371,7 +371,7 @@ class Escuela extends CI_Controller {
                $cursos[] = $ps['destino'];
               } 
           } 
-          
+         // print_r($cursos);
           //3º Modificamos las inscripciones de los alumnos
           if(isset($ps['alumno']['repe'])){
               //print_r($ps['alumno']['repe']); exit;
@@ -448,7 +448,7 @@ class Escuela extends CI_Controller {
        $this->load->model('alumno_model');
        
        $cursados = $this->cursado_model->get_cursado_division($division);
-      // print_r($cursados);exit;
+     //  print_r($cursados);exit;
        foreach($cursados as $cursado):
             // creamos el cuaderno de comunicaciones
             $id_cuderno = $this->alumno_model-> create_comunicaciones();
