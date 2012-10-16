@@ -1,0 +1,1605 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               5.5.24-0ubuntu0.12.04.1 - (Ubuntu)
+-- Server OS:                    debian-linux-gnu
+-- HeidiSQL version:             7.0.0.4053
+-- Date/time:                    2012-10-15 20:26:07
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET FOREIGN_KEY_CHECKS=0 */;
+
+-- Dumping structure for table edu.alumno
+DROP TABLE IF EXISTS `alumno`;
+CREATE TABLE IF NOT EXISTS `alumno` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `fechaIngreso` date DEFAULT NULL,
+  `fechaEngreso` date DEFAULT NULL,
+  `fechaSalida` date DEFAULT NULL,
+  `persona` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `persona` (`persona`),
+  CONSTRAINT `persona` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.alumno: ~21 rows (approximately)
+DELETE FROM `alumno`;
+/*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
+INSERT INTO `alumno` (`id`, `fechaIngreso`, `fechaEngreso`, `fechaSalida`, `persona`) VALUES
+	(1, '2012-07-17', NULL, NULL, 4),
+	(2, '2012-07-17', NULL, NULL, 5),
+	(3, '2012-07-17', NULL, NULL, 6),
+	(4, '2012-09-22', NULL, NULL, 10),
+	(5, '2012-09-22', NULL, NULL, 11),
+	(6, '2012-09-22', NULL, NULL, 12),
+	(7, '2012-09-22', NULL, NULL, 13),
+	(8, '2012-09-22', NULL, NULL, 14),
+	(9, '2012-09-22', NULL, NULL, 15),
+	(10, '2012-09-22', NULL, NULL, 16),
+	(11, '2012-09-22', NULL, NULL, 17),
+	(12, '2012-09-22', NULL, NULL, 18),
+	(13, '2012-09-22', NULL, NULL, 19),
+	(14, '2012-09-22', NULL, NULL, 20),
+	(15, '2012-09-22', NULL, NULL, 21),
+	(16, '2012-09-22', NULL, NULL, 22),
+	(17, '2012-09-22', NULL, NULL, 23),
+	(18, '2012-09-22', NULL, NULL, 24),
+	(19, '2012-09-23', NULL, NULL, 25),
+	(20, '2012-09-24', NULL, NULL, 26),
+	(21, '2012-09-24', NULL, NULL, 27);
+/*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.cargo
+DROP TABLE IF EXISTS `cargo`;
+CREATE TABLE IF NOT EXISTS `cargo` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` tinytext CHARACTER SET latin1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.cargo: ~0 rows (approximately)
+DELETE FROM `cargo`;
+/*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.ci_sessions
+DROP TABLE IF EXISTS `ci_sessions`;
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+  `session_id` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '0',
+  `ip_address` varchar(16) COLLATE utf8_bin NOT NULL DEFAULT '0',
+  `user_agent` varchar(150) COLLATE utf8_bin NOT NULL,
+  `last_activity` int(10) unsigned NOT NULL DEFAULT '0',
+  `user_data` text COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`session_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- Dumping data for table edu.ci_sessions: ~1 rows (approximately)
+DELETE FROM `ci_sessions`;
+/*!40000 ALTER TABLE `ci_sessions` DISABLE KEYS */;
+INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
+	('1ce1f0ef9d699ee1a7045d72bb137aae', '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.11 (KHTML, like Gecko) Ubuntu/12.04 Chromium/20.0.1132.47 Chrome/20.0.11', 1349753690, '');
+/*!40000 ALTER TABLE `ci_sessions` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.comunicaciones
+DROP TABLE IF EXISTS `comunicaciones`;
+CREATE TABLE IF NOT EXISTS `comunicaciones` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `fechaAlta` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaBaja` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=371 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.comunicaciones: ~108 rows (approximately)
+DELETE FROM `comunicaciones`;
+/*!40000 ALTER TABLE `comunicaciones` DISABLE KEYS */;
+INSERT INTO `comunicaciones` (`id`, `fechaAlta`, `fechaBaja`) VALUES
+	(263, '2012-10-08 12:18:27', NULL),
+	(264, '2012-10-08 12:18:27', NULL),
+	(265, '2012-10-08 12:18:27', NULL),
+	(266, '2012-10-08 12:18:37', NULL),
+	(267, '2012-10-08 12:18:38', NULL),
+	(268, '2012-10-08 12:18:38', NULL),
+	(269, '2012-10-08 12:18:46', NULL),
+	(270, '2012-10-08 12:18:46', NULL),
+	(271, '2012-10-08 12:18:46', NULL),
+	(272, '2012-10-08 12:18:49', NULL),
+	(273, '2012-10-08 12:18:49', NULL),
+	(274, '2012-10-08 12:18:49', NULL),
+	(275, '2012-10-08 12:18:53', NULL),
+	(276, '2012-10-08 12:18:53', NULL),
+	(277, '2012-10-08 12:18:53', NULL),
+	(278, '2012-10-08 12:18:56', NULL),
+	(279, '2012-10-08 12:18:57', NULL),
+	(280, '2012-10-08 12:18:57', NULL),
+	(281, '2012-10-08 12:19:01', NULL),
+	(282, '2012-10-08 12:19:01', NULL),
+	(283, '2012-10-08 12:19:01', NULL),
+	(284, '2012-10-08 12:19:06', NULL),
+	(285, '2012-10-08 12:19:06', NULL),
+	(286, '2012-10-08 12:19:06', NULL),
+	(287, '2012-10-08 12:19:10', NULL),
+	(288, '2012-10-08 12:19:10', NULL),
+	(289, '2012-10-08 12:19:10', NULL),
+	(290, '2012-10-08 12:19:46', NULL),
+	(291, '2012-10-08 12:19:46', NULL),
+	(292, '2012-10-08 12:19:46', NULL),
+	(293, '2012-10-08 12:19:47', NULL),
+	(294, '2012-10-08 12:19:47', NULL),
+	(295, '2012-10-08 12:19:47', NULL),
+	(296, '2012-10-08 12:19:47', NULL),
+	(297, '2012-10-08 12:19:47', NULL),
+	(298, '2012-10-08 12:19:47', NULL),
+	(299, '2012-10-08 12:19:48', NULL),
+	(300, '2012-10-08 12:19:48', NULL),
+	(301, '2012-10-08 12:19:48', NULL),
+	(302, '2012-10-08 12:19:48', NULL),
+	(303, '2012-10-08 12:19:48', NULL),
+	(304, '2012-10-08 12:19:48', NULL),
+	(305, '2012-10-08 12:19:48', NULL),
+	(306, '2012-10-08 12:19:49', NULL),
+	(307, '2012-10-08 12:19:49', NULL),
+	(308, '2012-10-08 12:19:49', NULL),
+	(309, '2012-10-08 12:19:49', NULL),
+	(310, '2012-10-08 12:19:49', NULL),
+	(311, '2012-10-08 12:19:49', NULL),
+	(312, '2012-10-08 12:19:49', NULL),
+	(313, '2012-10-08 12:19:49', NULL),
+	(314, '2012-10-08 12:19:49', NULL),
+	(315, '2012-10-08 12:19:50', NULL),
+	(316, '2012-10-08 12:19:50', NULL),
+	(317, '2012-10-08 12:20:15', NULL),
+	(318, '2012-10-08 12:20:15', NULL),
+	(319, '2012-10-08 12:20:15', NULL),
+	(320, '2012-10-08 12:20:16', NULL),
+	(321, '2012-10-08 12:20:16', NULL),
+	(322, '2012-10-08 12:20:16', NULL),
+	(323, '2012-10-08 12:20:16', NULL),
+	(324, '2012-10-08 12:20:16', NULL),
+	(325, '2012-10-08 12:20:16', NULL),
+	(326, '2012-10-08 12:20:16', NULL),
+	(327, '2012-10-08 12:20:16', NULL),
+	(328, '2012-10-08 12:20:17', NULL),
+	(329, '2012-10-08 12:20:17', NULL),
+	(330, '2012-10-08 12:20:17', NULL),
+	(331, '2012-10-08 12:20:17', NULL),
+	(332, '2012-10-08 12:20:17', NULL),
+	(333, '2012-10-08 12:20:17', NULL),
+	(334, '2012-10-08 12:20:17', NULL),
+	(335, '2012-10-08 12:20:18', NULL),
+	(336, '2012-10-08 12:20:18', NULL),
+	(337, '2012-10-08 12:20:18', NULL),
+	(338, '2012-10-08 12:20:18', NULL),
+	(339, '2012-10-08 12:20:18', NULL),
+	(340, '2012-10-08 12:20:18', NULL),
+	(341, '2012-10-08 12:20:18', NULL),
+	(342, '2012-10-08 12:20:18', NULL),
+	(343, '2012-10-08 12:20:19', NULL),
+	(344, '2012-10-08 12:20:33', NULL),
+	(345, '2012-10-08 12:20:33', NULL),
+	(346, '2012-10-08 12:20:33', NULL),
+	(347, '2012-10-08 12:20:33', NULL),
+	(348, '2012-10-08 12:20:33', NULL),
+	(349, '2012-10-08 12:20:33', NULL),
+	(350, '2012-10-08 12:20:34', NULL),
+	(351, '2012-10-08 12:20:34', NULL),
+	(352, '2012-10-08 12:20:34', NULL),
+	(353, '2012-10-08 12:20:34', NULL),
+	(354, '2012-10-08 12:20:34', NULL),
+	(355, '2012-10-08 12:20:34', NULL),
+	(356, '2012-10-08 12:20:34', NULL),
+	(357, '2012-10-08 12:20:35', NULL),
+	(358, '2012-10-08 12:20:35', NULL),
+	(359, '2012-10-08 12:20:35', NULL),
+	(360, '2012-10-08 12:20:35', NULL),
+	(361, '2012-10-08 12:20:35', NULL),
+	(362, '2012-10-08 12:20:42', NULL),
+	(363, '2012-10-08 12:20:42', NULL),
+	(364, '2012-10-08 12:20:42', NULL),
+	(365, '2012-10-08 12:20:42', NULL),
+	(366, '2012-10-08 12:20:42', NULL),
+	(367, '2012-10-08 12:20:42', NULL),
+	(368, '2012-10-09 00:32:08', NULL),
+	(369, '2012-10-09 00:32:09', NULL),
+	(370, '2012-10-09 00:32:09', NULL);
+/*!40000 ALTER TABLE `comunicaciones` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.contenido
+DROP TABLE IF EXISTS `contenido`;
+CREATE TABLE IF NOT EXISTS `contenido` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` text COLLATE utf8_spanish_ci,
+  `materia` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_contenido_materia_1` (`materia`),
+  CONSTRAINT `fk_contenido_materia_1` FOREIGN KEY (`materia`) REFERENCES `materia` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
+
+-- Dumping data for table edu.contenido: ~1 rows (approximately)
+DELETE FROM `contenido`;
+/*!40000 ALTER TABLE `contenido` DISABLE KEYS */;
+INSERT INTO `contenido` (`id`, `nombre`, `descripcion`, `materia`) VALUES
+	(3, 'Contenido 1 Mat', '<p>Contenido de Matemática</p>', 3);
+/*!40000 ALTER TABLE `contenido` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.cursado
+DROP TABLE IF EXISTS `cursado`;
+CREATE TABLE IF NOT EXISTS `cursado` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaBaja` date DEFAULT NULL,
+  `materia` bigint(20) unsigned NOT NULL,
+  `division` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `materia` (`materia`),
+  KEY `division` (`division`),
+  CONSTRAINT `division` FOREIGN KEY (`division`) REFERENCES `division` (`id`),
+  CONSTRAINT `materia` FOREIGN KEY (`materia`) REFERENCES `materia` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.cursado: ~60 rows (approximately)
+DELETE FROM `cursado`;
+/*!40000 ALTER TABLE `cursado` DISABLE KEYS */;
+INSERT INTO `cursado` (`id`, `fechaAlta`, `fechaBaja`, `materia`, `division`) VALUES
+	(44, '2012-10-08 12:10:35', '2012-10-08', 4, 22),
+	(45, '2012-10-08 12:10:35', '2012-10-08', 5, 22),
+	(46, '2012-10-08 12:10:35', '2012-10-08', 6, 22),
+	(47, '2012-10-08 12:15:45', '2012-10-08', 4, 22),
+	(48, '2012-10-08 12:15:45', '2012-10-08', 5, 22),
+	(49, '2012-10-08 12:15:45', '2012-10-08', 6, 22),
+	(50, '2012-10-08 12:15:45', '2012-10-08', 7, 23),
+	(51, '2012-10-08 12:15:45', '2012-10-08', 8, 23),
+	(52, '2012-10-08 12:15:45', '2012-10-08', 9, 23),
+	(53, '2012-10-08 12:15:45', '2012-10-08', 10, 24),
+	(54, '2012-10-08 12:15:45', '2012-10-08', 11, 24),
+	(55, '2012-10-08 12:15:45', '2012-10-08', 12, 24),
+	(56, '2012-10-08 12:19:46', '2012-10-08', 4, 22),
+	(57, '2012-10-08 12:19:46', '2012-10-08', 5, 22),
+	(58, '2012-10-08 12:19:46', '2012-10-08', 6, 22),
+	(59, '2012-10-08 12:19:46', '2012-10-08', 7, 23),
+	(60, '2012-10-08 12:19:46', '2012-10-08', 8, 23),
+	(61, '2012-10-08 12:19:46', '2012-10-08', 9, 23),
+	(62, '2012-10-08 12:19:50', '2012-10-08', 10, 24),
+	(63, '2012-10-08 12:19:50', '2012-10-08', 11, 24),
+	(64, '2012-10-08 12:19:50', '2012-10-08', 12, 24),
+	(65, '2012-10-08 12:20:15', '2012-10-08', 4, 22),
+	(66, '2012-10-08 12:20:15', '2012-10-08', 5, 22),
+	(67, '2012-10-08 12:20:15', '2012-10-08', 6, 22),
+	(68, '2012-10-08 12:20:15', '2012-10-08', 7, 23),
+	(69, '2012-10-08 12:20:15', '2012-10-08', 8, 23),
+	(70, '2012-10-08 12:20:15', '2012-10-08', 9, 23),
+	(71, '2012-10-08 12:20:17', '2012-10-08', 10, 24),
+	(72, '2012-10-08 12:20:17', '2012-10-08', 11, 24),
+	(73, '2012-10-08 12:20:17', '2012-10-08', 12, 24),
+	(74, '2012-10-08 12:20:32', '2012-10-08', 4, 22),
+	(75, '2012-10-08 12:20:33', '2012-10-08', 5, 22),
+	(76, '2012-10-08 12:20:33', '2012-10-08', 6, 22),
+	(77, '2012-10-08 12:20:33', '2012-10-08', 7, 23),
+	(78, '2012-10-08 12:20:33', '2012-10-08', 8, 23),
+	(79, '2012-10-08 12:20:33', '2012-10-08', 9, 23),
+	(80, '2012-10-08 12:20:33', '2012-10-08', 10, 24),
+	(81, '2012-10-08 12:20:34', '2012-10-08', 11, 24),
+	(82, '2012-10-08 12:20:34', '2012-10-08', 12, 24),
+	(83, '2012-10-08 12:20:41', '2012-10-08', 4, 22),
+	(84, '2012-10-08 12:20:41', '2012-10-08', 5, 22),
+	(85, '2012-10-08 12:20:41', '2012-10-08', 6, 22),
+	(86, '2012-10-08 12:20:41', '2012-10-08', 7, 23),
+	(87, '2012-10-08 12:20:41', '2012-10-08', 8, 23),
+	(88, '2012-10-08 12:20:41', '2012-10-08', 9, 23),
+	(89, '2012-10-08 12:20:41', '2012-10-08', 10, 24),
+	(90, '2012-10-08 12:20:41', '2012-10-08', 11, 24),
+	(91, '2012-10-08 12:20:42', '2012-10-08', 12, 24),
+	(92, '2012-10-08 12:20:48', NULL, 4, 22),
+	(93, '2012-10-08 12:20:48', NULL, 5, 22),
+	(94, '2012-10-08 12:20:48', NULL, 6, 22),
+	(95, '2012-10-08 12:20:48', NULL, 7, 23),
+	(96, '2012-10-08 12:20:48', NULL, 8, 23),
+	(97, '2012-10-08 12:20:48', NULL, 9, 23),
+	(98, '2012-10-08 12:20:48', NULL, 10, 24),
+	(99, '2012-10-08 12:20:48', NULL, 11, 24),
+	(100, '2012-10-08 12:20:48', NULL, 12, 24),
+	(101, '2012-10-09 00:30:49', NULL, 4, 25),
+	(102, '2012-10-09 00:30:49', NULL, 5, 25),
+	(103, '2012-10-09 00:30:49', NULL, 6, 25);
+/*!40000 ALTER TABLE `cursado` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.departamento
+DROP TABLE IF EXISTS `departamento`;
+CREATE TABLE IF NOT EXISTS `departamento` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table edu.departamento: ~18 rows (approximately)
+DELETE FROM `departamento`;
+/*!40000 ALTER TABLE `departamento` DISABLE KEYS */;
+INSERT INTO `departamento` (`id`, `nombre`) VALUES
+	(1, 'Capital'),
+	(2, 'General Alvear'),
+	(3, 'Godoy Cruz'),
+	(4, 'Guaymallén'),
+	(5, 'Junín'),
+	(6, 'La Paz'),
+	(7, 'Las Heras'),
+	(8, 'Lavalle'),
+	(9, 'Luján de Cuyo'),
+	(10, 'Maipú'),
+	(11, 'Malargüe'),
+	(12, 'Rivadavia'),
+	(13, 'San Carlos'),
+	(14, 'San Martín'),
+	(15, 'San Rafael'),
+	(16, 'Santa Rosa'),
+	(17, 'Tunuyán'),
+	(18, 'Tupungato');
+/*!40000 ALTER TABLE `departamento` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.detallecontenido
+DROP TABLE IF EXISTS `detallecontenido`;
+CREATE TABLE IF NOT EXISTS `detallecontenido` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` tinytext CHARACTER SET latin1,
+  `contenido` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_detallecontenido_contenido_1` (`contenido`),
+  CONSTRAINT `fk_detallecontenido_contenido_1` FOREIGN KEY (`contenido`) REFERENCES `contenido` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.detallecontenido: ~0 rows (approximately)
+DELETE FROM `detallecontenido`;
+/*!40000 ALTER TABLE `detallecontenido` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detallecontenido` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.detallecuaderno
+DROP TABLE IF EXISTS `detallecuaderno`;
+CREATE TABLE IF NOT EXISTS `detallecuaderno` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` tinytext CHARACTER SET latin1,
+  `fecha` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `titulo` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
+  `comunicaciones` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_detallecuaderno_comunicaciones_1` (`comunicaciones`),
+  CONSTRAINT `fk_detallecuaderno_comunicaciones_1` FOREIGN KEY (`comunicaciones`) REFERENCES `comunicaciones` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.detallecuaderno: ~0 rows (approximately)
+DELETE FROM `detallecuaderno`;
+/*!40000 ALTER TABLE `detallecuaderno` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detallecuaderno` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.dictadoprofesor
+DROP TABLE IF EXISTS `dictadoprofesor`;
+CREATE TABLE IF NOT EXISTS `dictadoprofesor` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `fechaAlta` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaBaja` date DEFAULT NULL,
+  `obser` tinytext CHARACTER SET latin1,
+  `cargo` bigint(20) unsigned NOT NULL,
+  `cursado` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cargo` (`cargo`),
+  KEY `fk_dictadoprofesor_cursado_1` (`cursado`),
+  CONSTRAINT `cargo` FOREIGN KEY (`cargo`) REFERENCES `cargo` (`id`),
+  CONSTRAINT `fk_dictadoprofesor_cursado_1` FOREIGN KEY (`cursado`) REFERENCES `cursado` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.dictadoprofesor: ~0 rows (approximately)
+DELETE FROM `dictadoprofesor`;
+/*!40000 ALTER TABLE `dictadoprofesor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dictadoprofesor` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.directivo
+DROP TABLE IF EXISTS `directivo`;
+CREATE TABLE IF NOT EXISTS `directivo` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `persona` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_persona` (`persona`),
+  CONSTRAINT `FK_persona` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.directivo: ~6 rows (approximately)
+DELETE FROM `directivo`;
+/*!40000 ALTER TABLE `directivo` DISABLE KEYS */;
+INSERT INTO `directivo` (`id`, `persona`) VALUES
+	(4, 7),
+	(1, 8),
+	(2, 9),
+	(5, 28),
+	(6, 41),
+	(7, 42);
+/*!40000 ALTER TABLE `directivo` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.division
+DROP TABLE IF EXISTS `division`;
+CREATE TABLE IF NOT EXISTS `division` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaBaja` date DEFAULT NULL,
+  `descripcion` tinytext COLLATE utf8_spanish_ci,
+  `numero` int(11) DEFAULT NULL,
+  `anio` enum('1','2','3','4','5','6','7','8','9') COLLATE utf8_spanish_ci NOT NULL,
+  `escuela` bigint(20) unsigned NOT NULL,
+  `planestudio` bigint(20) unsigned NOT NULL,
+  `turno` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `planestudio` (`planestudio`),
+  KEY `turno` (`turno`),
+  KEY `escuela` (`escuela`),
+  CONSTRAINT `escuela` FOREIGN KEY (`escuela`) REFERENCES `escuela` (`id`),
+  CONSTRAINT `planestudio` FOREIGN KEY (`planestudio`) REFERENCES `plandeestudio` (`id`),
+  CONSTRAINT `turno` FOREIGN KEY (`turno`) REFERENCES `turno` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.division: ~4 rows (approximately)
+DELETE FROM `division`;
+/*!40000 ALTER TABLE `division` DISABLE KEYS */;
+INSERT INTO `division` (`id`, `nombre`, `fechaAlta`, `fechaBaja`, `descripcion`, `numero`, `anio`, `escuela`, `planestudio`, `turno`) VALUES
+	(22, 'A', '2012-10-08 12:10:35', NULL, NULL, NULL, '1', 4, 3, 1),
+	(23, 'A', '2012-10-08 12:10:47', NULL, NULL, NULL, '2', 4, 3, 1),
+	(24, 'A', '2012-10-08 12:10:58', NULL, NULL, NULL, '3', 4, 3, 1),
+	(25, 'A', '2012-10-09 00:30:49', NULL, NULL, NULL, '1', 2, 3, 1);
+/*!40000 ALTER TABLE `division` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.docente
+DROP TABLE IF EXISTS `docente`;
+CREATE TABLE IF NOT EXISTS `docente` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `persona` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKD_persona` (`persona`),
+  CONSTRAINT `FKD_persona` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.docente: ~8 rows (approximately)
+DELETE FROM `docente`;
+/*!40000 ALTER TABLE `docente` DISABLE KEYS */;
+INSERT INTO `docente` (`id`, `persona`) VALUES
+	(1, 7),
+	(2, 8),
+	(3, 29),
+	(4, 30),
+	(5, 31),
+	(6, 32),
+	(7, 33),
+	(8, 34);
+/*!40000 ALTER TABLE `docente` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.escuela
+DROP TABLE IF EXISTS `escuela`;
+CREATE TABLE IF NOT EXISTS `escuela` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `cue` int(11) DEFAULT NULL,
+  `nombre` varchar(30) CHARACTER SET latin1 DEFAULT NULL,
+  `direccion` varchar(250) CHARACTER SET latin1 DEFAULT NULL,
+  `numero` int(11) NOT NULL,
+  `telefono` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
+  `fechaResolucion` date DEFAULT NULL,
+  `fechaCreacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaCierre` date DEFAULT NULL,
+  `nivel` bigint(20) unsigned NOT NULL,
+  `especialidad` bigint(20) unsigned NOT NULL,
+  `departamento` int(10) NOT NULL,
+  `localidad` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `especialidad` (`especialidad`),
+  KEY `nivel` (`nivel`),
+  KEY `departamento` (`departamento`),
+  KEY `localidad` (`localidad`),
+  CONSTRAINT `departamento` FOREIGN KEY (`departamento`) REFERENCES `departamento` (`id`),
+  CONSTRAINT `especialidad` FOREIGN KEY (`especialidad`) REFERENCES `especialidad` (`id`),
+  CONSTRAINT `localidad` FOREIGN KEY (`localidad`) REFERENCES `localidad` (`id`),
+  CONSTRAINT `nivel` FOREIGN KEY (`nivel`) REFERENCES `nivel` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.escuela: ~4 rows (approximately)
+DELETE FROM `escuela`;
+/*!40000 ALTER TABLE `escuela` DISABLE KEYS */;
+INSERT INTO `escuela` (`id`, `cue`, `nombre`, `direccion`, `numero`, `telefono`, `fechaResolucion`, `fechaCreacion`, `fechaCierre`, `nivel`, `especialidad`, `departamento`, `localidad`) VALUES
+	(1, 50023, 'Jorge N Lencinas', 'Algún lugar', 4125, '4302562', '2007-07-05', NULL, NULL, 3, 1, 4, 41),
+	(2, 50021, 'Benito Lamas', 'Algun Lugar', 4256, '0261548796', '2012-07-03', NULL, NULL, 1, 4, 2, 1),
+	(3, 50013, 'Escuela 1234', 'por ahi', 1234, NULL, '2012-09-26', '2012-09-26 11:27:52', NULL, 1, 1, 4, 165),
+	(4, 50012, 'Guillermo Cano', 'Godoy Cruz 545', 1452, NULL, '1971-05-02', '2012-10-08 12:08:51', NULL, 1, 4, 4, 85);
+/*!40000 ALTER TABLE `escuela` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.escuelapersona
+DROP TABLE IF EXISTS `escuelapersona`;
+CREATE TABLE IF NOT EXISTS `escuelapersona` (
+  `escuela` bigint(20) unsigned NOT NULL,
+  `persona` bigint(20) unsigned NOT NULL,
+  `tiporelacion_esc` int(11) NOT NULL,
+  PRIMARY KEY (`escuela`,`persona`),
+  KEY `persona_id` (`persona`),
+  KEY `FK_escuelapersona_tiporelacion_esc` (`tiporelacion_esc`),
+  CONSTRAINT `escuela_id` FOREIGN KEY (`escuela`) REFERENCES `escuela` (`id`),
+  CONSTRAINT `FK_escuelapersona_tiporelacion_esc` FOREIGN KEY (`tiporelacion_esc`) REFERENCES `tiporelacion_esc` (`id`),
+  CONSTRAINT `persona_id` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.escuelapersona: ~6 rows (approximately)
+DELETE FROM `escuelapersona`;
+/*!40000 ALTER TABLE `escuelapersona` DISABLE KEYS */;
+INSERT INTO `escuelapersona` (`escuela`, `persona`, `tiporelacion_esc`) VALUES
+	(1, 8, 1),
+	(1, 28, 1),
+	(2, 7, 1),
+	(2, 8, 1),
+	(3, 28, 1),
+	(4, 28, 1);
+/*!40000 ALTER TABLE `escuelapersona` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.especialidad
+DROP TABLE IF EXISTS `especialidad`;
+CREATE TABLE IF NOT EXISTS `especialidad` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(30) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` text CHARACTER SET latin1,
+  `resolucion` int(11) DEFAULT NULL,
+  `fechaAlta` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaBaja` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.especialidad: ~4 rows (approximately)
+DELETE FROM `especialidad`;
+/*!40000 ALTER TABLE `especialidad` DISABLE KEYS */;
+INSERT INTO `especialidad` (`id`, `nombre`, `descripcion`, `resolucion`, `fechaAlta`, `fechaBaja`) VALUES
+	(1, 'Perito Mercantil', '<p>Especialidad Perito Mercantil</p>', 1234, NULL, NULL),
+	(2, 'Quimica', '<p>Especilidad Quimica</p>', 16, NULL, NULL),
+	(3, 'Técnico Mecánico', '<p>Especialidad Escuelas Técnicas</p>', 2568, NULL, NULL),
+	(4, 'Ninguna', '<p>\r\n Ninguna especialidad</p>\r\n', 123456, NULL, NULL);
+/*!40000 ALTER TABLE `especialidad` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.estadoexamen
+DROP TABLE IF EXISTS `estadoexamen`;
+CREATE TABLE IF NOT EXISTS `estadoexamen` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `estado` longblob,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` tinytext CHARACTER SET latin1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.estadoexamen: ~0 rows (approximately)
+DELETE FROM `estadoexamen`;
+/*!40000 ALTER TABLE `estadoexamen` DISABLE KEYS */;
+/*!40000 ALTER TABLE `estadoexamen` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.estadoinscripcion
+DROP TABLE IF EXISTS `estadoinscripcion`;
+CREATE TABLE IF NOT EXISTS `estadoinscripcion` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `descripcion` text COLLATE utf8_spanish_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.estadoinscripcion: ~8 rows (approximately)
+DELETE FROM `estadoinscripcion`;
+/*!40000 ALTER TABLE `estadoinscripcion` DISABLE KEYS */;
+INSERT INTO `estadoinscripcion` (`id`, `nombre`, `descripcion`) VALUES
+	(1, 'Cursando', 'El Alumno se encuentra cursando'),
+	(2, 'Abandono', 'Abandono del cursado'),
+	(3, 'Pase', 'Pase de colegio'),
+	(4, 'Cambio', 'Cambio de curso'),
+	(5, 'Promocion', 'Promoción de curso'),
+	(6, 'Libre', 'Condición de libre'),
+	(7, 'Repetidor', 'Repetidor de curso'),
+	(8, 'Egreso', 'Egreso del colegio');
+/*!40000 ALTER TABLE `estadoinscripcion` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.eventomateria
+DROP TABLE IF EXISTS `eventomateria`;
+CREATE TABLE IF NOT EXISTS `eventomateria` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` longtext CHARACTER SET latin1,
+  `inicio` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fin` datetime DEFAULT NULL,
+  `cursado` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_eventomateria_cursado_1` (`cursado`),
+  CONSTRAINT `fk_eventomateria_cursado_1` FOREIGN KEY (`cursado`) REFERENCES `cursado` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.eventomateria: ~0 rows (approximately)
+DELETE FROM `eventomateria`;
+/*!40000 ALTER TABLE `eventomateria` DISABLE KEYS */;
+/*!40000 ALTER TABLE `eventomateria` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.examen
+DROP TABLE IF EXISTS `examen`;
+CREATE TABLE IF NOT EXISTS `examen` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` tinytext CHARACTER SET latin1,
+  `fechaAlta` datetime DEFAULT NULL,
+  `inicio` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fin` datetime DEFAULT NULL,
+  `fechaBaja` datetime DEFAULT NULL,
+  `inscripcion` bigint(20) unsigned NOT NULL,
+  `estado` bigint(20) unsigned NOT NULL,
+  `tema` text CHARACTER SET latin1,
+  PRIMARY KEY (`id`),
+  KEY `fk_examen_estadoexamen_1` (`estado`),
+  KEY `fk_examen_inscripcionalumno_1` (`inscripcion`),
+  CONSTRAINT `fk_examen_estadoexamen_1` FOREIGN KEY (`estado`) REFERENCES `estadoexamen` (`id`),
+  CONSTRAINT `fk_examen_inscripcionalumno_1` FOREIGN KEY (`inscripcion`) REFERENCES `inscripcionalumno` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.examen: ~0 rows (approximately)
+DELETE FROM `examen`;
+/*!40000 ALTER TABLE `examen` DISABLE KEYS */;
+/*!40000 ALTER TABLE `examen` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.inscripcionalumno
+DROP TABLE IF EXISTS `inscripcionalumno`;
+CREATE TABLE IF NOT EXISTS `inscripcionalumno` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaBaja` date DEFAULT NULL,
+  `alumno` bigint(20) unsigned NOT NULL,
+  `comunicaciones` bigint(20) unsigned NOT NULL,
+  `estado` bigint(20) unsigned NOT NULL,
+  `cursado` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_Alumno_1` (`alumno`),
+  KEY `fk_comunicaciones_1` (`comunicaciones`),
+  KEY `fk_cursado_1` (`cursado`),
+  KEY `fk_estadoinscripcion_1` (`estado`),
+  CONSTRAINT `fk_Alumno_1` FOREIGN KEY (`alumno`) REFERENCES `alumno` (`id`),
+  CONSTRAINT `fk_comunicaciones_1` FOREIGN KEY (`comunicaciones`) REFERENCES `comunicaciones` (`id`),
+  CONSTRAINT `fk_cursado_1` FOREIGN KEY (`cursado`) REFERENCES `cursado` (`id`),
+  CONSTRAINT `fk_estadoinscripcion_1` FOREIGN KEY (`estado`) REFERENCES `estadoinscripcion` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=368 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.inscripcionalumno: ~108 rows (approximately)
+DELETE FROM `inscripcionalumno`;
+/*!40000 ALTER TABLE `inscripcionalumno` DISABLE KEYS */;
+INSERT INTO `inscripcionalumno` (`id`, `fechaAlta`, `fechaBaja`, `alumno`, `comunicaciones`, `estado`, `cursado`) VALUES
+	(260, '2012-10-08 12:18:27', '2012-10-08', 2, 263, 7, 47),
+	(261, '2012-10-08 12:18:27', '2012-10-08', 2, 264, 7, 48),
+	(262, '2012-10-08 12:18:27', '2012-10-08', 2, 265, 7, 49),
+	(263, '2012-10-08 12:18:38', '2012-10-08', 13, 266, 3, 47),
+	(264, '2012-10-08 12:18:38', '2012-10-08', 13, 267, 3, 48),
+	(265, '2012-10-08 12:18:38', '2012-10-08', 13, 268, 3, 49),
+	(266, '2012-10-08 12:18:46', '2012-10-08', 1, 269, 7, 47),
+	(267, '2012-10-08 12:18:46', '2012-10-08', 1, 270, 7, 48),
+	(268, '2012-10-08 12:18:46', '2012-10-08', 1, 271, 7, 49),
+	(269, '2012-10-08 12:18:49', '2012-10-08', 3, 272, 3, 47),
+	(270, '2012-10-08 12:18:49', '2012-10-08', 3, 273, 3, 48),
+	(271, '2012-10-08 12:18:49', '2012-10-08', 3, 274, 3, 49),
+	(272, '2012-10-08 12:18:53', '2012-10-08', 10, 275, 3, 47),
+	(273, '2012-10-08 12:18:53', '2012-10-08', 10, 276, 3, 48),
+	(274, '2012-10-08 12:18:53', '2012-10-08', 10, 277, 3, 49),
+	(275, '2012-10-08 12:18:56', '2012-10-08', 20, 278, 7, 47),
+	(276, '2012-10-08 12:18:57', '2012-10-08', 20, 279, 7, 48),
+	(277, '2012-10-08 12:18:57', '2012-10-08', 20, 280, 7, 49),
+	(278, '2012-10-08 12:19:01', '2012-10-08', 21, 281, 3, 47),
+	(279, '2012-10-08 12:19:01', '2012-10-08', 21, 282, 3, 48),
+	(280, '2012-10-08 12:19:01', '2012-10-08', 21, 283, 3, 49),
+	(281, '2012-10-08 12:19:06', '2012-10-08', 17, 284, 7, 47),
+	(282, '2012-10-08 12:19:06', '2012-10-08', 17, 285, 7, 48),
+	(283, '2012-10-08 12:19:06', '2012-10-08', 17, 286, 7, 49),
+	(284, '2012-10-08 12:19:10', '2012-10-08', 6, 287, 3, 47),
+	(285, '2012-10-08 12:19:10', '2012-10-08', 6, 288, 3, 48),
+	(286, '2012-10-08 12:19:10', '2012-10-08', 6, 289, 3, 49),
+	(287, '2012-10-08 12:19:46', '2012-10-08', 2, 290, 7, 56),
+	(288, '2012-10-08 12:19:46', '2012-10-08', 2, 291, 7, 57),
+	(289, '2012-10-08 12:19:47', '2012-10-08', 2, 292, 7, 58),
+	(290, '2012-10-08 12:19:47', '2012-10-08', 1, 293, 3, 56),
+	(291, '2012-10-08 12:19:47', '2012-10-08', 1, 294, 3, 57),
+	(292, '2012-10-08 12:19:47', '2012-10-08', 1, 295, 3, 58),
+	(293, '2012-10-08 12:19:47', '2012-10-08', 20, 296, 7, 56),
+	(294, '2012-10-08 12:19:47', '2012-10-08', 20, 297, 7, 57),
+	(295, '2012-10-08 12:19:48', '2012-10-08', 20, 298, 7, 58),
+	(296, '2012-10-08 12:19:48', '2012-10-08', 17, 299, 3, 56),
+	(297, '2012-10-08 12:19:48', '2012-10-08', 17, 300, 3, 57),
+	(298, '2012-10-08 12:19:48', '2012-10-08', 17, 301, 3, 58),
+	(299, '2012-10-08 12:19:48', '2012-10-08', 13, 302, 7, 59),
+	(300, '2012-10-08 12:19:48', '2012-10-08', 13, 303, 7, 60),
+	(301, '2012-10-08 12:19:48', '2012-10-08', 13, 304, 7, 61),
+	(302, '2012-10-08 12:19:48', '2012-10-08', 3, 305, 3, 59),
+	(303, '2012-10-08 12:19:49', '2012-10-08', 3, 306, 3, 60),
+	(304, '2012-10-08 12:19:49', '2012-10-08', 3, 307, 3, 61),
+	(305, '2012-10-08 12:19:49', '2012-10-08', 10, 308, 7, 59),
+	(306, '2012-10-08 12:19:49', '2012-10-08', 10, 309, 7, 60),
+	(307, '2012-10-08 12:19:49', '2012-10-08', 10, 310, 7, 61),
+	(308, '2012-10-08 12:19:49', '2012-10-08', 21, 311, 3, 59),
+	(309, '2012-10-08 12:19:49', '2012-10-08', 21, 312, 3, 60),
+	(310, '2012-10-08 12:19:49', '2012-10-08', 21, 313, 3, 61),
+	(311, '2012-10-08 12:19:49', '2012-10-08', 6, 314, 3, 59),
+	(312, '2012-10-08 12:19:50', '2012-10-08', 6, 315, 3, 60),
+	(313, '2012-10-08 12:19:50', '2012-10-08', 6, 316, 3, 61),
+	(314, '2012-10-08 12:20:15', '2012-10-08', 2, 317, 3, 65),
+	(315, '2012-10-08 12:20:15', '2012-10-08', 2, 318, 3, 66),
+	(316, '2012-10-08 12:20:16', '2012-10-08', 2, 319, 3, 67),
+	(317, '2012-10-08 12:20:16', '2012-10-08', 20, 320, 3, 65),
+	(318, '2012-10-08 12:20:16', '2012-10-08', 20, 321, 3, 66),
+	(319, '2012-10-08 12:20:16', '2012-10-08', 20, 322, 3, 67),
+	(320, '2012-10-08 12:20:16', '2012-10-08', 1, 323, 3, 68),
+	(321, '2012-10-08 12:20:16', '2012-10-08', 1, 324, 3, 69),
+	(322, '2012-10-08 12:20:16', '2012-10-08', 1, 325, 3, 70),
+	(323, '2012-10-08 12:20:16', '2012-10-08', 17, 326, 3, 68),
+	(324, '2012-10-08 12:20:16', '2012-10-08', 17, 327, 3, 69),
+	(325, '2012-10-08 12:20:17', '2012-10-08', 17, 328, 3, 70),
+	(326, '2012-10-08 12:20:17', '2012-10-08', 13, 329, 3, 68),
+	(327, '2012-10-08 12:20:17', '2012-10-08', 13, 330, 3, 69),
+	(328, '2012-10-08 12:20:17', '2012-10-08', 13, 331, 3, 70),
+	(329, '2012-10-08 12:20:17', '2012-10-08', 10, 332, 3, 68),
+	(330, '2012-10-08 12:20:17', '2012-10-08', 10, 333, 3, 69),
+	(331, '2012-10-08 12:20:17', '2012-10-08', 10, 334, 3, 70),
+	(332, '2012-10-08 12:20:18', '2012-10-08', 3, 335, 8, 71),
+	(333, '2012-10-08 12:20:18', '2012-10-08', 3, 336, 8, 72),
+	(334, '2012-10-08 12:20:18', '2012-10-08', 3, 337, 8, 73),
+	(335, '2012-10-08 12:20:18', '2012-10-08', 21, 338, 8, 71),
+	(336, '2012-10-08 12:20:18', '2012-10-08', 21, 339, 8, 72),
+	(337, '2012-10-08 12:20:18', '2012-10-08', 21, 340, 8, 73),
+	(338, '2012-10-08 12:20:18', '2012-10-08', 6, 341, 8, 71),
+	(339, '2012-10-08 12:20:18', '2012-10-08', 6, 342, 8, 72),
+	(340, '2012-10-08 12:20:19', '2012-10-08', 6, 343, 8, 73),
+	(341, '2012-10-08 12:20:33', '2012-10-08', 2, 344, 3, 77),
+	(342, '2012-10-08 12:20:33', '2012-10-08', 2, 345, 3, 78),
+	(343, '2012-10-08 12:20:33', '2012-10-08', 2, 346, 3, 79),
+	(344, '2012-10-08 12:20:33', '2012-10-08', 20, 347, 3, 77),
+	(345, '2012-10-08 12:20:33', '2012-10-08', 20, 348, 3, 78),
+	(346, '2012-10-08 12:20:33', '2012-10-08', 20, 349, 3, 79),
+	(347, '2012-10-08 12:20:34', '2012-10-08', 1, 350, 8, 80),
+	(348, '2012-10-08 12:20:34', '2012-10-08', 1, 351, 8, 81),
+	(349, '2012-10-08 12:20:34', '2012-10-08', 1, 352, 8, 82),
+	(350, '2012-10-08 12:20:34', '2012-10-08', 17, 353, 8, 80),
+	(351, '2012-10-08 12:20:34', '2012-10-08', 17, 354, 8, 81),
+	(352, '2012-10-08 12:20:34', '2012-10-08', 17, 355, 8, 82),
+	(353, '2012-10-08 12:20:35', '2012-10-08', 13, 356, 8, 80),
+	(354, '2012-10-08 12:20:35', '2012-10-08', 13, 357, 8, 81),
+	(355, '2012-10-08 12:20:35', '2012-10-08', 13, 358, 8, 82),
+	(356, '2012-10-08 12:20:35', '2012-10-08', 10, 359, 8, 80),
+	(357, '2012-10-08 12:20:35', '2012-10-08', 10, 360, 8, 81),
+	(358, '2012-10-08 12:20:35', '2012-10-08', 10, 361, 8, 82),
+	(359, '2012-10-08 12:20:42', '2012-10-08', 2, 362, 8, 89),
+	(360, '2012-10-08 12:20:42', '2012-10-08', 2, 363, 8, 90),
+	(361, '2012-10-08 12:20:42', '2012-10-08', 2, 364, 8, 91),
+	(362, '2012-10-08 12:20:42', '2012-10-08', 20, 365, 8, 89),
+	(363, '2012-10-08 12:20:42', '2012-10-08', 20, 366, 8, 90),
+	(364, '2012-10-08 12:20:42', '2012-10-08', 20, 367, 8, 91),
+	(365, '2012-10-09 00:32:09', NULL, 5, 368, 1, 101),
+	(366, '2012-10-09 00:32:09', NULL, 5, 369, 1, 102),
+	(367, '2012-10-09 00:32:09', NULL, 5, 370, 1, 103);
+/*!40000 ALTER TABLE `inscripcionalumno` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.localidad
+DROP TABLE IF EXISTS `localidad`;
+CREATE TABLE IF NOT EXISTS `localidad` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `departamento` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table edu.localidad: ~195 rows (approximately)
+DELETE FROM `localidad`;
+/*!40000 ALTER TABLE `localidad` DISABLE KEYS */;
+INSERT INTO `localidad` (`id`, `nombre`, `departamento`) VALUES
+	(1, '1ª Seccionl', 1),
+	(2, '2ª Seccion', 1),
+	(3, '3ª Seccion', 1),
+	(4, '4ª Sección', 1),
+	(5, '4ª Este', 1),
+	(6, '4ª Oeste', 1),
+	(7, '5ª Seccion', 1),
+	(8, '6ª Seccion', 1),
+	(9, 'Zona Oeste', 1),
+	(10, 'Residencial Parque', 1),
+	(11, 'Aeroparque', 1),
+	(12, 'Parque Gral. San Martín', 1),
+	(13, 'Los Cerros', 1),
+	(14, 'San Agustín', 1),
+	(15, 'Piedemonte', 1),
+	(16, 'Bowen', 2),
+	(17, 'Ciudad de General Alvear', 2),
+	(18, 'San Pedro del Atuel', 2),
+	(19, 'Gobernador Benegas', 3),
+	(20, 'Ciudad de Godoy Cruz', 3),
+	(21, 'Las Tortugas', 3),
+	(22, 'Presidente Sarmiento', 3),
+	(23, 'San Francisco del Monte', 3),
+	(24, 'Bermejo', 4),
+	(25, 'Buena Nueva', 4),
+	(26, 'Capilla del Rosario', 4),
+	(27, 'Colonia Segovia', 4),
+	(28, 'Dorrego', 4),
+	(29, 'El Sauce', 4),
+	(30, 'Gral. Belgrano', 4),
+	(31, 'Jesus Nazareno', 4),
+	(32, 'Kilómetro 8', 4),
+	(33, 'Kilómetro 11', 4),
+	(34, 'La Primavera', 4),
+	(35, 'Las Cañas', 4),
+	(36, 'Los Corralitos', 4),
+	(37, 'Pedro Molina', 4),
+	(38, 'Rodeo de la Cruz', 4),
+	(39, 'San Francisco del Monte', 4),
+	(40, 'San José', 4),
+	(41, 'Villa Nueva', 4),
+	(42, 'Nueva Ciudad', 4),
+	(43, 'Puente de Hierro', 4),
+	(44, 'Algarrobo Grande', 5),
+	(45, 'Alto Verde', 5),
+	(46, 'Ciudad de Junín', 5),
+	(47, 'La Colonia', 5),
+	(48, 'Los Barriales', 5),
+	(49, 'Medrano', 5),
+	(50, 'Mundo Nuevo', 5),
+	(51, 'Phillips', 5),
+	(52, 'Rodriguez Peña', 5),
+	(53, 'Desaguadero', 6),
+	(54, 'Villa Nueva', 6),
+	(55, 'Las Chacritas', 6),
+	(56, 'Villa Antigua', 6),
+	(57, 'La Menta', 6),
+	(58, 'Capdevila', 7),
+	(59, 'El Algarrobal', 7),
+	(60, 'El Borbollón', 7),
+	(61, 'El Challao', 7),
+	(62, 'El Pastal', 7),
+	(63, 'El Plumerillo', 7),
+	(64, 'El Resguardo', 7),
+	(65, 'El Zapallar', 7),
+	(66, 'La Cieneguita', 7),
+	(67, 'Las Cuevas', 7),
+	(68, 'Ciudad de Las Heras', 7),
+	(69, 'Panquehua', 7),
+	(70, 'Uspallata', 7),
+	(71, 'Jocolí', 8),
+	(72, 'Costa de Araujo', 8),
+	(73, 'El Carmen', 8),
+	(74, 'El Chilcal', 8),
+	(75, 'El Plumero', 8),
+	(76, 'El Vergel', 8),
+	(77, 'Ing. Gustavo André', 8),
+	(78, 'Jocolí Viejo', 8),
+	(79, 'La Asunción', 8),
+	(80, 'La Holanda', 8),
+	(81, 'La Pega', 8),
+	(82, 'Lagunas del Rosario', 8),
+	(83, 'Villa Tulumaya', 8),
+	(84, 'Las Violetas', 8),
+	(85, 'San José', 8),
+	(86, 'San Miguel', 8),
+	(87, 'Tres de Mayo', 8),
+	(88, 'El Paramillo', 8),
+	(89, 'La Palmera', 8),
+	(90, 'San Francisco', 8),
+	(91, 'Agrelo', 9),
+	(92, 'Carrodilla', 9),
+	(93, 'Chacras de Coria', 9),
+	(94, 'El Carrizal', 9),
+	(95, 'La Puntilla', 9),
+	(96, 'Las Compuertas', 9),
+	(97, 'Ciudad de Luján de Cuyo', 9),
+	(98, 'Mayor Drumond', 9),
+	(99, 'Perdriel', 9),
+	(100, 'Potrerillos', 9),
+	(101, 'Ugarteche', 9),
+	(102, 'Vistalba', 9),
+	(103, 'Coquimbito', 10),
+	(104, 'Cruz de Piedra', 10),
+	(105, 'Fray Luis Beltrán', 10),
+	(106, 'Gral. Gutierrez', 10),
+	(107, 'Gral. Ortega', 10),
+	(108, 'Las Barrancas', 10),
+	(109, 'Lunlunta', 10),
+	(110, 'Ciudad de Maipú', 10),
+	(111, 'Rodeo del Medio', 10),
+	(112, 'Russell', 10),
+	(113, 'San Roque', 10),
+	(114, 'Luzuriaga', 10),
+	(115, 'Río Barrancas', 11),
+	(116, 'Agua Escondida', 11),
+	(117, 'Ciudad de Malargüe', 11),
+	(118, 'Río Grande', 11),
+	(119, 'Andrade', 12),
+	(120, 'Los Campamentos', 12),
+	(121, 'El Mirador', 12),
+	(122, 'La Central', 12),
+	(123, 'La Libertad', 12),
+	(124, 'Los Arboles', 12),
+	(125, 'Medrano', 12),
+	(126, 'Mundo Nuevo', 12),
+	(127, 'Reducción', 12),
+	(128, 'Ciudad de Rivadavia', 12),
+	(129, 'Santa María de Oro', 12),
+	(130, 'Eugenio Bustos', 13),
+	(131, 'Chilecito', 13),
+	(132, 'La Consulta', 13),
+	(133, 'Pareditas', 13),
+	(134, 'Ciudad de San Carlos', 13),
+	(135, 'Alto Salvador', 14),
+	(136, 'Alto Verde', 14),
+	(137, 'Buen Orden', 14),
+	(138, 'Chapanay', 14),
+	(139, 'Las Chimbas', 14),
+	(140, 'Chivilcoy', 14),
+	(141, 'El Divisadero', 14),
+	(142, 'El Central', 14),
+	(143, 'El Espino', 14),
+	(144, 'Montecaseros', 14),
+	(145, 'Nueva California', 14),
+	(146, 'Palmira', 14),
+	(147, 'El Ramblón', 14),
+	(148, 'Ciudad de San Martín', 14),
+	(149, 'Tres Porteñas', 14),
+	(150, 'Cañada Seca', 15),
+	(151, 'Cuadro Benegas', 15),
+	(152, 'Cuadro Nacional', 15),
+	(153, 'El Cerrito', 15),
+	(154, 'El Nihuil', 15),
+	(155, 'Goudge', 15),
+	(156, 'Jaime Prats', 15),
+	(157, 'La Llave', 15),
+	(158, 'Las Malvinas', 15),
+	(159, 'Las Paredes', 15),
+	(160, 'Monte Comán', 15),
+	(161, 'Punta de Agua', 15),
+	(162, 'Rama Caída', 15),
+	(163, 'Real del Padre', 15),
+	(164, 'Ciudad de San Rafael', 15),
+	(165, '25 de Mayo', 15),
+	(166, 'Villa Atuel', 15),
+	(167, 'La Dormida', 16),
+	(168, 'Las Catitas', 16),
+	(169, 'Ciudad de Santa Rosa', 16),
+	(170, 'Ñancuñán', 16),
+	(171, '12 de Octubre', 16),
+	(172, 'Campo de los Andes', 17),
+	(173, 'Colonia Las Rosas', 17),
+	(174, 'El Algarrobo', 17),
+	(175, 'El Totoral', 17),
+	(176, 'La Primavera', 17),
+	(177, 'Los Arboles', 17),
+	(178, 'Los Chacales', 17),
+	(179, 'Ciudad de Tunuyán', 17),
+	(180, 'Villa Seca', 17),
+	(181, 'Vista Flores', 17),
+	(182, 'Los Sauces', 17),
+	(183, 'Las Pintadas', 17),
+	(184, 'Anchoris', 18),
+	(185, 'Cordón del Plata', 18),
+	(186, 'El Peral', 18),
+	(187, 'El Zampal', 18),
+	(188, 'Gualtallary', 18),
+	(189, 'La Arboleda', 18),
+	(190, 'La Carrera', 18),
+	(191, 'San José', 18),
+	(192, 'Santa Clara', 18),
+	(193, 'Ciudad de Tupungato', 18),
+	(194, 'Villa Bastías', 18),
+	(195, 'Ciudad de Mendoza', 1);
+/*!40000 ALTER TABLE `localidad` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.materia
+DROP TABLE IF EXISTS `materia`;
+CREATE TABLE IF NOT EXISTS `materia` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` text COLLATE utf8_spanish_ci,
+  `resolucion` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `year` enum('1','2','3','4','5','6','7','8','9') COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fechaAlta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaBaja` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
+
+-- Dumping data for table edu.materia: ~10 rows (approximately)
+DELETE FROM `materia`;
+/*!40000 ALTER TABLE `materia` DISABLE KEYS */;
+INSERT INTO `materia` (`id`, `nombre`, `descripcion`, `resolucion`, `year`, `fechaAlta`, `fechaBaja`) VALUES
+	(3, 'Matematica', '<p>1Ma</p>', '123', '1', '2012-07-26 22:04:51', NULL),
+	(4, 'Lengua', '<p>\n	Lengua</p>\n', '123456', '1', '2012-09-21 23:13:25', NULL),
+	(5, 'Matematica', '<p>\n	Matematica</p>\n', '123456', '1', '2012-09-21 23:13:43', NULL),
+	(6, 'Ciencias Sociales', '<p>\n	cs cs</p>\n', '654', '1', '2012-09-21 23:14:15', NULL),
+	(7, 'Matematica', '<p>\n Mate</p>\n', '123', '2', '2012-10-08 12:12:29', NULL),
+	(8, 'Lengua', '<p>\n Lengua</p>\n', '1234', '2', '2012-10-08 12:12:43', NULL),
+	(9, 'Cs Sociales', '<p>\n Cs Sociales</p>\n', '1234', '2', '2012-10-08 12:12:58', NULL),
+	(10, 'Matematica', '<p>\n mat</p>\n', '123', '3', '2012-10-08 12:13:14', NULL),
+	(11, 'Lengua', '<p>\n leng</p>\n', '1324', '3', '2012-10-08 12:13:26', NULL),
+	(12, 'Cs Naturales', '<p>\n cs naturales</p>\n', '1324', '3', '2012-10-08 12:13:42', NULL);
+/*!40000 ALTER TABLE `materia` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.nivel
+DROP TABLE IF EXISTS `nivel`;
+CREATE TABLE IF NOT EXISTS `nivel` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(32) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` text CHARACTER SET latin1,
+  `direccionLinea` text CHARACTER SET latin1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.nivel: ~3 rows (approximately)
+DELETE FROM `nivel`;
+/*!40000 ALTER TABLE `nivel` DISABLE KEYS */;
+INSERT INTO `nivel` (`id`, `nombre`, `descripcion`, `direccionLinea`) VALUES
+	(1, 'Primario', '<p>Nivel Primario</p>', '<p>Sur</p>'),
+	(2, 'Jardin', '<p>Jardines</p>', '<p>Sur</p>'),
+	(3, 'Polimodal', '<p>Polimodales</p>', '<p>Secundario</p>');
+/*!40000 ALTER TABLE `nivel` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.nota
+DROP TABLE IF EXISTS `nota`;
+CREATE TABLE IF NOT EXISTS `nota` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `fecha` date DEFAULT NULL,
+  `valor` float DEFAULT NULL,
+  `observ` tinytext CHARACTER SET latin1,
+  `tipo` bigint(20) unsigned NOT NULL,
+  `inscripcionAlu` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_nota_inscripcionalumno_1` (`inscripcionAlu`),
+  KEY `fk_nota_tiponota_1` (`tipo`),
+  CONSTRAINT `fk_nota_inscripcionalumno_1` FOREIGN KEY (`inscripcionAlu`) REFERENCES `inscripcionalumno` (`id`),
+  CONSTRAINT `fk_nota_tiponota_1` FOREIGN KEY (`tipo`) REFERENCES `tiponota` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.nota: ~0 rows (approximately)
+DELETE FROM `nota`;
+/*!40000 ALTER TABLE `nota` DISABLE KEYS */;
+/*!40000 ALTER TABLE `nota` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.novedadmateria
+DROP TABLE IF EXISTS `novedadmateria`;
+CREATE TABLE IF NOT EXISTS `novedadmateria` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` longtext CHARACTER SET latin1,
+  `fechaAlta` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaBaja` datetime DEFAULT NULL,
+  `titulo` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `cursado` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_novedadmateria_cursado_1` (`cursado`),
+  CONSTRAINT `fk_novedadmateria_cursado_1` FOREIGN KEY (`cursado`) REFERENCES `cursado` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.novedadmateria: ~0 rows (approximately)
+DELETE FROM `novedadmateria`;
+/*!40000 ALTER TABLE `novedadmateria` DISABLE KEYS */;
+/*!40000 ALTER TABLE `novedadmateria` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.opcion
+DROP TABLE IF EXISTS `opcion`;
+CREATE TABLE IF NOT EXISTS `opcion` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `numero` int(11) DEFAULT NULL,
+  `descripcion` tinytext CHARACTER SET latin1,
+  `seleccionada` longblob,
+  `correcta` longblob,
+  `pregunta` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_opcion_pregunta_1` (`pregunta`),
+  CONSTRAINT `fk_opcion_pregunta_1` FOREIGN KEY (`pregunta`) REFERENCES `pregunta` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.opcion: ~0 rows (approximately)
+DELETE FROM `opcion`;
+/*!40000 ALTER TABLE `opcion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `opcion` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.padre
+DROP TABLE IF EXISTS `padre`;
+CREATE TABLE IF NOT EXISTS `padre` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `persona` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKP_persona` (`persona`),
+  CONSTRAINT `FKP_persona` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.padre: ~5 rows (approximately)
+DELETE FROM `padre`;
+/*!40000 ALTER TABLE `padre` DISABLE KEYS */;
+INSERT INTO `padre` (`id`, `persona`) VALUES
+	(3, 7),
+	(2, 8),
+	(1, 9),
+	(4, 35),
+	(5, 36);
+/*!40000 ALTER TABLE `padre` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.permisorol
+DROP TABLE IF EXISTS `permisorol`;
+CREATE TABLE IF NOT EXISTS `permisorol` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
+  `funcion` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.permisorol: ~8 rows (approximately)
+DELETE FROM `permisorol`;
+/*!40000 ALTER TABLE `permisorol` DISABLE KEYS */;
+INSERT INTO `permisorol` (`id`, `nombre`, `funcion`) VALUES
+	(1, 'escuela', 'abm'),
+	(2, 'plan_estudio', 'abm'),
+	(3, 'materia', 'abm'),
+	(4, 'contenido', 'abm'),
+	(5, 'especialidad', 'abm'),
+	(6, 'persona', 'abm'),
+	(7, 'usuarios', 'abm'),
+	(8, 'roles', 'abm');
+/*!40000 ALTER TABLE `permisorol` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.persona
+DROP TABLE IF EXISTS `persona`;
+CREATE TABLE IF NOT EXISTS `persona` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `dni` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `apellido` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `sexo` enum('F','M') COLLATE utf8_spanish_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET latin1 DEFAULT '',
+  `telefono` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `celular` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `direccion` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `codPostal` int(11) DEFAULT NULL,
+  `departamento` int(11) NOT NULL,
+  `localidad` int(11) NOT NULL,
+  `provincia` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `pais` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `nacimiento` date DEFAULT NULL,
+  `fechaAlta` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaBaja` datetime DEFAULT NULL,
+  `estado` longblob,
+  PRIMARY KEY (`id`),
+  KEY `FK_persona_localidad` (`localidad`),
+  KEY `FK_persona_departamento` (`departamento`),
+  CONSTRAINT `FK_persona_departamento` FOREIGN KEY (`departamento`) REFERENCES `departamento` (`id`),
+  CONSTRAINT `FK_persona_localidad` FOREIGN KEY (`localidad`) REFERENCES `localidad` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.persona: ~40 rows (approximately)
+DELETE FROM `persona`;
+/*!40000 ALTER TABLE `persona` DISABLE KEYS */;
+INSERT INTO `persona` (`id`, `dni`, `nombre`, `apellido`, `sexo`, `email`, `telefono`, `celular`, `direccion`, `codPostal`, `departamento`, `localidad`, `provincia`, `pais`, `nacimiento`, `fechaAlta`, `fechaBaja`, `estado`) VALUES
+	(3, '1234', 'Alicia', 'Esmera', 'F', '', NULL, NULL, 'a', NULL, 2, 2, NULL, NULL, '2012-07-16', '2012-07-17 13:46:15', NULL, NULL),
+	(4, '12345678', 'Javier', 'Reza', 'M', NULL, NULL, NULL, 'bº ', NULL, 2, 1, NULL, NULL, '2012-07-04', '2012-07-17 13:49:54', NULL, NULL),
+	(5, '22546879', 'Ernesto', 'Sabato', 'M', NULL, NULL, NULL, 'Algun Lugar', NULL, 2, 171, NULL, NULL, '2012-07-03', '2012-07-17 14:01:02', NULL, NULL),
+	(6, '12345678', 'Mercedes', 'Real', 'F', NULL, NULL, NULL, 'a', NULL, 3, 165, NULL, NULL, '2012-07-11', '2012-07-17 14:02:08', NULL, NULL),
+	(7, '12345678', 'Eugenia', 'Bustos', 'F', NULL, NULL, NULL, 'a', NULL, 2, 1, NULL, NULL, '2012-07-04', '2012-07-17 14:02:56', NULL, NULL),
+	(8, '12456789', 'Miguel Angel', 'Calud', 'M', NULL, NULL, NULL, 'por ahi vivo yo', NULL, 2, 165, NULL, NULL, '2012-07-04', '2012-07-17 14:03:36', NULL, NULL),
+	(9, '12321456', 'Raul', 'Reza', 'M', NULL, NULL, NULL, 'A', NULL, 2, 1, NULL, NULL, '2012-07-12', '2012-07-17 14:05:14', NULL, NULL),
+	(10, '45321458', 'Mariano', 'Eligazetta', 'M', NULL, NULL, NULL, 'Algun lugar', NULL, 2, 165, NULL, NULL, '2002-09-06', '2012-09-22 01:12:31', NULL, NULL),
+	(11, '45547895', 'Micaela', 'Trujillo', 'F', NULL, NULL, NULL, 'Por ahi 123', NULL, 2, 165, NULL, NULL, '1992-06-02', '2012-09-22 01:56:13', NULL, NULL),
+	(12, '31245789', 'Gregorio', 'Ubendu', 'M', NULL, NULL, NULL, 'Por ahi 123', NULL, 3, 2, NULL, NULL, '1985-07-05', '2012-09-22 01:56:55', NULL, NULL),
+	(13, '35457895', 'Dionisio', 'Frasquito', 'M', NULL, NULL, NULL, 'Por ahi 123', NULL, 5, 165, NULL, NULL, '1991-05-21', '2012-09-22 01:57:31', NULL, NULL),
+	(14, '37548987', 'Adriana', 'Tirso', 'F', NULL, NULL, NULL, 'Por ahi 123', NULL, 3, 165, NULL, NULL, '1995-10-26', '2012-09-22 01:58:57', NULL, NULL),
+	(15, '33547897', 'Miguel', 'Tajo', 'M', NULL, NULL, NULL, 'Por ahi 123', NULL, 2, 5, NULL, NULL, '1988-08-06', '2012-09-22 01:59:31', NULL, NULL),
+	(16, '39458654', 'Rosio', 'Marengo', 'F', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 3, 1, NULL, NULL, '1993-01-21', '2012-09-22 02:01:21', NULL, NULL),
+	(17, '12456789', 'Eduardo', 'Galeano', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 1, 171, NULL, NULL, '1954-03-05', '2012-09-22 02:03:01', NULL, NULL),
+	(18, '21456789', 'Oliverio', 'Girondo', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 1, 171, NULL, NULL, '1975-04-05', '2012-09-22 02:04:21', NULL, NULL),
+	(19, '10123456', 'Paco', 'Urondo', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 3, 165, NULL, NULL, '1968-07-09', '2012-09-22 02:06:14', NULL, NULL),
+	(20, '10245678', 'Mario R.', 'Santucho', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 2, 1, NULL, NULL, '1970-02-02', '2012-09-22 02:09:09', NULL, NULL),
+	(21, '10213456', 'Severino', 'Di Giovanni', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 3, 1, NULL, NULL, '1956-02-01', '2012-09-22 02:09:51', NULL, NULL),
+	(22, '10547895', 'Liborio', 'Justo', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 5, 1, NULL, NULL, '1943-07-03', '2012-09-22 02:10:24', NULL, NULL),
+	(23, '07856123', 'Nahuel ', 'Moreno', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 4, 171, NULL, NULL, '1943-04-06', '2012-09-22 02:10:52', NULL, NULL),
+	(24, '10257456', 'Victorio', 'Codovilla', 'M', NULL, NULL, NULL, 'Avenida siempre viva 123', NULL, 1, 171, NULL, NULL, '1945-06-01', '2012-09-22 02:11:27', NULL, NULL),
+	(25, '08954123', 'Leopoldo', 'Luque', 'M', NULL, NULL, NULL, 'Algun lugar siempre cerca', NULL, 4, 85, NULL, NULL, '2012-09-01', '2012-09-23 23:13:22', NULL, NULL),
+	(26, '35621475', 'Jerónimo', 'Reza', 'M', NULL, NULL, NULL, 'por ahi', NULL, 1, 171, NULL, NULL, '1989-06-05', '2012-09-24 19:31:29', NULL, NULL),
+	(27, '35654789', 'Marcelo', 'Reza', 'M', NULL, NULL, NULL, 'por ahi', NULL, 1, 171, NULL, NULL, '1990-09-04', '2012-09-24 19:33:41', NULL, NULL),
+	(28, '33704888', 'Gonzalo', 'Siman', 'M', NULL, NULL, NULL, 'barrio', NULL, 4, 42, NULL, NULL, '1988-06-03', '2012-09-26 11:22:45', NULL, NULL),
+	(29, '12345679', 'Profesor1', 'Profesor1', 'F', NULL, NULL, NULL, '123', NULL, 1, 1, NULL, NULL, '2012-10-02', '2012-10-02 20:05:33', NULL, NULL),
+	(30, '123456', 'Profesor 2', 'Profesor2', 'F', NULL, NULL, NULL, '123', NULL, 1, 171, NULL, NULL, '2012-10-02', '2012-10-02 20:06:28', NULL, NULL),
+	(31, '12345678', 'Profesor3', 'Profesor3', 'F', NULL, NULL, NULL, 'asd', NULL, 2, 1, NULL, NULL, '2012-10-02', '2012-10-02 20:06:54', NULL, NULL),
+	(32, '1346587', 'Profesor4', 'Profesor4', 'M', NULL, NULL, NULL, '456', NULL, 3, 165, NULL, NULL, '2012-10-02', '2012-10-02 20:07:15', NULL, NULL),
+	(33, '34654654', 'Profesor5', 'Profesor5', 'F', NULL, NULL, NULL, 'asd', NULL, 2, 1, NULL, NULL, '2012-10-02', '2012-10-02 20:07:37', NULL, NULL),
+	(34, '65498798', 'Profesor6', 'Profesor6', 'F', NULL, NULL, NULL, 'asd', NULL, 2, 2, NULL, NULL, '2012-10-02', '2012-10-02 20:07:56', NULL, NULL),
+	(35, '32165478', 'Madre', 'Alumno', 'F', NULL, NULL, NULL, 'por ahi', 5519, 1, 171, NULL, NULL, '2012-10-02', '2012-10-02 21:35:00', NULL, NULL),
+	(36, '12345678', 'Madre2', 'Madre2', 'F', NULL, NULL, NULL, 'asd', NULL, 2, 1, NULL, NULL, '2012-10-03', '2012-10-02 21:37:26', NULL, NULL),
+	(37, '33852654', 'Martin', 'Moyano', 'M', 'martin@gmail.com', NULL, NULL, 'por ahi', NULL, 1, 171, NULL, NULL, '2012-10-03', '2012-10-03 21:20:08', NULL, NULL),
+	(38, '33852654', 'Martin', 'Moyano', 'M', 'martin@gmail.com', NULL, NULL, 'por ahi', NULL, 1, 171, NULL, NULL, '2012-10-03', '2012-10-03 21:20:14', NULL, NULL),
+	(39, '33852654', 'Martin', 'Moyano', 'M', 'martin@gmail.com', NULL, NULL, 'por ahi', NULL, 1, 171, NULL, NULL, '2012-10-03', '2012-10-03 21:20:24', NULL, NULL),
+	(40, '12345679', 'Prueba', 'Usuario', 'F', 'asd@gmail.com', NULL, NULL, 'asd', NULL, 1, 1, NULL, NULL, '2012-10-03', '2012-10-03 21:34:22', NULL, NULL),
+	(41, '12345678', 'Prueba', 'Email', 'F', 'por@gmail.com', NULL, NULL, 'asd', NULL, 1, 171, NULL, NULL, '2012-10-03', '2012-10-03 21:36:37', NULL, NULL),
+	(42, '32156498', 'Yo', 'prueba', 'M', 'gonzasiman@gmail.com', NULL, NULL, 'asd', NULL, 1, 171, NULL, NULL, '2012-10-03', '2012-10-03 21:49:37', NULL, NULL);
+/*!40000 ALTER TABLE `persona` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.persona_dictado
+DROP TABLE IF EXISTS `persona_dictado`;
+CREATE TABLE IF NOT EXISTS `persona_dictado` (
+  `persona` bigint(20) unsigned NOT NULL,
+  `dictado` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`persona`,`dictado`),
+  KEY `fk_persona_dictado_dictadoprofesor_1` (`dictado`),
+  CONSTRAINT `fk_persona_dictado_dictadoprofesor_1` FOREIGN KEY (`dictado`) REFERENCES `dictadoprofesor` (`id`),
+  CONSTRAINT `fk_persona_dictado_persona_1` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.persona_dictado: ~0 rows (approximately)
+DELETE FROM `persona_dictado`;
+/*!40000 ALTER TABLE `persona_dictado` DISABLE KEYS */;
+/*!40000 ALTER TABLE `persona_dictado` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.plandeestudio
+DROP TABLE IF EXISTS `plandeestudio`;
+CREATE TABLE IF NOT EXISTS `plandeestudio` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` text COLLATE utf8_spanish_ci,
+  `resolucion` int(11) DEFAULT NULL,
+  `cantAños` int(11) DEFAULT NULL,
+  `fechaAlta` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaBaja` date DEFAULT NULL,
+  `nivel` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_plandeestudio_nivel` (`nivel`),
+  CONSTRAINT `FK_plandeestudio_nivel` FOREIGN KEY (`nivel`) REFERENCES `nivel` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='utf8_spanish_ci';
+
+-- Dumping data for table edu.plandeestudio: ~2 rows (approximately)
+DELETE FROM `plandeestudio`;
+/*!40000 ALTER TABLE `plandeestudio` DISABLE KEYS */;
+INSERT INTO `plandeestudio` (`id`, `nombre`, `descripcion`, `resolucion`, `cantAños`, `fechaAlta`, `fechaBaja`, `nivel`) VALUES
+	(2, 'Economía y Gestión de las Organizaciones', '<p>\n	Algo</p>\n', 123, NULL, '2012-07-03 00:00:00', NULL, 3),
+	(3, 'Artes Plásticas', '<p>\n Bellas Artes</p>\n', 4521, NULL, '2012-09-15 00:00:00', NULL, 1);
+/*!40000 ALTER TABLE `plandeestudio` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.planestudio_materia
+DROP TABLE IF EXISTS `planestudio_materia`;
+CREATE TABLE IF NOT EXISTS `planestudio_materia` (
+  `planestudio` bigint(20) unsigned NOT NULL,
+  `materia` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`planestudio`,`materia`),
+  KEY `materia_id` (`materia`),
+  CONSTRAINT `materia_id` FOREIGN KEY (`materia`) REFERENCES `materia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `planestudio_id` FOREIGN KEY (`planestudio`) REFERENCES `plandeestudio` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.planestudio_materia: ~9 rows (approximately)
+DELETE FROM `planestudio_materia`;
+/*!40000 ALTER TABLE `planestudio_materia` DISABLE KEYS */;
+INSERT INTO `planestudio_materia` (`planestudio`, `materia`) VALUES
+	(3, 4),
+	(3, 5),
+	(3, 6),
+	(3, 7),
+	(3, 8),
+	(3, 9),
+	(3, 10),
+	(3, 11),
+	(3, 12);
+/*!40000 ALTER TABLE `planestudio_materia` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.pregunta
+DROP TABLE IF EXISTS `pregunta`;
+CREATE TABLE IF NOT EXISTS `pregunta` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` tinytext CHARACTER SET latin1,
+  `numero` int(11) DEFAULT NULL,
+  `examen` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_pregunta_examen_1` (`examen`),
+  CONSTRAINT `fk_pregunta_examen_1` FOREIGN KEY (`examen`) REFERENCES `examen` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.pregunta: ~0 rows (approximately)
+DELETE FROM `pregunta`;
+/*!40000 ALTER TABLE `pregunta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pregunta` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.publicmateria
+DROP TABLE IF EXISTS `publicmateria`;
+CREATE TABLE IF NOT EXISTS `publicmateria` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `descripcion` longtext CHARACTER SET latin1,
+  `fechaAlta` datetime DEFAULT NULL,
+  `fechaBaja` datetime DEFAULT NULL,
+  `titulo` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `cursado` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_publicmateria_cursado_1` (`cursado`),
+  CONSTRAINT `fk_publicmateria_cursado_1` FOREIGN KEY (`cursado`) REFERENCES `cursado` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.publicmateria: ~0 rows (approximately)
+DELETE FROM `publicmateria`;
+/*!40000 ALTER TABLE `publicmateria` DISABLE KEYS */;
+/*!40000 ALTER TABLE `publicmateria` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.recurso
+DROP TABLE IF EXISTS `recurso`;
+CREATE TABLE IF NOT EXISTS `recurso` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` tinytext CHARACTER SET latin1,
+  `fechaAlta` datetime DEFAULT NULL,
+  `fechaBaja` datetime DEFAULT NULL,
+  `url` text CHARACTER SET latin1,
+  `cursado` bigint(20) unsigned NOT NULL,
+  `tipoRecurso` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_recurso_cursado_1` (`cursado`),
+  KEY `fk_recurso_tiporecurso_1` (`tipoRecurso`),
+  CONSTRAINT `fk_recurso_cursado_1` FOREIGN KEY (`cursado`) REFERENCES `cursado` (`id`),
+  CONSTRAINT `fk_recurso_tiporecurso_1` FOREIGN KEY (`tipoRecurso`) REFERENCES `tiporecurso` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.recurso: ~0 rows (approximately)
+DELETE FROM `recurso`;
+/*!40000 ALTER TABLE `recurso` DISABLE KEYS */;
+/*!40000 ALTER TABLE `recurso` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.relacion
+DROP TABLE IF EXISTS `relacion`;
+CREATE TABLE IF NOT EXISTS `relacion` (
+  `idprimera` bigint(20) unsigned NOT NULL,
+  `idsegunda` bigint(20) unsigned NOT NULL,
+  `tipoRelacion` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`idprimera`,`idsegunda`),
+  KEY `fk_relacion_tiporelacion_1` (`tipoRelacion`),
+  KEY `fk_relacion_persona_2` (`idsegunda`),
+  CONSTRAINT `fk_relacion_persona_1` FOREIGN KEY (`idprimera`) REFERENCES `persona` (`id`),
+  CONSTRAINT `fk_relacion_persona_2` FOREIGN KEY (`idsegunda`) REFERENCES `persona` (`id`),
+  CONSTRAINT `fk_relacion_tiporelacion_1` FOREIGN KEY (`tipoRelacion`) REFERENCES `tiporelacion` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.relacion: ~14 rows (approximately)
+DELETE FROM `relacion`;
+/*!40000 ALTER TABLE `relacion` DISABLE KEYS */;
+INSERT INTO `relacion` (`idprimera`, `idsegunda`, `tipoRelacion`) VALUES
+	(5, 8, 1),
+	(26, 9, 1),
+	(27, 9, 1),
+	(5, 7, 2),
+	(26, 7, 2),
+	(27, 7, 2),
+	(3, 11, 3),
+	(4, 26, 3),
+	(4, 27, 3),
+	(14, 11, 3),
+	(26, 4, 3),
+	(26, 27, 3),
+	(27, 4, 3),
+	(27, 26, 3);
+/*!40000 ALTER TABLE `relacion` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.rol
+DROP TABLE IF EXISTS `rol`;
+CREATE TABLE IF NOT EXISTS `rol` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` tinytext CHARACTER SET latin1,
+  `fechaAlta` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaBaja` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.rol: ~5 rows (approximately)
+DELETE FROM `rol`;
+/*!40000 ALTER TABLE `rol` DISABLE KEYS */;
+INSERT INTO `rol` (`id`, `nombre`, `descripcion`, `fechaAlta`, `fechaBaja`) VALUES
+	(1, 'administrador', NULL, NULL, NULL),
+	(2, 'directivo', NULL, NULL, NULL),
+	(3, 'docente', NULL, NULL, NULL),
+	(4, 'alumno', NULL, NULL, NULL),
+	(5, 'padre', NULL, NULL, NULL);
+/*!40000 ALTER TABLE `rol` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.rol_permiso
+DROP TABLE IF EXISTS `rol_permiso`;
+CREATE TABLE IF NOT EXISTS `rol_permiso` (
+  `rol` bigint(20) unsigned NOT NULL,
+  `permiso` bigint(20) unsigned NOT NULL,
+  `valor` int(10) DEFAULT NULL,
+  PRIMARY KEY (`rol`,`permiso`),
+  KEY `fk_rol_permiso_permisorol_1` (`permiso`),
+  CONSTRAINT `fk_rol_permiso_permisorol_1` FOREIGN KEY (`permiso`) REFERENCES `permisorol` (`id`),
+  CONSTRAINT `fk_rol_permiso_rol_1` FOREIGN KEY (`rol`) REFERENCES `rol` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.rol_permiso: ~14 rows (approximately)
+DELETE FROM `rol_permiso`;
+/*!40000 ALTER TABLE `rol_permiso` DISABLE KEYS */;
+INSERT INTO `rol_permiso` (`rol`, `permiso`, `valor`) VALUES
+	(1, 1, 7),
+	(1, 2, 7),
+	(1, 3, 7),
+	(1, 4, 7),
+	(1, 5, 7),
+	(1, 6, 7),
+	(1, 7, 7),
+	(1, 8, 7),
+	(2, 1, 5),
+	(2, 2, 3),
+	(2, 3, 3),
+	(2, 5, 3),
+	(2, 6, 5),
+	(2, 7, 5);
+/*!40000 ALTER TABLE `rol_permiso` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.tiponota
+DROP TABLE IF EXISTS `tiponota`;
+CREATE TABLE IF NOT EXISTS `tiponota` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` tinytext CHARACTER SET latin1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.tiponota: ~0 rows (approximately)
+DELETE FROM `tiponota`;
+/*!40000 ALTER TABLE `tiponota` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tiponota` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.tiporecurso
+DROP TABLE IF EXISTS `tiporecurso`;
+CREATE TABLE IF NOT EXISTS `tiporecurso` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` tinytext CHARACTER SET latin1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.tiporecurso: ~0 rows (approximately)
+DELETE FROM `tiporecurso`;
+/*!40000 ALTER TABLE `tiporecurso` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tiporecurso` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.tiporelacion
+DROP TABLE IF EXISTS `tiporelacion`;
+CREATE TABLE IF NOT EXISTS `tiporelacion` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `descripcion` tinytext CHARACTER SET latin1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.tiporelacion: ~3 rows (approximately)
+DELETE FROM `tiporelacion`;
+/*!40000 ALTER TABLE `tiporelacion` DISABLE KEYS */;
+INSERT INTO `tiporelacion` (`id`, `nombre`, `descripcion`) VALUES
+	(1, 'Padre', 'Padre - Hijo'),
+	(2, 'Madre', 'Madre - Hijo'),
+	(3, 'Hermano', 'Hermano - Hermano');
+/*!40000 ALTER TABLE `tiporelacion` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.tiporelacion_esc
+DROP TABLE IF EXISTS `tiporelacion_esc`;
+CREATE TABLE IF NOT EXISTS `tiporelacion_esc` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL DEFAULT '0',
+  `descripcion` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table edu.tiporelacion_esc: ~1 rows (approximately)
+DELETE FROM `tiporelacion_esc`;
+/*!40000 ALTER TABLE `tiporelacion_esc` DISABLE KEYS */;
+INSERT INTO `tiporelacion_esc` (`id`, `nombre`, `descripcion`) VALUES
+	(1, 'Director', 'Director de la Institucion');
+/*!40000 ALTER TABLE `tiporelacion_esc` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.turno
+DROP TABLE IF EXISTS `turno`;
+CREATE TABLE IF NOT EXISTS `turno` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `inicio` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fin` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.turno: ~3 rows (approximately)
+DELETE FROM `turno`;
+/*!40000 ALTER TABLE `turno` DISABLE KEYS */;
+INSERT INTO `turno` (`id`, `nombre`, `inicio`, `fin`) VALUES
+	(1, 'Mañana', '08:00', '13:00'),
+	(2, 'Tarde', NULL, NULL),
+	(3, 'Noche', NULL, NULL);
+/*!40000 ALTER TABLE `turno` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.usuario
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `persona` bigint(20) unsigned DEFAULT NULL,
+  `ussername` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `fechaAlta` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fechaBaja` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_usuario_persona` (`persona`),
+  CONSTRAINT `FK_usuario_persona` FOREIGN KEY (`persona`) REFERENCES `persona` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.usuario: ~7 rows (approximately)
+DELETE FROM `usuario`;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` (`id`, `persona`, `ussername`, `password`, `fechaAlta`, `fechaBaja`) VALUES
+	(1, 8, 'gonza', '25f9e794323b453885f5181f1b624d0b', NULL, NULL),
+	(2, 3, 'mcalud', '25f9e794323b453885f5181f1b624d0b', NULL, NULL),
+	(5, 21, 'sgiovanni', '25f9e794323b453885f5181f1b624d0b', NULL, NULL),
+	(6, 21, 'dgiovanni', '25f9e794323b453885f5181f1b624d0b', '2012-09-26 11:22:04', NULL),
+	(7, 28, 'gsiman', '25f9e794323b453885f5181f1b624d0b', '2012-09-26 11:26:34', NULL),
+	(8, 41, 'por@gmail.com', '56nayw', '2012-10-03 21:36:37', NULL),
+	(9, 42, 'gonzasiman@gmail.com', '3d93d86b4ee7985cfd5af59b4f2f0f71', '2012-10-03 21:49:37', NULL);
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+
+
+-- Dumping structure for table edu.usuario_rol
+DROP TABLE IF EXISTS `usuario_rol`;
+CREATE TABLE IF NOT EXISTS `usuario_rol` (
+  `usuario` bigint(20) unsigned NOT NULL,
+  `rol` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`usuario`,`rol`),
+  KEY `fk_usario_rol_rol_1` (`rol`),
+  CONSTRAINT `fk_usario_rol_rol_1` FOREIGN KEY (`rol`) REFERENCES `rol` (`id`),
+  CONSTRAINT `fk_usario_rol_usuario_1` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- Dumping data for table edu.usuario_rol: ~10 rows (approximately)
+DELETE FROM `usuario_rol`;
+/*!40000 ALTER TABLE `usuario_rol` DISABLE KEYS */;
+INSERT INTO `usuario_rol` (`usuario`, `rol`) VALUES
+	(1, 1),
+	(6, 1),
+	(7, 1),
+	(1, 2),
+	(2, 2),
+	(6, 2),
+	(7, 2),
+	(8, 2),
+	(9, 2),
+	(5, 3);
+/*!40000 ALTER TABLE `usuario_rol` ENABLE KEYS */;
+/*!40014 SET FOREIGN_KEY_CHECKS=1 */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

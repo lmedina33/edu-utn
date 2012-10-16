@@ -161,8 +161,8 @@ class Persona extends CI_Controller {
         $data['pass'] = $pass;
         
         
-        $html = $this->load->view('email',$data,true);
-        $this->envio_email->send_mail($post_array['email'],'Alta usuario Pluma',$html);
+       // $html = $this->load->view('email',$data,TRUE);
+        $this->envio_email->send_mail($post_array['email'],'Alta usuario Pluma',$pass);
         
         return true;
     }
@@ -236,6 +236,7 @@ class Persona extends CI_Controller {
             
         );
         $this->db->insert('alumno',$alumno);
+        $this->crear_usuario($post_array, 'alumno', $primary_key);
         
         return true;
     }
@@ -246,6 +247,7 @@ class Persona extends CI_Controller {
                 
         );
         $this->db->insert('docente',$docente);
+        $this->crear_usuario($post_array, 'docente', $primary_key);
         
         return true;
     }
@@ -267,6 +269,7 @@ class Persona extends CI_Controller {
                 
         );
         $this->db->insert('padre',$padre);
+        $this->crear_usuario($post_array, 'padre', $primary_key);
         
         return true;
     }

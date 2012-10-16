@@ -23,8 +23,8 @@ class email extends CI_Controller{
         $config['smtp_user'] = "pluma.mendoza@gmail.com";
         $config['smtp_pass'] = "pluma2012";
         $config['smtp_port'] = "465";
-        $config['mailtype'] = "HTML";
-        $config['wordwrap'] = TRUE;
+        $config['mailtype'] = "html";
+        $config['wordwrap'] = FALSE;
 
         $this->email->initialize($config);
         
@@ -35,8 +35,7 @@ class email extends CI_Controller{
     
    
     
-    function send_mail($to="",$subject="",$mensaje=""){
-        
+    function send_mail($to="gonzasiman@gmail.com",$subject="asd",$mensaje=""){
         
         $this->email->from('pluma.mendoza@gmail.com', 'Pluma, tu Escuela Virtual');
         $this->email->to($to); 
@@ -44,11 +43,13 @@ class email extends CI_Controller{
         $this->email->bcc('pluma.mendoza@gmail.com'); 
 
         $this->email->subject($subject);
+    
+        
         $this->email->message($mensaje);	
 
         $this->email->send();
 
-        echo $this->email->print_debugger();
+       // echo $this->email->print_debugger();
         
     }
 }
