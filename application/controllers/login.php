@@ -124,12 +124,13 @@ class Login extends CI_Controller {
                     
                 endforeach;
                 
-                 if(! isset($escuela) || $escuelas == NULL){
+               
+                  if(count($roles)== 1 and $roles[0]['id'] != 1 and (! isset($escuela) || $escuelas == NULL)){
                            $data['error'] = 'Actualmente no tiene Escuela asignada.'; //Error que será enviado a la vista en forma de arreglo
                            $this -> load -> view('v_login', $data);
                           
                      }
-                     else{
+                     else{ 
 
                     // print_r($aux); exit();
 
@@ -139,6 +140,7 @@ class Login extends CI_Controller {
 
                         $this -> load -> view('v_login_roles',$data);
                      }
+                     
            }
            else{
                // Recibimos por post el dato del rol con el que accedera
@@ -148,7 +150,13 @@ class Login extends CI_Controller {
                $rol_esc = explode('-',$rol);
                
                // Verificamos que verdaderamente tenga permisos con el rol y la escuela (para evitar formulario modificado)
-             
+               //print_r($rol_esc[0]);exit;
+                 if($rol_esc[0] != 1 and (! isset($rol_esc[1]) || $rol_esc[1] == NULL)){
+                           $data['error'] = 'Actualmente no tiene Escuela asignada.'; //Error que será enviado a la vista en forma de arreglo
+                           $this -> load -> view('v_login', $data);
+                          
+                     }
+                else{
                 $this->load->library('session');
                 $session = $this->session->userdata('logged_in');
                 $id_usuario = $session['id'];
@@ -183,6 +191,7 @@ class Login extends CI_Controller {
                 $this -> session -> unset_userdata('logged_in');
                 $this -> load -> view('v_login', $data); //Cargamos el mensaje de error en la vista.
                }
+           }
            }
            //$java = '<script>alert("'.$roles[0].'");</script>';
            //print_r($java); exit();
