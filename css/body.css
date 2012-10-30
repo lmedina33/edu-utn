@@ -1,6 +1,7 @@
 @charset "utf-8";
 body {
-	font: 80% Verdana, Arial, Helvetica, sans-serif;
+	overflow-x: no-display;
+        font: 80% Verdana, Arial, Helvetica, sans-serif;
 	background: #42413C;
 	margin: 0;
 	padding: 0;

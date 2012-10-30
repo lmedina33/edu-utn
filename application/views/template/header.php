@@ -56,7 +56,7 @@
       <!-- Barra lateral Izquierda-->
         <div class="clean demo-container">
         <ul class="accordion"  id="accordion-5">
-            <li><a href="<?php echo site_url('inicio') ?>">Inicio</a></li>
+            <li><a href="<?php echo site_url('inicio/home') ?>">Inicio</a></li>
             <li>
                 <a href="#">Escuela</a>
                 <ul>

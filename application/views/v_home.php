@@ -1,5 +1,5 @@
 <?php $this->load->view('template/header');?>
-<iframe src="">
+
     <?php 
 foreach($css_files as $file): ?>
     <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
@@ -16,5 +16,5 @@ foreach($css_files as $file): ?>
     </div>
         
 </section>
-</ifram>
+
 <?php $this->load->view('template/footer');?>

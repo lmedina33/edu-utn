@@ -20,7 +20,7 @@ class Login extends CI_Controller {
     public function index(){
         $this->load->view('v_login');
     }
-   
+    
     public function process(){
         $data = array();
        
@@ -201,7 +201,7 @@ class Login extends CI_Controller {
        
        function logout(){
           $this->session->sess_destroy();
-           redirect('login');
+           redirect('inicio/home','refresh');
        }
 }
 ?>
