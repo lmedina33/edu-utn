@@ -39,6 +39,7 @@
 */
 
 $route['default_controller'] = "inicio/frame";
+
 $route['404_override'] = '';
 
 

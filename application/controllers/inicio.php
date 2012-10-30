@@ -15,10 +15,11 @@ class Inicio extends CI_Controller {
     
     function index(){
         
-        $this->load->view('v_inicio');
-    }
-    function frame(){
+       // $this->load->view('v_inicio');
         $this->load->view('frame'); 
+    }
+    function home(){
+        $this->load->view('v_inicio'); 
     }
 }
 
