@@ -120,6 +120,7 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->set_rules('fechaResolucion','Fecha de Resol.','required');
        
         $this->grocery_crud->add_action('Director','','escuela/add_personal','ui-icon-plus');
+        $this->grocery_crud->add_action('Ver detalle','','escuela/ver_escuela','ui-icon-plus');
         
         $output = $this->grocery_crud->render();
         
@@ -128,6 +129,14 @@ class Escuela extends CI_Controller {
         $this->load->view('v_abm.php',$output);  
     }
   
+   function ver_escuela($escuela=""){
+       $this->load->model('escuela_model');
+       $output['escuela'] = $this->escuela_model->get_datos_escuela($escuela);
+       $output['titulo'] = 'Datos de Escuela';
+       $this->load->view('v_escuela',$output);
+       
+   }
+    
    function division($escuela=""){
        
        
