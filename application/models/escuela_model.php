@@ -15,9 +15,14 @@ class escuela_model extends CI_Model{
     //put your code here
     
     function get_datos_escuela($escuela=""){
-        $this->db->select('*');
+        $this->db->select('escuela.nombre,escuela.id, escuela.cue, escuela.direccion, escuela.numero, escuela.telefono, DATE_FORMAT(escuela.fechaResolucion, "%d/%m/%y") as fechaResolucion, escuela.fechaCreacion, escuela.fechaCierre, nivel.nombre as nivel_nombre, especialidad.nombre as especialidad_nombre, localidad.nombre as localidad_nombre, departamento.nombre as departamento_nombre',FALSE);
         $this->db->from('escuela');
-        $this->db->where('id',$escuela);
+            $this->db->join('nivel','escuela.nivel = nivel.id','left outer');
+            $this->db->join('especialidad','escuela.especialidad = especialidad.id','left outer');
+            $this->db->join('localidad','escuela.localidad = localidad.id','left outer');
+            $this->db->join('departamento','escuela.departamento = departamento.id','left outer');
+            
+        $this->db->where('escuela.id',$escuela);
         
         $query = $this->db->get();
         $data = $query->row_array();

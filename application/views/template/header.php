@@ -60,7 +60,7 @@
             <li>
                 <a href="#">Escuela</a>
                 <ul>
-                    <li><a href="<?php echo site_url('escuela/abm') ?>">Gestiónar Escuela</a></li>
+                    <li><a href="<?php echo site_url('escuela/abm') ?>">Gestionar Escuela</a></li>
                 </ul>
                <?php if($rol['rol']==2){?>   
                 <ul>
