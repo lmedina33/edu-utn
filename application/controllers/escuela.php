@@ -36,7 +36,7 @@ class Escuela extends CI_Controller {
    
     // alta, baja y modificación de escuelas
     function abm(){
-       
+        $this->grocery_crud->set_theme('flexigrid');
         // Pedimos a la librería que nos traiga el permiso
         $permiso = $this->control_permisos->get_permiso($this);
         
@@ -126,8 +126,8 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->set_rules('fechaResolucion','Fecha de Resol.','required');
        
         // agregamos las acciones para cargar el directivo y ver el detalle
-        $this->grocery_crud->add_action('Director','','escuela/add_personal','ui-icon-plus');
-        $this->grocery_crud->add_action('Ver detalle','','escuela/ver_escuela','ui-icon-plus');
+        $this->grocery_crud->add_action('Director',  base_url('images/director-b.png'),'escuela/add_personal','ui-icon-plus');
+        $this->grocery_crud->add_action('Ver detalle',base_url('images/detalle.png'),'escuela/ver_escuela','ui-icon-plus');
         
         // ejecutamos 
         $output = $this->grocery_crud->render();
@@ -245,6 +245,7 @@ class Escuela extends CI_Controller {
         // Agregamos las opciones que redirigen a la matricula y materias
         $this->grocery_crud->add_action('Matricula alumnos..','','escuela/inscripcion','ui-icon-plus');
         $this->grocery_crud->add_action('Materias','','escuela/materias','ui-icon-plus');
+        $this->grocery_crud->add_action('Notas','','cursado/notas','ui-icon-plus');
         // al insertar llamamos a generar_cursado
         $this->grocery_crud->callback_after_insert(array($this, 'generar_cursado'));
         
@@ -519,10 +520,10 @@ class Escuela extends CI_Controller {
        // recorremos el cursado
        foreach($cursados as $cursado):
             // creamos el cuaderno de comunicaciones
-            $id_cuderno = $this->alumno_model-> create_comunicaciones();
+           // $id_cuderno = $this->alumno_model-> create_comunicaciones();
              $valores  = array(
                         'alumno' => $alumno,
-                        'comunicaciones' => $id_cuderno,
+                        //'comunicaciones' => $id_cuderno,
                         'estado' => 1,
                         'cursado' => $cursado['id']
              );
@@ -632,6 +633,7 @@ class Escuela extends CI_Controller {
         // agregamos la acción para asignar el profesor a la materia
         $this->grocery_crud->add_action('Profesor','','escuela/profesor','ui-icon-plus');
         
+        
         // desabilitamos la creación, modificacion y eliminacion de una materia
         $this->grocery_crud->unset_delete();
         $this->grocery_crud->unset_add();
@@ -673,11 +675,11 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->fields('profesor','cargo','cursado');
         $this->grocery_crud->columns('profesor','cargo');
         // html del modal para agregar un profesor
-          $add_html = '<button href="#myModal2" role="button" class="btn btn-large btn-info" data-toggle="modal">Agregar Personal Docente...</button>
-             <div id="myModal2" class="modal-datos hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          $add_html = '<button href="#myModal3" role="button" class="btn btn-large btn-info" data-toggle="modal">Agregar Personal Docente...</button>
+             <div id="myModal3" class="modal-datos hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h3 id="myModalLabel">Agregar Padre/Madre</h3>
+              <h3 id="myModalLabel">Agregar Docente</h3>
             </div>
             <div class="modal-body">
               <iframe src="'.site_url("persona/abm/docente/1/add").'"  width=930 height=700 frameborder="0"></iframe>  
@@ -688,7 +690,7 @@ class Escuela extends CI_Controller {
      </div>
 <script type="text/javascript">
     $(document).focusout(function() {
-        $("#myModal").focusout(function() {
+        $("#myModal3").focusout(function() {
             location.reload();
         });
     });

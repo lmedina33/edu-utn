@@ -1,4 +1,5 @@
 @charset "utf-8";
+
 body {
 	overflow-x: no-display;
         font: 80% Verdana, Arial, Helvetica, sans-serif;
@@ -148,4 +149,8 @@ header, section, footer, aside, nav, article, figure {
     position: relative; 
     width: 100%;
 
+}
+#myModal3{
+    margin: auto;
+    margin-left: -230px;
 }
