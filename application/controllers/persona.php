@@ -298,8 +298,8 @@ class Persona extends CI_Controller {
         }
         
         
-        $add_html = '<button href="#myModal2" role="button" class="btn btn-large btn-info" data-toggle="modal">Agregar Padre/Madre...</button>
-  <div id="myModal2" class="modal-datos hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        $add_html = '<button href="#myModal3" role="button" class="btn btn-large btn-info" data-toggle="modal">Agregar Padre/Madre...</button>
+  <div id="myModal3" class="modal-datos hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h3 id="myModalLabel">Agregar Padre/Madre</h3>
@@ -313,7 +313,7 @@ class Persona extends CI_Controller {
      </div>
 <script type="text/javascript">
     $(document).focusout(function() {
-        $("#myModal").focusout(function() {
+        $("#myModal3").focusout(function() {
             location.reload();
         });
     });

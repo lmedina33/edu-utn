@@ -26,6 +26,91 @@ class cursado_model extends CI_Model{
         return $data;
         
     }
+     function get_notas_comp($alumno=""){
+        $this->db->select('nota.id, nota.valor, nota.aprobado, tiponota.nombre as tipo, materia.nombre');
+        $this->db->from('nota');
+        $this->db->join('tiponota','nota.tipo = tiponota.id','left outer');
+        $this->db->join('inscripcionalumno','inscripcionalumno.id = nota.inscripcionAlu','left outer');
+        $this->db->join('alumno','inscripcionalumno.alumno = alumno.id','left outer');
+        $this->db->join('cursado','inscripcionalumno.cursado = cursado.id','left outer');
+        $this->db->join('materia','cursado.materia = materia.id','left outer');
+        $this->db->where('alumno.persona',$alumno);
+        
+        $query = $this->db->get();
+        $data = $query->result_array();
+        //print_r($this->db->last_query()); exit;
+        return $data;
+        
+    }
+   
+    
+    function get_notas($inscripcion=""){
+        $this->db->select('nota.id, nota.valor, nota.aprobado, tiponota.nombre as tipo');
+        $this->db->from('nota');
+        $this->db->join('tiponota','nota.tipo = tiponota.id','left outer');
+        $this->db->where('inscripcionAlu',$inscripcion);
+        
+        $query = $this->db->get();
+        $data = $query->result_array();
+        
+        return $data;
+        
+    }
+    
+    function set_nota_final($inscripcion="",$tipo="",$valor=""){
+        // buscamos el id del tipo nota final
+        $this->db->select('id');
+        $this->db->from('tiponota');
+        $this->db->where('nombre',$tipo);
+        
+        $query =  $this->db->get();
+        $tipo = $query->row_array();
+        
+        // armamos el arreglo con los datos de la nota final
+        $nota['fecha'] = date("Y-m-d");
+        $nota['valor'] = $valor;
+        $nota['tipo'] = $tipo['id'];
+        $nota['inscripcionAlu'] = $inscripcion;
+        
+        // buscamos si ya tenía una nota final calculada
+        $this->db->select('id');
+        $this->db->from('nota');
+        $this->db->where('tipo',$tipo['id']);
+        $this->db->where('inscripcionAlu',$inscripcion);
+        $query =  $this->db->get();
+        $nota_final = $query->row_array();
+       // print_r($nota_final); exit;
+        // si tiene nota la actualizamos
+       
+        if(count($nota_final)>0){
+         //   print_r($nota_final);
+            $this->db->set('fecha',$nota['fecha']);
+            $this->db->set('valor',$nota['valor']);
+            $this->db->where('id',$nota_final['id']);
+            $this->db->update('nota');
+        }
+        // no tiene nota, la insertamos
+        else{
+            $this->db->insert('nota',$nota);
+        }
+       // print_r($this->db->last_query());
+        return true;
+        
+    }
+    
+    function get_inscriptos_cursado($cursado=""){
+        $this->db->select('id');
+        $this->db->from('inscripcionalumno');
+        $this->db->where('cursado',$cursado);
+        $this->db->where('fechaBaja is null');
+        
+        
+        $query = $this->db->get();
+        $data = $query->result_array();
+        
+        return $data;
+        
+    }
     
     function get_cursado($division="",$materia=""){
         $this->db->select('*');
@@ -53,13 +138,14 @@ class cursado_model extends CI_Model{
         $this->db->join('inscripcionalumno','cursado.id = inscripcionalumno.cursado','inner');
         $this->db->join('alumno','inscripcionalumno.alumno = alumno.id','left outer');
         $this->db->join('persona','alumno.persona = persona.id','left outer');
+        
         $this->db->where('cursado.division',$division);
         $this->db->where('inscripcionalumno.fechaBaja is null');
         //$this->db->group
         
         $query = $this->db->get();
         $data = $query->result_array();
-        
+       // print_r($this->db->last_query()); exit;
         return $data;
         
     }

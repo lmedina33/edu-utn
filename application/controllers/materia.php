@@ -89,6 +89,8 @@ class materia extends CI_Controller {
         $output -> titulo = 'Contenidos de '.$datos_materia['nombre'].' - '.$datos_materia['year'].'º Año';
         $this->load->view('v_abm.php',$output);  
     }
+    
+    
 }
 
 ?>
