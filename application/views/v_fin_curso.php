@@ -16,27 +16,7 @@ $(document).ready(function() {
 	});
      
    $('a[name*=example]').tooltip()
-   
-   $('button[name*=calcnota]').click(function(){
-       ///alert(this.name);
-       nombre = this.name;
-       valores = nombre.split('-');
-       url = '<?php echo site_url('cursado/calcular_notas');?>';
-       $.ajax({
-            url: url+'/'+valores[1] ,
-            type: 'POST',
-            dataType: 'json',
-            success:
-                function(output_string){
-                      if( confirm(output_string) ) { //show confirm dialog
-                           location.reload(); //do nothing if cancel is clicked (prevent the browser from following clicked link)
-                         }
-                   }
-        })
-       // location.reload();
-       //alert(valores[1]);
-     
-   })
+  
 });
 
 
@@ -120,7 +100,7 @@ $(document).ready(function() {
             </table>
            
             </div>
-            <button name="calcnota-<?php echo $curso['division'];?>" class="btn btn-primary btn-large" type="button">Calcular Notas Finales</button>
+           
         </div>
          </ul>  
         
