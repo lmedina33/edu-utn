@@ -27,7 +27,7 @@ $(document).ready(function() {
      <div class="container-fluid">
          <p><h3>Finalización de Cursado</h3></p> 
      <form name="form" method="post" action="<?php echo site_url('escuela/finalizar_cursado');?>">
-      <?php foreach ($cursos as $curso) { ?> 
+      <?php if (isset($cursos)) foreach ($cursos as $curso) { ?> 
        <ul class="breadcrumb">
            <legend>
                <h4> 

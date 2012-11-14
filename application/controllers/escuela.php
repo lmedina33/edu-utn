@@ -362,7 +362,7 @@ class Escuela extends CI_Controller {
        //Buscamos todos los cursados activos de la escuela
        $divisiones = $this->escuela_model->get_divisiones($escuela);
     
-       
+       $data = array();
        $i=0;
        // recorremos las divisiones
        foreach ($divisiones as $division):
