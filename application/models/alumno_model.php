@@ -67,7 +67,7 @@ class Alumno_model extends CI_Model{
         $this->db->where('nombre',$estado);
         $query = $this->db->get();
         $data = $query->row_array();
-        
+        //print_r($estado); exit;
         $this->db->set('inscripcionalumno.fechaBaja',date("Y-m-d"));
         $this->db->set('inscripcionalumno.estado',$data['id']);
         $this->db->where('inscripcionalumno.id',$inscripcion['id']);

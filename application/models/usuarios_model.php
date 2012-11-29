@@ -124,6 +124,7 @@ class usuarios_model extends CI_Model{
    
    function change_pass($pass="",$usuario=""){
        $this->db->set('password',  md5($pass));
+       $this->db->set('fechaModPass',date('Y-m-d'));
        $this->db->where('id',$usuario);
        $this->db->update('usuario');
        
@@ -146,6 +147,17 @@ class usuarios_model extends CI_Model{
        $data = $query->row_array();
        
        return $data['id'];
+   }
+   
+    function get_fechaModPass($usuario_id=""){
+       $this->db->select('fechaModPass');
+       $this->db->from('usuario');
+       $this->db->where('id',$usuario_id);
+       
+       $query = $this->db->get();
+       $data = $query->row_array();
+       
+       return $data['fechaModPass'];
    }
    
    function insert_rol($rol){

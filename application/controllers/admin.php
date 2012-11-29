@@ -35,6 +35,7 @@ class Admin extends CI_Controller {
 
         // Campos que se requieren para la inserción y modificacion
         $this->grocery_crud->fields('persona','ussername','password','rol');
+        $this->grocery_crud->edit_fields('persona','ussername','rol');
         // Campos que se muestran en la tabla con los registros existentes
         $this->grocery_crud->columns('ussername','persona','rol','fechaAlta');
         
@@ -50,7 +51,7 @@ class Admin extends CI_Controller {
         $this->grocery_crud->callback_before_update(array($this,'encrypt_password_callback'));
         
         // Reglas de validación de los campos
-        $this->grocery_crud->set_rules('ussername','Nombre Usuario','required');
+        $this->grocery_crud->set_rules('ussername','Nombre Usuario','required|is_unique[usuario.ussername]');
         $this->grocery_crud->set_rules('password','Contraseña','required|min_length[8]');
        
         $output = $this->grocery_crud->render();
@@ -79,7 +80,7 @@ class Admin extends CI_Controller {
         print_r($usuario);
     }
     
-     function get_random_password($chars_min=6, $chars_max=8, $use_upper_case=false, $include_numbers=true, $include_special_chars=false)
+     function get_random_password($chars_min=8, $chars_max=10, $use_upper_case=false, $include_numbers=true, $include_special_chars=false)
     {
         $length = rand($chars_min, $chars_max);
         $selection = 'aeuoyibcdfghjklmnpqrstvwxz';
