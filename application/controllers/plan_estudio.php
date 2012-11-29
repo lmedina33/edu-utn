@@ -46,7 +46,7 @@ class plan_estudio extends CI_Controller{
         $this->grocery_crud->set_rules('nombre','Nombre','required');
         $this->grocery_crud->set_rules('descripcion','Descripcion','required');
         $this->grocery_crud->set_rules('resolucion','Resolucion','required|alpha_numeric');
-        $this->grocery_crud->set_rules('fechaAlta','Fecha de Alta','required');
+        $this->grocery_crud->set_rules('fechaAlta','Fecha de Alta','required|callback_verifica_fecha');
        
          $this->grocery_crud->add_action('Materias','','plan_estudio/materia','ui-icon-plus');
         
@@ -139,6 +139,18 @@ class plan_estudio extends CI_Controller{
        
         $output = $this->grocery_crud->render();
         $this->load->view('v_abm.php',$output);  
+    }
+    
+    function verifica_fecha($str){
+        //print_r(substr($str, 0, 4));
+        if(! checkdate(substr($str, 3, 2),  substr($str, 0, 2),  substr($str, 6,4))){
+            $this->form_validation->set_message('verifica_fecha', 'La Fecha ingresada es inválida.');
+            return FALSE;
+            
+        }
+        else{
+            return TRUE;
+        }
     }
     
 }

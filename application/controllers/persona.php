@@ -13,7 +13,7 @@
 class Persona extends CI_Controller {
     //put your code here   
     
-    function edit_user(){
+    function edit_user($motivo=""){
        
         $usuario = $this->session->userdata('logged_in');
        // print_r($usuario); exit;
@@ -23,8 +23,17 @@ class Persona extends CI_Controller {
         
        if ($this->form_validation->run() == FALSE)
 		{
-                       
-			$this->load->view('v_moduser');
+                        if($motivo == 1){
+                            $data['mensaje'] = 'Debe cambiar su contraseña por ser un usuario nuevo del sistema.';
+                            $this->load->view('v_moduser',$data);
+                        }
+                        else if($motivo == 2){
+                            $data['mensaje'] = 'Su contraseña ha caducado ,debe cambiar la misma.';
+                            $this->load->view('v_moduser',$data);
+                        }
+			else{
+                            $this->load->view('v_moduser');
+                        }
 		}
 		else
 		{
@@ -63,6 +72,7 @@ class Persona extends CI_Controller {
         
         $this->grocery_crud->set_relation('departamento','departamento','nombre');
         $this->grocery_crud->set_relation('localidad','localidad','nombre');
+        $this->grocery_crud->set_relation('codPostal','codigospostales','codigo');
             
         // Campos que se requieren para la inserción y modificacion
         $this->grocery_crud->fields('nombre','apellido','dni','nacimiento','sexo','direccion','departamento','localidad','codPostal','telefono','celular','email');
@@ -89,10 +99,11 @@ class Persona extends CI_Controller {
         $this->grocery_crud->set_rules('dni','Nº Documento','numeric|max_length[8]');
         $this->grocery_crud->set_rules('telefono','Nº de Teléfono','numeric|max_length[10]');
         $this->grocery_crud->set_rules('celular','Nº de Celular','numeric|max_length[10]');
+        $this->grocery_crud->set_rules('nacimiento','Fecha de Nacimiento','callback_verifica_fecha');
         $this->grocery_crud->set_rules('codPostal','Código Postal','numeric');
         $this->grocery_crud->set_rules('email','Correo Electrónico','valid_email');
        
-       
+        
            if($tipo == 'alumno'){
                 $this->grocery_crud->callback_after_insert(array($this,'crear_alumno'));
                 $this->grocery_crud->set_primary_key('persona','alumno');
@@ -136,6 +147,19 @@ class Persona extends CI_Controller {
       
     }
     
+    function verifica_fecha($str){
+        //print_r(substr($str, 0, 4));
+        if(! checkdate(substr($str, 3, 2),  substr($str, 0, 2),  substr($str, 6,4))){
+            $this->form_validation->set_message('verifica_fecha', 'La Fecha de Nacimiento es inválida.');
+            return FALSE;
+            
+        }
+        else{
+            return TRUE;
+        }
+    }
+
+
     function crear_usuario($post_array,$tipo,$primary_key){
         $this->load->model('usuarios_model');
         $pass = $this->get_random_password();

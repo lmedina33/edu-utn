@@ -123,7 +123,7 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->set_rules('numero','Nº Esc','required|numeric|exact_length[4]');
         $this->grocery_crud->set_rules('direccion','Dirección','required');
         $this->grocery_crud->set_rules('telefono','Telefono','numeric');
-        $this->grocery_crud->set_rules('fechaResolucion','Fecha de Resol.','required');
+        $this->grocery_crud->set_rules('fechaResolucion','Fecha de Resol.','required|callback_verifica_fecha');
        
         // agregamos las acciones para cargar el directivo y ver el detalle
         $this->grocery_crud->add_action('Director',  base_url('images/director-b.png'),'escuela/add_personal','ui-icon-plus');
@@ -795,6 +795,18 @@ class Escuela extends CI_Controller {
     {
     	return 's'.substr(md5($field_name),0,8); //This s is because is better for a string to begin with a letter and not a number
     } 
+    
+    function verifica_fecha($str){
+        //print_r(substr($str, 0, 4));
+        if(! checkdate(substr($str, 3, 2),  substr($str, 0, 2),  substr($str, 6,4))){
+            $this->form_validation->set_message('verifica_fecha', 'La Fecha ingresada es inválida.');
+            return FALSE;
+            
+        }
+        else{
+            return TRUE;
+        }
+    }
 
 }
 

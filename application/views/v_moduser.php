@@ -9,10 +9,17 @@
                
            </legend>
        </ul>
+         <?php if(isset($mensaje)){?>
+          <div class="alert alert-error">
+             <button type="button" class="close" data-dismiss="alert">×</button>
+             <?php echo $mensaje; ?>
+          </div> 
+         <?php }?>
          <?php if(isset($exito)){?>
          <div class="alert alert-success">
             Su contraseña fué actualizada correctamente.
           </div>
+         
          <?php }else{?>
          <form method="POST" action="<?php echo site_url('persona/edit_user');?>">
              
