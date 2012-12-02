@@ -19,13 +19,14 @@ class envio_email {
         $this->ci = &get_instance();
         $this->ci->load->library('email');
         $config['protocol'] = 'smtp';
-        $config['charset'] = 'utf-8';
+    //    $config['charset'] = 'utf-8';
         $config['smtp_host'] = 'ssl://smtp.googlemail.com';
         $config['smtp_user'] = 'pluma.mendoza@gmail.com';
         $config['smtp_pass'] = 'pluma2012';
         $config['smtp_port'] = '465';
-        $config['mailtype'] = 'HTML';
-        $config['wordwrap'] = TRUE;
+        $config['mailtype'] = 'html';
+        $config['charset'] = 'utf8';
+      //  $config['wordwrap'] = TRUE;
 
         $this->ci->email->initialize($config);
     }   

@@ -33,6 +33,7 @@ class especialidad extends CI_Controller{
         $this->grocery_crud->display_as('fechaAlta','Fecha de Alta');
         $this->grocery_crud->display_as('fechaBaja','Fecha de Baja');
        
+        $this->grocery_crud->unset_delete();
         // Reglas de validación de los campos
         $this->grocery_crud->set_rules('nombre','Nombre de la Especialidad','required');
         $this->grocery_crud->set_rules('descripcion','Descripcion','required');

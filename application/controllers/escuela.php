@@ -248,6 +248,7 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->add_action('Notas','','cursado/notas','ui-icon-plus');
         // al insertar llamamos a generar_cursado
         $this->grocery_crud->callback_after_insert(array($this, 'generar_cursado'));
+        $this->grocery_crud->callback_after_update(array($this, 'generar_cursado'));
         
         // Reglas de validación de los campos
         $this->grocery_crud->set_rules('nombre','Nombre','required');
@@ -769,8 +770,8 @@ class Escuela extends CI_Controller {
         $this->grocery_crud->where('not(persona is null) and '.$where);
 
         // agregamos las acciones para agregar los familiares de los alumnos
-        $this->grocery_crud->add_action('Padre',base_url('images/hombre.png'),'persona/relacion/padre');
-        $this->grocery_crud->add_action('Madre',base_url('images/women.png'),'persona/relacion/madre');
+        $this->grocery_crud->add_action('Padre/Tutor',base_url('images/hombre.png'),'persona/relacion/padre');
+        $this->grocery_crud->add_action('Madre/Tutora',base_url('images/women.png'),'persona/relacion/madre');
         $this->grocery_crud->add_action('Hermanos',base_url('images/familia2.gif'),'persona/relacion/hermano');
         
         // deshabilitamos eliminar y agregar

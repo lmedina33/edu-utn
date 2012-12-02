@@ -49,7 +49,8 @@ class materia extends CI_Controller {
         $this->grocery_crud->set_rules('descripcion','Descripcion','required');
         $this->grocery_crud->set_rules('resolucion','Resolucion','required|alpha_numeric');
         $this->grocery_crud->set_rules('year','Año','required|numeric|max_length[1]|less_than[9]|greater_than[0]');
-       
+        $this->grocery_crud->unset_delete();
+        
         $output = $this->grocery_crud->render();
         //print_r($this->grocery_crud); exit;
         $output -> titulo = 'Gestión de materias';
