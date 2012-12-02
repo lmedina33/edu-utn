@@ -6,19 +6,18 @@
 
 <div  style="width: 960px;background: #FFFFFF;margin: 0 auto;">
   <div  style="background-color: #6CF;"><!-- end .header -->
-  <h1 align="center" style="margin-top: 0;padding-right: 15px;padding-left: 15px;">Datos de Acceso a Pluma</h1>
+      <p align="center" style="margin-top: 0;padding-right: 15px;padding-left: 15px; font-size: 30px;"><?php if(isset($titulo)) echo $titulo; else {?>Bienvenido a Pluma, <small>tu escuela en la web!</small><?php }?></p>
   </div>
-  <div  style="margin: auto;padding: 10px 0;">
-    <h2 style="margin-top: 0;padding-right: 15px;padding-left: 15px;">Alta de Usuario:</h2>
-<p style="margin-top: 0;padding-right: 15px;padding-left: 15px;">Sus datos han sido cargados correctamente en la base de datos del sistema. </p>
-    <h3 style="margin-top: 0;padding-right: 15px;padding-left: 15px;">Datos de acceso:</h3>
+    <div  style="margin: auto;padding: 10px 0;">
+    <h2 style="margin-top: 0;padding-right: 15px;padding-left: 15px;">Datos de acceso:</h2>
     <p style="margin-top: 0;padding-right: 15px;padding-left: 15px;">Usuario: <?php echo $usuario;?></p>
     <p style="margin-top: 0;padding-right: 15px;padding-left: 15px;">Contraseña: <?php echo $pass;?></p>
-    <p><h3 style="margin-top: 0;padding-right: 15px;padding-left: 15px;">Acceda a Pluma: http://www.pluma.comlu.com/</h3></p>
+    <p style="margin-top: 0;padding-right: 15px;padding-left: 15px; font-style: italic;">Al acceder por primera vez se recomienda cambiar la contraseña autogenerada.</p>
+    <p style="margin-top: 0;padding-right: 15px;padding-left: 15px; font-style: italic; font-size: 8px;">Este es un mail legal, libre de virus y contiene información que consideramos de su interés, la libre distribución de este email está autorizada por tratarse de propósitos de información. Enviado a través del sistema Pluma ®.</p>
   </div>
   
   <div  style="padding: 10px 0;position: relative;clear: both;background-color: #09F;">
-    <p align="center" style="margin-top: 0;padding-right: 15px;padding-left: 15px;">Sistema de Gestión Académica Pluma 2012 ® </p>
+    <p align="center" style="margin-top: 0;padding-right: 15px;padding-left: 15px;">Sistema de Gestión Académica y Aula Virtual Pluma 2012 ® </p>
  </div>
 </div>
 </div>

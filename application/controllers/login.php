@@ -47,6 +47,9 @@ class Login extends CI_Controller {
            // $password = $this -> input -> post('password');
             $result = $this -> usuarios_model -> login($username, $password); 
             
+           
+            
+            
             if($result)
             { //login exitoso
                 $sess_array = array();
@@ -61,7 +64,28 @@ class Login extends CI_Controller {
 
                     $this -> session -> set_userdata('logged_in', $sess_array); //Iniciamos una sesión con los datos obtenidos de la base.
                 }
-                redirect('login/selecciona_rol');
+                
+                 $fecha = $this->usuarios_model->get_fechaModPass($result[0]->id);
+                //$calculo = strtotime("-30 days");
+                $fecha_comparacion = date("Y-m-d");
+                $datetime1 = date_create($fecha);
+                $datetime2 = date_create($fecha_comparacion);
+
+                $intervalo = date_diff($datetime1, $datetime2);
+                $dias = $intervalo->format('%a');
+                //print_r($dias); exit;
+                if($fecha == NULL) {
+                    redirect('login/edit_user/1');
+                    //redirect('persona/edit_user/1/1','refresh');
+                }
+                else if($dias >= 30 ){
+                    redirect('login/edit_user/2');
+                    //print_r($dias); exit;
+                    //redirect('persona/edit_user/2/1');
+                }
+                else{
+                    redirect('login/selecciona_rol');
+                }
             }
             else
             { // La validación falla
@@ -74,6 +98,66 @@ class Login extends CI_Controller {
         {
             $this -> load -> view('v_login');
         }
+        }
+        
+     function edit_user($motivo=""){
+       
+        $usuario = $this->session->userdata('logged_in');
+       // print_r($usuario); exit;
+        $this->form_validation->set_rules('old_pass', 'Contraseña actual', 'required|callback_usuario_check['.$usuario['id'].']');
+        $this->form_validation->set_rules('new_pass', 'Contraseña nueva', 'required|min_length[8]');
+        $this->form_validation->set_rules('new_pass1', 'Repita contraseña', 'required|min_length[8]|matches[new_pass]|callback_pass');
+        
+       if ($this->form_validation->run() == FALSE)
+		{
+                        $data= array();
+                        if($motivo == 1){
+                            $data['mensaje'] = 'Debe cambiar su contraseña por ser un usuario nuevo del sistema.';
+                          
+                        }
+                        else if($motivo == 2){
+                            $data['mensaje'] = 'Su contraseña ha caducado ,debe cambiar la misma.';
+                          
+                        }
+                        
+                            $this->load->view('v_login_mod_pass',$data);
+                        
+                        
+		}
+		else
+		{
+                    $data['exito'] = 1;
+                    $this->load->model('usuarios_model');
+                    $this->usuarios_model->change_pass($this->input->post('new_pass'),$usuario['id']);
+                    redirect('login');
+                }
+                
+        
+    }
+    public function  pass($str){
+        if($str == $this->input->post('old_pass')){
+            $this->form_validation->set_message('pass', 'La contraseña nueva debe ser diferente a la actual.');
+	
+            return FALSE;
+        }
+        else{
+            return TRUE;
+        }
+    }
+
+
+    public function usuario_check($str,$usuario)
+	{
+         $this->load->model('usuarios_model');
+         $data = $this->usuarios_model->check_pass($str,$usuario);
+         if (count($data)==0)
+                {
+			$this->form_validation->set_message('usuario_check', 'La contraseña actual es incorrecta.');
+			return FALSE;
+                }
+                else {
+                    return TRUE;
+                }
         }
         
        function selecciona_rol(){
@@ -124,8 +208,14 @@ class Login extends CI_Controller {
                     
                 endforeach;
                 
+                   if(count($roles)== 0){
+                       
+                          $data['error'] = 'Actualmente no tiene ningun rol asignado.'; //Error que será enviado a la vista en forma de arreglo
+                          $this -> load -> view('v_login', $data);
+                        
+                   }
                
-                  if(count($roles)== 1 and $roles[0]['id'] != 1 and (! isset($escuela) || $escuelas == NULL)){
+                  else if(count($roles)== 1 and $roles[0]['id'] != 1 and (! isset($escuela) || $escuelas == NULL)){
                            $data['error'] = 'Actualmente no tiene Escuela asignada.'; //Error que será enviado a la vista en forma de arreglo
                            $this -> load -> view('v_login', $data);
                           

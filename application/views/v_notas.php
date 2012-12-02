@@ -70,7 +70,8 @@ $(document).ready(function() {
                 <tbody>
                     <?php 
                     $i=1; 
-                   foreach($alumnos as $alumno):
+                   if(isset($alumnos)){
+                    foreach($alumnos as $alumno):
                     $cant_notas = count($alumno['notas']) + 1;
                     ?>
                     <tr >
@@ -87,7 +88,7 @@ $(document).ready(function() {
                         </tr>
                     
                        <?php endforeach;?>
-                    <?php $i++; endforeach; ?>
+                    <?php $i++; endforeach; }?>
                 </tbody>
             </table>
            

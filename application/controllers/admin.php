@@ -50,6 +50,8 @@ class Admin extends CI_Controller {
         $this->grocery_crud->callback_before_insert(array($this,'encrypt_password_callback'));
         $this->grocery_crud->callback_before_update(array($this,'encrypt_password_callback'));
         
+        $this->grocery_crud->add_action('Recuperar Contraseña','','admin/recuperar_user','ui-icon-plus');
+        
         // Reglas de validación de los campos
         $this->grocery_crud->set_rules('ussername','Nombre Usuario','required|is_unique[usuario.ussername]');
         $this->grocery_crud->set_rules('password','Contraseña','required|min_length[8]');
@@ -67,6 +69,26 @@ class Admin extends CI_Controller {
         $this->load->view('v_abm',$output);  
     }
     
+    function  recuperar_user($user_id){
+        $this->load->model('usuarios_model');
+        $pass = $this->get_random_password();
+        
+        $usuario =  $this->usuarios_model->edit_pass($user_id,$pass);
+        
+        $this->load->library('envio_email');
+        
+        $data['usuario'] = $usuario['ussername'];
+        $data['pass'] = $pass;
+        $data['titulo'] = 'Recuperación de contraseña';
+        
+        
+        $html = $this->load->view('email',$data,TRUE);
+        $this->envio_email->send_mail($usuario['ussername'],'Recuperación de Contraseña',$html);
+        
+        redirect('admin/usuarios');
+    }
+
+
     function create_user($rol="",$persona="",$email=""){
         
         $this->load->model('usuarios_model');

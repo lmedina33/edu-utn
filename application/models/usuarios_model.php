@@ -39,7 +39,24 @@ class usuarios_model extends CI_Model{
        
    }
    
-    function get_roles($id_usuario)
+   function edit_pass($user_id,$pass){
+       $this->db->set('password',  md5($pass));
+       $this->db->where('id',$user_id);
+       $this->db->update('usuario');
+       
+       
+       $this->db->select('ussername');
+       $this->db->from('usuario');
+       $this->db->where('id',$user_id);
+       
+       $query = $this->db->get();
+       $data = $query->row_array();
+     // print_r($data); exit; 
+      return $data;
+   }
+
+
+   function get_roles($id_usuario)
      {
         // Esta función recibe como parámetros el nombre de usuario y password  
       $this -> db -> select('rol.nombre, rol.id'); //Indicamos los campos que usaremos del resultado de la consulta
